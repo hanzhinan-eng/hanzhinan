@@ -1,1 +1,27 @@
-f6e911bf38335d8f864daebe0de379c3a27e460a28a6dcc7053a3b2acf13a0c7
+name: 公共数据 자동 갱신 (补助·活动·房价)
+on:
+  schedule:
+    - cron: "30 0 * * 1"     # 매주 월요일 09:30 KST (청약日历 30분 뒤)
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 복지서비스 · 관광행사 · 아파트 실거래 → 페이지
+        env:
+          APPLYHOME_KEY: ${{ secrets.APPLYHOME_KEY }}
+        run: python3 data_update.py all
+      - name: 커밋 (변경 있을 때만)
+        run: |
+          git config user.name "hanzhinan-bot"
+          git config user.email "bot@hanzhinan.com"
+          git pull --rebase
+          git add jiaoyu.html lvyou.html zhufang.html sitemap.xml
+          git diff --cached --quiet || git commit -m "公共数据 자동 갱신 $(date +%Y-%m-%d)"
+          git push
