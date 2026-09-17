@@ -331,3 +331,18 @@ a{color:var(--accent)}
 .tile.soon b::after{content:"筹备中";font-size:.7rem;margin-left:6px;color:var(--ink-2);font-weight:400}
 .home-note{margin-top:40px}
 @media (max-width:640px){.paths{grid-template-columns:1fr}.home-hero h1{font-size:1.6rem}.home-hero{padding-top:20px}}
+
+.tabs .tab-link{flex:none;padding:10px 14px;font-size:.92rem;color:var(--accent);text-decoration:none;font-weight:700;white-space:nowrap;align-self:center}
+.hsk-tools{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.hsk-tools input{flex:1;min-width:160px;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:1rem;background:var(--card);color:var(--ink)}
+.hsk-tools button{padding:10px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font-weight:700}
+.hsk-tools button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hsk{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.hsk li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;cursor:pointer;box-shadow:var(--shadow)}
+.hsk .z{font-size:1.5rem;font-weight:700;line-height:1.2}
+.hsk .p{color:var(--accent);font-size:.9rem;margin-top:2px}
+.hsk .k{font-size:.92rem;margin-top:6px}
+.hsk .e{font-size:.78rem;color:var(--ink-2);margin-top:2px}
+.hsk.quiz li .p,.hsk.quiz li .k,.hsk.quiz li .e{visibility:hidden}
+.hsk.quiz li.show .p,.hsk.quiz li.show .k,.hsk.quiz li.show .e{visibility:visible}
+.hsk-count{font-size:.85rem;color:var(--ink-2);margin:8px 0 12px}
