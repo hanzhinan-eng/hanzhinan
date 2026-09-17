@@ -161,11 +161,12 @@
     <p class="next">下一页 → <a href="/zhufang#cal">청약日历：这两周能报的新楼盘</a> · 整理中：租房入门 · 防诈骗 · 公共住房</p>
   </section>
   <section class="panel" id="h-cal" hidden>
-    <div class="today-head"><span class="eyebrow">청약日历 · 首都圈新楼盘</span><span class="today-day">청약홈 2026.9.17 快照</span></div>
+    <div class="today-head"><span class="eyebrow">청약日历 · 首都圈新楼盘</span><span class="today-day" id="cal-stamp">청약홈 2026.9.17 手动快照</span></div>
     <h2>청약日历：这两周能报的新楼盘</h2>
-    <p class="kicker">从 청약홈 的公告里挑出<strong>首尔·京畿·仁川</strong>、还没截止的楼盘。这里只列日期，不评价楼盘、不写房价——点「原文」看公告。<strong>日期以 청약홈 为准</strong>，本表是编者手动抄录的快照。</p>
+    <p class="kicker">从 청약홈 的公告里挑出<strong>首尔·京畿·仁川</strong>、还没截止的楼盘。这里只列日期，不评价楼盘、不写房价——点「原文」看公告。<strong>日期以 청약홈 为准</strong>。本表每周一早上从 청약홈 公开数据自动更新（右上角是更新日期）。</p>
     <p class="note">怎么看一条公告：<strong>特别供给（특별공급）</strong> = 新婚·多子女·首次购房等家庭先报的那一天 → <strong>1 顺位（1순위）</strong> = 청약통장满足条件的人 → <strong>2 顺位</strong> = 其他人 → <strong>发榜（당첨자 발표）</strong>。「공공분양」是政府（LH·GH·iH）卖的，条件更严、更便宜；「민영」是建筑公司卖的。</p>
 
+<!-- CAL:START -->
     <article class="ntc">
       <div class="ntc-top"><span class="tag ok">京畿 城南 · 民营</span></div>
       <h3>더샵 분당하이스트</h3>
@@ -216,7 +217,8 @@
         <dt>发榜</dt><dd>10.7</dd>
       </dl>
     </article>
-    <p class="law">来源：청약홈 APT 분양정보（2026.9.17 查看）。首尔本月只有已截止的 브라운스톤 월곡 센트럴（发榜 9.16）。地方楼盘不列。<a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈 · 全部公告</a> · <a href="https://www.applyhome.co.kr/ai/aib/selectSubscrptCalenderView.do" target="_blank" rel="noopener">청약홈 · 官方日历</a></p>
+<!-- CAL:END -->
+    <p class="law">来源：청약홈 APT 분양정보（公共数据门户 API）。只列首尔·京畿·仁川、发榜日未过的楼盘；三周后才开始的下周再列。<a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈 · 全部公告</a> · <a href="https://www.applyhome.co.kr/ai/aib/selectSubscrptCalenderView.do" target="_blank" rel="noopener">청약홈 · 官方日历</a></p>
 
     <h3>我们家能报吗——三个先查</h3>
     <ol class="steps">
