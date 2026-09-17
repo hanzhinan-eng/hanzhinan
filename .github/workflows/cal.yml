@@ -1,1 +1,26 @@
-c3b4b8dfef064429d78a530742d18258a87ac3dbb8ef6cb0f48b7328494792a4
+name: 청약日历 자동 갱신
+on:
+  schedule:
+    - cron: "0 0 * * 1"      # 매주 월요일 09:00 KST
+  workflow_dispatch:         # GitHub 화면에서 「Run workflow」로 수동 실행
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 청약홈 API → zhufang.html
+        env:
+          APPLYHOME_KEY: ${{ secrets.APPLYHOME_KEY }}
+        run: python3 cal_update.py
+      - name: 커밋 (변경 있을 때만)
+        run: |
+          git config user.name "hanzhinan-bot"
+          git config user.email "bot@hanzhinan.com"
+          git add zhufang.html sitemap.xml
+          git diff --cached --quiet || git commit -m "청약日历 자동 갱신 $(date +%Y-%m-%d)"
+          git push
