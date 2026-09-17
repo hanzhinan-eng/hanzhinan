@@ -65,6 +65,7 @@
     <div class="tabs" role="tablist" aria-label="住房 · 分类">
       <span class="sub-label">住房</span>
       <button role="tab" class="on" data-tab="apply">청약·新房</button>
+      <button role="tab" data-tab="cal">청약日历</button>
       <button role="tab" class="soon" disabled data-tab="rent">租房入门</button>
       <button role="tab" class="soon" disabled data-tab="scam">防诈骗</button>
       <button role="tab" class="soon" disabled data-tab="pub">公共住房</button>
@@ -157,7 +158,73 @@
         <li>민영 아파트 2026 신혼부부 특별공급 서류 안내(당첨자 서류검수) · 청약홈 applyhome.co.kr</li>
       </ol>
     </div>
-    <p class="next">整理中 → 租房入门（月세·전세·保证金）· 防诈骗（등기부등본 怎么看）· 公共住房（LH·SH 外国人能报的）</p>
+    <p class="next">下一页 → <a href="/zhufang#cal">청약日历：这两周能报的新楼盘</a> · 整理中：租房入门 · 防诈骗 · 公共住房</p>
+  </section>
+  <section class="panel" id="h-cal" hidden>
+    <div class="today-head"><span class="eyebrow">청약日历 · 首都圈新楼盘</span><span class="today-day">청약홈 2026.9.17 快照</span></div>
+    <h2>청약日历：这两周能报的新楼盘</h2>
+    <p class="kicker">从 청약홈 的公告里挑出<strong>首尔·京畿·仁川</strong>、还没截止的楼盘。这里只列日期，不评价楼盘、不写房价——点「原文」看公告。<strong>日期以 청약홈 为准</strong>，本表是编者手动抄录的快照。</p>
+    <p class="note">怎么看一条公告：<strong>特别供给（특별공급）</strong> = 新婚·多子女·首次购房等家庭先报的那一天 → <strong>1 顺位（1순위）</strong> = 청약통장满足条件的人 → <strong>2 顺位</strong> = 其他人 → <strong>发榜（당첨자 발표）</strong>。「공공분양」是政府（LH·GH·iH）卖的，条件更严、更便宜；「민영」是建筑公司卖的。</p>
+
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">京畿 城南 · 民营</span></div>
+      <h3>더샵 분당하이스트</h3>
+      <p class="ntc-sum">1·2 顺位 9.21～9.28</p>
+      <dl class="kv">
+        <dt>特别供给</dt><dd>特供已截止</dd>
+        <dt>1·2 顺位</dt><dd>9.21～9.28</dd>
+        <dt>发榜</dt><dd>10.2</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">京畿 水原 · 民营</span></div>
+      <h3>화서역 호수공원 아너스빌</h3>
+      <p class="ntc-sum">1·2 顺位 9.21～9.23</p>
+      <dl class="kv">
+        <dt>特别供给</dt><dd>9.11 已截止</dd>
+        <dt>1·2 顺位</dt><dd>9.21～9.23</dd>
+        <dt>发榜</dt><dd>10.1</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">京畿 平泽 · 民营</span></div>
+      <h3>힐스테이트 고덕엘리스트 A65BL</h3>
+      <p class="ntc-sum">1·2 顺位 9.21～9.23</p>
+      <dl class="kv">
+        <dt>特别供给</dt><dd>9.11 已截止</dd>
+        <dt>1·2 顺位</dt><dd>9.21～9.23</dd>
+        <dt>发榜</dt><dd>10.2</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">仁川 桂阳 · 公共分양</span></div>
+      <h3>인천계양지구 A6블록 공공분양주택</h3>
+      <p class="ntc-sum">特供 9.17 · 1·2 顺位到 10.2</p>
+      <dl class="kv">
+        <dt>特别供给</dt><dd>9.17</dd>
+        <dt>1·2 顺位</dt><dd>9.17～10.2</dd>
+        <dt>发榜</dt><dd>10.21</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag off">京畿 杨州 · 公共分양</span></div>
+      <h3>양주회천지구 A-26블록 공공분양주택</h3>
+      <p class="ntc-sum">9.17 截止</p>
+      <dl class="kv">
+        <dt>特别供给</dt><dd>9.14～9.17</dd>
+        <dt>1·2 顺位</dt><dd>9.14～9.17</dd>
+        <dt>发榜</dt><dd>10.7</dd>
+      </dl>
+    </article>
+    <p class="law">来源：청약홈 APT 분양정보（2026.9.17 查看）。首尔本月只有已截止的 브라운스톤 월곡 센트럴（发榜 9.16）。地方楼盘不列。<a href="https://www.applyhome.co.kr/ai/aia/selectAPTLttotPblancListView.do" target="_blank" rel="noopener">청약홈 · 全部公告</a> · <a href="https://www.applyhome.co.kr/ai/aib/selectSubscrptCalenderView.do" target="_blank" rel="noopener">청약홈 · 官方日历</a></p>
+
+    <h3>我们家能报吗——三个先查</h3>
+    <ol class="steps">
+      <li><b>看「특별공급」那一行有没有「신혼부부」</b><p>不是每个楼盘都有新婚特供。公告第 2～3 页的「특별공급 공급대상 및 세대수」表里写着各类名额。没有的话，看「생애최초」「다자녀」，或者走一般供给。</p></li>
+      <li><b>看「해당지역 거주」要求</b><p>多数首都圈楼盘要求在楼盘所在市·道住满一定时间（首尔·京畿常见 1～2 年）才算「해당지역」优先；不满足也能报，只是顺位靠后。</p></li>
+      <li><b>看清약통장条件和「재당첨 제한」</b><p>公告里「청약통장 가입기간·예치금」和「재당첨 제한」两项，对不上就别报——中签后取消会被限制几年。</p></li>
+    </ol>
+    <p class="next">← <a href="/zhufang#apply">청약规则：新婚夫妇特别供给谁能报</a></p>
   </section>
   <footer class="foot">住房 · 最后核对 2026 年 9 月 16 日 · 规则以各楼盘 입주자 모집공고 为准 · <a href="/guanyu#main">关于本站</a></footer>
 </div>
