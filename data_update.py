@@ -26,7 +26,20 @@ def replace_block(path, tag, body, stamp_id):
     print(f"{path}: {tag} no change"); return False
 def xml_items(text):
     root = ET.fromstring(text)
+    code = root.findtext(".//resultCode") or root.findtext(".//returnReasonCode") or ""
+    msg = root.findtext(".//resultMsg") or root.findtext(".//returnAuthMsg") or ""
+    if code and code not in ("00", "0", "000", "03"):   # 03 = NODATA (정상)
+        raise RuntimeError(f"API 오류 {code} {msg}")
     return [{c.tag: (c.text or "").strip() for c in it} for it in root.iter("item")]
+def first(it, *names):   # 신·구 필드명 중 있는 것 사용
+    for n in names:
+        v = it.get(n)
+        if v not in (None, ""): return v
+    return ""
+def codes_to_zh(v, table):   # "010,020" 같은 코드면 中文으로, 이미 이름이면 그대로
+    parts = [x.strip() for x in str(v or "").split(",") if x.strip()]
+    if parts and all(x.isdigit() for x in parts): return "·".join(table.get(x, x) for x in parts)
+    return "·".join(parts)
 
 # ---------------- 1. 복지서비스 (补助) ----------------
 WELFARE_URL = "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001"
@@ -51,7 +64,7 @@ def welfare_fetch():
             sid = it.get("servId")
             if not sid or sid in seen: continue
             seen.add(sid); out.append(it)
-    out.sort(key=lambda x: x.get("lastModYmd", ""), reverse=True)
+    out.sort(key=lambda x: first(x, "lastModYmd", "inqNum"), reverse=True)
     return out[:24]
 def welfare_sample():
     return [{"servId": "WLF00000001", "servNm": "다문화가족 자녀 교육활동비 지원", "servDgst": "기준중위소득 100% 이하 다문화가족의 7~18세 자녀에게 교육활동비 지원", "servDtlLink": "https://www.bokjiro.go.kr/", "lifeArray": "아동,청소년", "trgterIndvdlArray": "다문화·탈북민", "intrsThemaArray": "교육", "sprtCycNm": "년", "srvPvsnNm": "현금지급", "aplyMtdNm": "방문", "jurMnofNm": "여성가족부", "jurOrgNm": "다문화가족과", "lastModYmd": "20260910"},
@@ -65,13 +78,13 @@ def welfare_render(items):
         sid = it.get("servId", ""); z = zh.get(sid, {})
         title = z.get("title") or esc(it.get("servNm"))
         dg = z.get("summary") or esc(it.get("servDgst"))
-        tags = " · ".join(t for t in [esc(it.get("trgterIndvdlArray")), esc(it.get("lifeArray")), esc(it.get("intrsThemaArray"))] if t)
+        tags = " · ".join(t for t in [esc(codes_to_zh(it.get("trgterIndvdlArray"), TARGET_ZH)), esc(codes_to_zh(it.get("lifeArray"), LIFE_ZH)), esc(codes_to_zh(it.get("intrsThemaArray"), THEME_ZH))] if t)
         d = it.get("lastModYmd", ""); ds = f"{d[:4]}.{int(d[4:6])}.{int(d[6:8])}" if len(d) == 8 else ""
         new = ""
         try:
             if d and (TODAY - datetime.date(int(d[:4]), int(d[4:6]), int(d[6:8]))).days <= 14: new = '<span class="tag ok">新</span> '
         except Exception: pass
-        link = it.get("servDtlLink") or f"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId={sid}"
+        link = first(it, "servDtlLink", "servDtlUrl") or f"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId={sid}"
         cards.append(f'''    <article class="ntc">
       <div class="ntc-top">{new}<span class="tag info">{tags or "福利服务"}</span></div>
       <h3>{title}</h3>
@@ -134,23 +147,35 @@ def tour_render(items):
     return "".join(cards)
 
 # ---------------- 3. 아파트 실거래 (房价) ----------------
-APT_URL = "https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade"
+APT_URLS = ["https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev",   # 상세 자료 (승인된 쪽)
+            "https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade"]         # 기본 자료 (폴백)
 GU = [("11110", "钟路区", "종로구"), ("11140", "中区", "중구"), ("11170", "龙山区", "용산구"), ("11200", "城东区", "성동구"), ("11215", "广津区", "광진구"), ("11230", "东大门区", "동대문구"), ("11260", "中浪区", "중랑구"), ("11290", "城北区", "성북구"), ("11305", "江北区", "강북구"), ("11320", "道峰区", "도봉구"), ("11350", "芦原区", "노원구"), ("11380", "恩平区", "은평구"), ("11410", "西大门区", "서대문구"), ("11440", "麻浦区", "마포구"), ("11470", "阳川区", "양천구"), ("11500", "江西区", "강서구"), ("11530", "九老区", "구로구"), ("11545", "衿川区", "금천구"), ("11560", "永登浦区", "영등포구"), ("11590", "铜雀区", "동작구"), ("11620", "冠岳区", "관악구"), ("11650", "瑞草区", "서초구"), ("11680", "江南区", "강남구"), ("11710", "松坡区", "송파구"), ("11740", "江东区", "강동구")]
 def apt_month():
     m = TODAY.replace(day=1) - datetime.timedelta(days=1)   # 지난달
     m = m.replace(day=1) - datetime.timedelta(days=1)       # 지지난달 (신고 30일 지연)
     return m.strftime("%Y%m")
+def apt_pick_url(ym):
+    for u in APT_URLS:   # 강남구로 한 번 찔러 보고 되는 쪽 사용
+        try:
+            xml_items(get(u, {"serviceKey": KEY, "LAWD_CD": "11680", "DEAL_YMD": ym, "pageNo": 1, "numOfRows": 1}))
+            print("apt endpoint:", u.split("/")[-2]); return u
+        except Exception as e:
+            print("apt endpoint failed", u.split("/")[-2], e)
+    return None
 def apt_fetch():
     ym = apt_month(); rows = []
+    url = apt_pick_url(ym)
+    if not url: return ym, rows
     for code, zh, ko in GU:
         try:
-            items = xml_items(get(APT_URL, {"serviceKey": KEY, "LAWD_CD": code, "DEAL_YMD": ym, "pageNo": 1, "numOfRows": 1000}))
+            items = xml_items(get(url, {"serviceKey": KEY, "LAWD_CD": code, "DEAL_YMD": ym, "pageNo": 1, "numOfRows": 1000}))
         except Exception as e:
             print("apt failed", ko, e); items = []
         prices, ppy = [], []
         for it in items:
             try:
-                amt = int(it.get("dealAmount", "0").replace(",", "").strip()); ar = float(it.get("excluUseAr", "0") or 0)
+                amt = int(first(it, "dealAmount", "거래금액").replace(",", "").strip() or 0); ar = float(first(it, "excluUseAr", "전용면적") or 0)
+                if first(it, "cdealType", "해제여부").strip() == "O": continue   # 계약 해제 건 제외
                 if amt <= 0 or ar <= 0: continue
                 prices.append(amt); ppy.append(amt / (ar / 3.3058))
             except Exception: continue
