@@ -8,6 +8,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,7 +22,8 @@ jobs:
         run: |
           git config user.name "hanzhinan-bot"
           git config user.email "bot@hanzhinan.com"
-          git pull --rebase
           git add jiaoyu.html lvyou.html zhufang.html sitemap.xml
-          git diff --cached --quiet || git commit -m "公共数据 자동 갱신 $(date +%Y-%m-%d)"
+          git diff --cached --quiet && exit 0
+          git commit -m "公共数据 자동 갱신 $(date +%Y-%m-%d)"
+          git pull --rebase
           git push
