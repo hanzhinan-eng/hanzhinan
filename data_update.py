@@ -72,12 +72,14 @@ def welfare_sample():
 def welfare_render(items):
     zh_path = os.path.join(HERE, "welfare_zh.json")
     zh = json.load(open(zh_path, encoding="utf-8")) if os.path.exists(zh_path) else {}
-    if not items: return '    <p class="note">暂时没有符合条件的新服务。每周一自动更新。</p>\n'
+    if not items: return '    <p class="note"><span class="zh">暂时没有符合条件的新服务。每周一自动更新。</span><span class="ko">지금은 조건에 맞는 새 서비스가 없어요. 매주 월요일 자동 갱신.</span></p>\n'
     cards = []
     for it in items:
         sid = it.get("servId", ""); z = zh.get(sid, {})
-        title = z.get("title") or esc(it.get("servNm"))
-        dg = z.get("summary") or esc(it.get("servDgst"))
+        ko_title = esc(it.get("servNm"))
+        title = (f'<span class="zh">{z["title"]}</span><span class="ko">{ko_title}</span>' if z.get("title") else ko_title)
+        ko_dg = esc(it.get("servDgst"))
+        dg = (f'<span class="zh">{z["summary"]}</span><span class="ko">{ko_dg}</span>' if z.get("summary") else ko_dg)
         tags = " · ".join(t for t in [esc(codes_to_zh(it.get("trgterIndvdlArray"), TARGET_ZH)), esc(codes_to_zh(it.get("lifeArray"), LIFE_ZH)), esc(codes_to_zh(it.get("intrsThemaArray"), THEME_ZH))] if t)
         d = it.get("lastModYmd", ""); ds = f"{d[:4]}.{int(d[4:6])}.{int(d[6:8])}" if len(d) == 8 else ""
         new = ""
@@ -90,9 +92,9 @@ def welfare_render(items):
       <h3>{title}</h3>
       <p class="ntc-sum">{dg}</p>
       <dl class="kv">
-        <dt>怎么申请</dt><dd>{esc(it.get("aplyMtdNm")) or "见原文"} · {esc(it.get("srvPvsnNm"))}{(" · " + esc(it.get("sprtCycNm"))) if it.get("sprtCycNm") else ""}</dd>
-        <dt>主管</dt><dd>{esc(it.get("jurMnofNm"))}{(" " + esc(it.get("jurOrgNm"))) if it.get("jurOrgNm") else ""}</dd>
-        <dt>更新</dt><dd>{ds} · <a href="{esc(link)}" target="_blank" rel="noopener">복지로 原文</a></dd>
+        <dt><span class="zh">怎么申请</span><span class="ko">신청 방법</span></dt><dd>{esc(it.get("aplyMtdNm")) or "见原文"} · {esc(it.get("srvPvsnNm"))}{(" · " + esc(it.get("sprtCycNm"))) if it.get("sprtCycNm") else ""}</dd>
+        <dt><span class="zh">主管</span><span class="ko">담당</span></dt><dd>{esc(it.get("jurMnofNm"))}{(" " + esc(it.get("jurOrgNm"))) if it.get("jurOrgNm") else ""}</dd>
+        <dt><span class="zh">更新</span><span class="ko">갱신</span></dt><dd>{ds} · <a href="{esc(link)}" target="_blank" rel="noopener"><span class="zh">복지로 原文</span><span class="ko">복지로에서 보기</span></a></dd>
       </dl>
     </article>
 ''')

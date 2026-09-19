@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="part">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,38 +50,39 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a class="on" href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a class="on" href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="ko">
     <div class="tabs" role="tablist" aria-label="韩语 · 分类">
-      <span class="sub-label">韩语</span>
-      <button role="tab" class="on" data-tab="today">今日一句</button>
-      <button role="tab" data-tab="w1">第1周</button>
-      <button role="tab" data-tab="w2">第2周</button>
-      <button role="tab" data-tab="w3">第3周</button>
-      <button role="tab" data-tab="w4">第4周</button>
-      <button role="tab" data-tab="w5">第5周</button>
-      <button role="tab" data-tab="w6">第6周</button>
-      <button role="tab" data-tab="w7">第7周</button>
-      <button role="tab" data-tab="w8">第8周</button>
-      <button role="tab" data-tab="w9">第9周</button>
+      <span class="sub-label" data-ko="한국어">韩语</span>
+      <button role="tab" class="on" data-tab="today" data-ko="오늘의 문장">今日一句</button>
+      <button role="tab" data-tab="w1" data-ko="1주차">第1周</button>
+      <button role="tab" data-tab="w2" data-ko="2주차">第2周</button>
+      <button role="tab" data-tab="w3" data-ko="3주차">第3周</button>
+      <button role="tab" data-tab="w4" data-ko="4주차">第4周</button>
+      <button role="tab" data-tab="w5" data-ko="5주차">第5周</button>
+      <button role="tab" data-tab="w6" data-ko="6주차">第6周</button>
+      <button role="tab" data-tab="w7" data-ko="7주차">第7周</button>
+      <button role="tab" data-tab="w8" data-ko="8주차">第8周</button>
+      <button role="tab" data-tab="w9" data-ko="9주차">第9周</button>
     </div>
   </div>
 </nav>
 <div class="wrap site" id="site-ko">
-  <div class="crumb"><a href="/yuyan">语言</a> › 韩语</div>
-  <h1>每日一句：在韩国真的会用到的韩语</h1>
-  <p class="kicker">不是课本韩语。出入境、医院、租房、学校、职场里每天要说的话，一天一句，90 天一轮。</p>
+  <div class="crumb"><a href="/yuyan" data-ko="언어">语言</a> › 韩语</div>
+  <h1 class="zh">每日一句：在韩国真的会用到的韩语</h1><h1 class="ko">하루 한 문장: 한국에서 진짜 쓰는 한국어</h1>
+  <p class="kicker zh">不是课本韩语。出入境、医院、租房、学校、职场里每天要说的话，一天一句，90 天一轮。</p><p class="kicker ko">교과서 한국어가 아니라 출입국·병원·집 구하기·학교·직장에서 매일 쓰는 말 90문장이에요. 각 문장에는 발음(로마자)·중국어 뜻·「언제 쓰는지」·「한국 사람은 이렇게 생각해요」 설명이 중국어로 붙어 있어요. 중국인 가족에게 한국어를 알려주실 때 같이 보시면 좋아요.</p>
   <section class="panel" id="k-today">
     <div class="today-head"><span class="eyebrow">今日一句</span><span class="today-day" id="today-day"></span></div>
     <div id="today-card"></div>

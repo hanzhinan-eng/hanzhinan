@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="none">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,17 +50,18 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
 </nav>
 <div class="wrap site"><h1>找不到这一页</h1><p class="kicker">链接可能改了。从首页重新进入：<a href="/">hanzhinan.com</a></p>

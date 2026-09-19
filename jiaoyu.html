@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="part">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,41 +50,44 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a class="on" href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a class="on" href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="edu">
     <div class="tabs" role="tablist" aria-label="教育 · 分类">
-      <span class="sub-label">教育</span>
-      <button role="tab" class="on" data-tab="notice">补助·通知</button>
-      <button role="tab" data-tab="elem">小学</button>
-      <button role="tab" data-tab="mid">初中</button>
-      <button role="tab" data-tab="high">高中</button>
-      <button role="tab" data-tab="uni">大学</button>
+      <span class="sub-label" data-ko="교육">教育</span>
+      <button role="tab" class="on" data-tab="notice" data-ko="지원·공지">补助·通知</button>
+      <button role="tab" data-tab="elem" data-ko="초등">小学</button>
+      <button role="tab" data-tab="mid" data-ko="중학">初中</button>
+      <button role="tab" data-tab="high" data-ko="고등">高中</button>
+      <button role="tab" data-tab="uni" data-ko="대학">大学</button>
     </div>
   </div>
 </nav>
 <div class="wrap site" id="site-edu">
-  <div class="crumb">首页 › 教育</div>
-  <h1>在韩国养孩子：学校、申请、补助</h1>
-  <p class="kicker">按孩子的年级看：小学 → 初中 → 高中 → 大学，每一步写清「每年几月 · 准备什么 · 去哪查」。每一条都注明「谁能申请」和原文出处。</p>
+  <div class="crumb"><span class="zh">首页 › 教育</span><span class="ko">홈 › 교육</span></div>
+  <h1 class="zh">在韩国养孩子：学校、申请、补助</h1><h1 class="ko">한국에서 아이 키우기: 학교·신청·지원</h1>
+  <p class="kicker ko">첫 탭 「지원·공지」의 정부 지원 목록은 한국어로도 볼 수 있어요. 초등→중학→고등→대학 탭은 중국인 부모를 위한 중국어 안내예요.</p>
+  <p class="kicker zh">按孩子的年级看：小学 → 初中 → 高中 → 大学，每一步写清「每年几月 · 准备什么 · 去哪查」。每一条都注明「谁能申请」和原文出处。</p>
 
   <section class="panel" id="e-notice">
-    <div class="today-head"><span class="eyebrow">政府补助 · 自动更新</span><span class="today-day" id="welfare-stamp">2026.9.19 自动更新</span></div>
-    <h2>政府补助：多文化·多子女·教育·住房·托育，最新的先看</h2>
+    <div class="today-head"><span class="eyebrow" data-ko="정부 지원 · 자동 갱신">政府补助 · 自动更新</span><span class="today-day" id="welfare-stamp">2026.9.19 自动更新</span></div>
+    <h2 class="zh">政府补助：多文化·多子女·教育·住房·托育，最新的先看</h2><h2 class="ko">정부 지원: 다문화·다자녀·교육·주거·보육, 최신 순</h2>
+    <p class="kicker ko">정부 복지 포털 「복지로」 공개 데이터에서 매주 월요일 <strong>다문화가족·다자녀·아동 교육·주거·보육</strong> 관련 서비스를 자동으로 골라 최근 수정 순으로 보여줘요. 제목은 정부 등록명 그대로이고, 「복지로 原文」을 누르면 대상·서류·신청처가 나와요. 「新」은 2주 안에 갱신된 것. 한국인 배우자·가족분이 우리 집이 해당되는지 볼 때 바로 쓰실 수 있어요. 카드 아래 안내(중국어)에 있는 전화: 서울시가족센터 02-318-8167 · 외국인종합안내 1345.</p>
     <p class="kicker">从韩国政府福利门户「복지로」的公开数据里，每周一自动挑出<strong>多文化家庭、多子女、儿童教育、住房、托育</strong>相关的服务，按更新日期排。标题是韩文原名（政府登记名，方便去申请时对照），点「복지로 原文」看对象·材料·申请处。带「新」的是两周内更新的。</p>
     <p class="note">这里只列制度名和一句摘要，不判断你家能不能领——对象条件请看原文，或打 首尔家庭中心 <a href="tel:02-318-8167">02-318-8167</a>、外国人综合咨询 <a href="tel:1345">1345</a>（中文）。</p>
 <!-- WELFARE:START -->
-    <p class="note">暂时没有符合条件的新服务。每周一自动更新。</p>
+    <p class="note"><span class="zh">暂时没有符合条件的新服务。每周一自动更新。</span><span class="ko">지금은 조건에 맞는 새 서비스가 없어요. 매주 월요일 자동 갱신.</span></p>
 <!-- WELFARE:END -->
 
     <div class="today-head" style="margin-top:36px"><span class="eyebrow">首尔家庭中心 · 政府通知</span><span class="today-day">整理日期 2026.9.11</span></div>

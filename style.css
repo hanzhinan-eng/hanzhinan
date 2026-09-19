@@ -346,3 +346,20 @@ a{color:var(--accent)}
 .hsk.quiz li .p,.hsk.quiz li .k,.hsk.quiz li .e{visibility:hidden}
 .hsk.quiz li.show .p,.hsk.quiz li.show .k,.hsk.quiz li.show .e{visibility:visible}
 .hsk-count{font-size:.85rem;color:var(--ink-2);margin:8px 0 12px}
+
+/* ---- 中文 / 한국어 ---- */
+html[data-lang="zh"] .ko{display:none !important}
+html[data-lang="ko"] .zh{display:none !important}
+.lang-btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--accent);font:inherit;font-size:.8rem;font-weight:700;padding:5px 10px;border-radius:999px;cursor:pointer;white-space:nowrap;margin-left:auto;flex:0 0 auto}
+.lang-btn:hover{background:var(--accent-soft);border-color:var(--accent)}
+.lang-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ko-note{margin:20px 0 0;padding:10px 14px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:10px;background:var(--accent-soft);font-size:.9rem;color:var(--ink)}
+.ko-note a{color:var(--accent);font-weight:700}
+html[data-lang="ko"] .menu a.soon::after{content:"준비중"}
+html[data-lang="ko"] .site{word-break:keep-all}
+html[data-lang="ko"] .tile.soon b::after{content:"준비중"}
+@media (max-width:640px){
+  .brand-text small{display:none}
+  .lang-btn{padding:4px 8px;font-size:.74rem}
+}
+html[data-lang="ko"] .tabs button.soon::after{content:"준비중"}

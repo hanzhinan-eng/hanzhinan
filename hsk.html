@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="full">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,49 +50,51 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a class="on" href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a class="on" href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="lang">
     <div class="tabs" role="tablist" aria-label="HSK · 级别">
       <span class="sub-label">HSK</span>
-      <button role="tab" class="on" data-tab="l1">一级</button>
-      <button role="tab" class="soon" disabled data-tab="l2">二级</button>
-      <button role="tab" class="soon" disabled data-tab="l3">三级</button>
-      <button role="tab" class="soon" disabled data-tab="l4">四级</button>
-      <button role="tab" class="soon" disabled data-tab="l5">五级</button>
-      <button role="tab" class="soon" disabled data-tab="l6">六级</button>
+      <button role="tab" class="on" data-tab="l1" data-ko="1급">一级</button>
+      <button role="tab" class="soon" disabled data-tab="l2" data-ko="2급">二级</button>
+      <button role="tab" class="soon" disabled data-tab="l3" data-ko="3급">三级</button>
+      <button role="tab" class="soon" disabled data-tab="l4" data-ko="4급">四级</button>
+      <button role="tab" class="soon" disabled data-tab="l5" data-ko="5급">五级</button>
+      <button role="tab" class="soon" disabled data-tab="l6" data-ko="6급">六级</button>
     </div>
   </div>
 </nav>
 
 <div class="wrap site" id="site-hsk">
-  <div class="crumb"><a href="/yuyan">语言</a> › 中文 HSK</div>
-  <h1>HSK 分级词表：给在韩国长大的孩子</h1>
-  <p class="kicker">按 <strong>HSK 3.0（2021 年新标准）</strong>分级。每个词：汉字 · 拼音 · <strong>韩语意思</strong>（孩子看得懂）· 英语。点「自测」把意思盖住，点卡片翻开。为什么要考 HSK、几年级考几级，看「<a href="/jiaoyu#uni">教育 › 大学</a>」。</p>
+  <div class="crumb"><a href="/yuyan" data-ko="언어">语言</a> › <span class="zh">中文 HSK</span><span class="ko">중국어 HSK</span></div>
+  <h1 class="zh">HSK 分级词表：给在韩国长大的孩子</h1><h1 class="ko">HSK 급수별 단어장: 한국에서 자라는 아이를 위해</h1>
+  <p class="kicker ko"><strong>HSK 3.0(2021년 새 기준)</strong> 급수별 단어예요. 단어마다 한자 · 병음 · <strong>한국어 뜻</strong>(아이가 이해할 수 있게) · 영어를 붙였어요. 「자가 테스트」를 누르면 뜻이 가려지고, 카드를 누르면 다시 보여요. 중국어를 처음 배우는 한국분도 그대로 쓰실 수 있어요. 왜 HSK를 보는지, 몇 학년에 몇 급인지는 중국어로 「<a href="/jiaoyu#uni">教育 › 大学</a>」에 있어요.</p>
+  <p class="kicker zh">按 <strong>HSK 3.0（2021 年新标准）</strong>分级。每个词：汉字 · 拼音 · <strong>韩语意思</strong>（孩子看得懂）· 英语。点「自测」把意思盖住，点卡片翻开。为什么要考 HSK、几年级考几级，看「<a href="/jiaoyu#uni">教育 › 大学</a>」。</p>
 
   <section class="panel" id="s-l1">
-    <div class="today-head"><span class="eyebrow">HSK 一级</span><span class="today-day">500 词 · 按常用度排序</span></div>
-    <p class="note">一级 = 最常用的 500 个词，小学低年级目标。一天 10 个，两个月过一遍。词表来源：HSK 3.0 官方大纲（经开源整理，MIT 许可），韩语释义由本站编写，发现错误请告诉编者。</p>
+    <div class="today-head"><span class="eyebrow" data-ko="HSK 1급">HSK 一级</span><span class="today-day" data-ko="500단어 · 자주 쓰는 순서">500 词 · 按常用度排序</span></div>
+    <p class="note zh">一级 = 最常用的 500 个词，小学低年级目标。一天 10 个，两个月过一遍。词表来源：HSK 3.0 官方大纲（经开源整理，MIT 许可），韩语释义由本站编写，发现错误请告诉编者。</p><p class="note ko">1급 = 가장 자주 쓰는 500단어, 초등 저학년 목표예요. 하루 10개씩이면 두 달에 한 바퀴. 출처: HSK 3.0 공식 요강(오픈소스 정리본, MIT 라이선스). 한국어 뜻은 이 사이트에서 직접 썼으니 틀린 곳이 있으면 알려주세요.</p>
     <div class="hsk-tools">
-      <input id="q" type="search" placeholder="搜汉字 / 拼音 / 韩语 / 英语" aria-label="搜索">
-      <button id="quiz" type="button">自测</button>
-      <button id="shuffle" type="button">打乱</button>
+      <input id="q" type="search" placeholder="搜汉字 / 拼音 / 韩语 / 英语" data-ko-ph="한자 / 병음 / 한국어 / 영어 검색" aria-label="搜索">
+      <button id="quiz" type="button" data-ko="자가 테스트">自测</button>
+      <button id="shuffle" type="button" data-ko="섞기">打乱</button>
     </div>
     <p class="hsk-count" id="cnt"></p>
     <ul class="hsk" id="list"></ul>
-    <p class="law">二级～六级词表整理中，每级做完就开。拼音声调用标准符号；儿化词（玩儿·一点儿）按大纲原样收录。</p>
+    <p class="law zh">二级～六级词表整理中，每级做完就开。拼音声调用标准符号；儿化词（玩儿·一点儿）按大纲原样收录。</p><p class="law ko">2급~6급은 정리 중이고, 급수가 끝날 때마다 열어요. 병음 성조는 표준 기호, 얼화 단어(玩儿·一点儿)는 요강 그대로 실었어요.</p>
   </section>
-  <footer class="foot">中文 HSK · 最后更新 2026 年 9 月 17 日 · <a href="/yuyan">回 语言</a> · <a href="/guanyu#main">关于本站</a></footer>
+  <footer class="foot"><span class="zh">中文 HSK · 最后更新 2026 年 9 月 19 日 · <a href="/yuyan">回 语言</a> · <a href="/guanyu#main">关于本站</a></span><span class="ko">중국어 HSK · 최종 수정 2026년 9월 19일 · <a href="/yuyan">언어로 돌아가기</a> · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
 <script>var PREFIX="s-";</script>
 <script>
@@ -100,17 +103,18 @@
   function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
   function render(arr){
     list.innerHTML=arr.map(function(w){return '<li><div class="z">'+esc(w.z)+'</div><div class="p">'+esc(w.p)+'</div><div class="k">'+esc(w.k)+'</div><div class="e">'+esc(w.e)+'</div></li>';}).join('');
-    cnt.textContent=arr.length+' / '+data.length+' 词';
+    cnt.textContent=arr.length+' / '+data.length+(document.documentElement.getAttribute('data-lang')==='ko'?'단어':' 词');
   }
   function filter(){
     var s=q.value.trim().toLowerCase();
     if(!s){render(data);return;}
     render(data.filter(function(w){return (w.z+' '+w.p+' '+w.k+' '+w.e).toLowerCase().indexOf(s)>=0;}));
   }
-  fetch('/hsk1.json').then(function(r){return r.json();}).then(function(j){data=j.words;render(data);}).catch(function(){cnt.textContent='词表加载失败，请刷新。';});
+  fetch('/hsk1.json').then(function(r){return r.json();}).then(function(j){data=j.words;render(data);}).catch(function(){cnt.textContent='词表加载失败，请刷新。 / 단어장을 불러오지 못했어요. 새로고침해 주세요.';});
   q.addEventListener('input',filter);
   document.getElementById('quiz').addEventListener('click',function(){list.classList.toggle('quiz');this.classList.toggle('on');list.querySelectorAll('li.show').forEach(function(l){l.classList.remove('show');});});
   document.getElementById('shuffle').addEventListener('click',function(){for(var i=data.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=data[i];data[i]=data[j];data[j]=t;}filter();});
+  document.addEventListener('hz-lang',function(){q.dispatchEvent(new Event('input'));});
   list.addEventListener('click',function(e){var li=e.target.closest('li');if(li&&list.classList.contains('quiz'))li.classList.toggle('show');});
   if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
 })();

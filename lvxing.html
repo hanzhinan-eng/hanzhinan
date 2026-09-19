@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="part">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,34 +50,35 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a class="on" href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a class="on" href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="lang">
     <div class="tabs" role="tablist" aria-label="旅行韩语 · 分类">
-      <span class="sub-label">旅行韩语</span>
-      <button role="tab" class="on" data-tab="d1">第1天</button>
-      <button role="tab" data-tab="d2">第2天</button>
-      <button role="tab" data-tab="d3">第3天</button>
-      <button role="tab" data-tab="d4">第4天</button>
-      <button role="tab" data-tab="d5">第5天</button>
+      <span class="sub-label" data-ko="여행 한국어">旅行韩语</span>
+      <button role="tab" class="on" data-tab="d1" data-ko="1일차">第1天</button>
+      <button role="tab" data-tab="d2" data-ko="2일차">第2天</button>
+      <button role="tab" data-tab="d3" data-ko="3일차">第3天</button>
+      <button role="tab" data-tab="d4" data-ko="4일차">第4天</button>
+      <button role="tab" data-tab="d5" data-ko="5일차">第5天</button>
     </div>
   </div>
 </nav>
 
 <div class="wrap site" id="site-lvxing">
-  <div class="crumb"><a href="/yuyan">语言</a> › 旅行韩语</div>
-  <h1>旅行韩语 30 句：按 5 天行程排好</h1>
-  <p class="kicker">每天 6 句，到哪一站学哪一句。发音用拼音标注，直接念给对方听也能懂。</p>
+  <div class="crumb"><a href="/yuyan" data-ko="언어">语言</a> › 旅行韩语</div>
+  <h1 class="zh">旅行韩语 30 句：按 5 天行程排好</h1><h1 class="ko">여행 한국어 30문장: 5일 일정 순서대로</h1>
+  <p class="kicker zh">每天 6 句，到哪一站学哪一句。发音用拼音标注，直接念给对方听也能懂。</p><p class="kicker ko">하루 6문장, 가는 곳마다 한 문장씩. 발음은 병음으로 적어 그대로 읽어도 통해요. 설명은 중국어예요.</p>
   <section class="panel" id="t-d1">
     <h2>第1天·机场→酒店</h2>
     <div class="sent-list">

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="full">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,21 +50,22 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a class="on" href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a class="on" href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="lang">
     <div class="tabs" role="tablist" aria-label="语言 · 分类">
-      <span class="sub-label">语言</span>
+      <span class="sub-label" data-ko="언어">语言</span>
       <a class="tab-link" href="/hanyu">韩语·每日一句</a>
       <a class="tab-link" href="/lvxing">旅行韩语 30 句</a>
       <a class="tab-link" href="/hsk">中文 HSK</a>
@@ -73,17 +75,18 @@
 </nav>
 
 <div class="wrap site" id="site-lang">
-  <div class="crumb">首页 › 语言</div>
-  <h1>语言：韩语、中文、英语</h1>
-  <p class="kicker">在韩国的中国家庭，语言是三头的事：大人要用韩语办事，孩子的中文不能掉队，英语是学校的主科。这里都放。</p>
+  <div class="crumb"><span class="zh">首页 › 语言</span><span class="ko">홈 › 언어</span></div>
+  <h1 class="zh">语言：韩语、中文、英语</h1><h1 class="ko">언어: 한국어·중국어·영어</h1>
+  <p class="kicker zh">在韩国的中国家庭，语言是三头的事：大人要用韩语办事，孩子的中文不能掉队，英语是学校的主科。这里都放。</p>
+  <p class="kicker ko">한국에 사는 중국인 가정에게 언어는 세 갈래예요. 어른은 한국어로 일을 보고, 아이의 중국어는 놓치면 안 되고, 영어는 학교 주요 과목이죠. 한국인 가족분께는 중국어 HSK 단어장(한국어 뜻)과 초등 영단어 800(영·한·중)이 바로 쓸 수 있는 페이지예요.</p>
   <div class="grid" style="margin-top:24px">
-    <a class="tile" href="/hanyu"><b>韩语 · 每日一句</b><span>每天一句，按出入境、医院、租房、学校、职场分 9 周。日期自动换。</span></a>
-    <a class="tile" href="/lvxing"><b>旅行韩语 · 30 句</b><span>来韩国旅行 5 天，每天 6 句：机场、地铁、点餐、购物、求助。</span></a>
-    <a class="tile" href="/yingyu"><b>英语 · 小学必备 800 词</b><span>韩国教育部指定词表，英语·韩语·中文三语，按字母、搜索、自测。孩子和妈妈一起学。</span></a>
-    <a class="tile" href="/hsk"><b>中文 · HSK 分级词表</b><span>HSK 3.0 标准，一级 500 词起，汉字·拼音·韩语·英语，点一下变成自测卡。给在韩国长大的孩子。</span></a>
+    <a class="tile" href="/hanyu"><b><span class="zh">韩语 · 每日一句</span><span class="ko">한국어 · 하루 한 문장</span></b><span class="zh">每天一句，按出入境、医院、租房、学校、职场分 9 周。日期自动换。</span><span class="ko">출입국·병원·집 구하기·학교·직장에서 실제로 쓰는 한국어 90문장 (설명은 중국어)</span></a>
+    <a class="tile" href="/lvxing"><b><span class="zh">旅行韩语 · 30 句</span><span class="ko">여행 한국어 · 30문장</span></b><span class="zh">来韩国旅行 5 天，每天 6 句：机场、地铁、点餐、购物、求助。</span><span class="ko">5일 여행, 하루 6문장: 공항·지하철·주문·쇼핑·도움 요청 (설명은 중국어)</span></a>
+    <a class="tile" href="/yingyu"><b><span class="zh">英语 · 小学必备 800 词</span><span class="ko">영어 · 초등 필수 영단어 800</span></b><span class="zh">韩国教育部指定词表，英语·韩语·中文三语，按字母、搜索、自测。孩子和妈妈一起学。</span><span class="ko">교육부 초등 기본 어휘. 영어·한국어·중국어 3개 언어, 알파벳별 보기·검색·자가 테스트. 아이와 엄마가 같이 공부해요.</span></a>
+    <a class="tile" href="/hsk"><b><span class="zh">中文 · HSK 分级词表</span><span class="ko">중국어 · HSK 급수별 단어장</span></b><span class="zh">HSK 3.0 标准，一级 500 词起，汉字·拼音·韩语·英语，点一下变成自测卡。给在韩国长大的孩子。</span><span class="ko">HSK 3.0 기준 1급 500단어부터. 한자·병음·한국어 뜻·영어. 한 번 누르면 자가 테스트 카드로. 한국에서 자라는 아이와 중국어를 배우는 한국분께.</span></a>
   </div>
-  <p class="note" style="margin-top:28px">韩语部分的方向还在想：是继续「每日一句」，还是按 TOPIK 分级。有想法可以在小红书告诉编者。</p>
-  <footer class="foot">语言 · 最后更新 2026 年 9 月 17 日 · <a href="/guanyu#main">关于本站</a></footer>
+  <p class="note zh" style="margin-top:28px">韩语部分的方向还在想：是继续「每日一句」，还是按 TOPIK 分级。有想法可以在小红书告诉编者。</p><p class="note ko" style="margin-top:28px">한국어 파트는 「하루 한 문장」을 이어갈지, TOPIK 급수별로 갈지 아직 고민 중이에요.</p>
+  <footer class="foot"><span class="zh">语言 · 最后更新 2026 年 9 月 19 日 · <a href="/guanyu#main">关于本站</a></span><span class="ko">언어 · 최종 수정 2026년 9월 19일 · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){});}</script>
 </body></html>

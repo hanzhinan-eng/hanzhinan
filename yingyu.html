@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="full">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,47 +50,49 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a class="on" href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a class="on" href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="lang">
     <div class="tabs" role="tablist" aria-label="英语 · 分类">
-      <span class="sub-label">英语</span>
-      <button role="tab" class="on" data-tab="e1">小学 800 词</button>
-      <button role="tab" class="soon" disabled data-tab="e2">初中词</button>
+      <span class="sub-label" data-ko="영어">英语</span>
+      <button role="tab" class="on" data-tab="e1" data-ko="초등 800단어">小学 800 词</button>
+      <button role="tab" class="soon" disabled data-tab="e2" data-ko="중학 단어">初中词</button>
     </div>
   </div>
 </nav>
 
 
 <div class="wrap site" id="site-eng">
-  <div class="crumb"><a href="/yuyan">语言</a> › 英语</div>
-  <h1>英语：小学必备 800 词，孩子和妈妈一起学</h1>
-  <p class="kicker">韩国教育部指定的<strong>小学英语必备词 800 个</strong>——韩国小学英语课本就是用这份词表编的。每个词：英语 · <strong>韩语</strong>（孩子在学校学的意思）· <strong>中文</strong>（妈妈看得懂）。一天 10 个，一学期过一遍。</p>
+  <div class="crumb"><a href="/yuyan" data-ko="언어">语言</a> › <span class="zh" data-ko="영어">英语</span><span class="ko">영어</span></div>
+  <h1 class="zh">英语：小学必备 800 词，孩子和妈妈一起学</h1><h1 class="ko">영어: 초등 필수 영단어 800, 아이와 엄마가 같이</h1>
+  <p class="kicker ko">교육부가 정한 <strong>초등학교 영어 기본 어휘 800개</strong>예요. 초등 영어 교과서가 이 목록으로 만들어져요. 단어마다 영어 · <strong>한국어</strong>(학교에서 배우는 뜻) · <strong>중국어</strong>(중국인 엄마·아빠가 볼 수 있게)를 붙였어요. 하루 10개면 한 학기에 한 바퀴.</p>
+  <p class="kicker zh">韩国教育部指定的<strong>小学英语必备词 800 个</strong>——韩国小学英语课本就是用这份词表编的。每个词：英语 · <strong>韩语</strong>（孩子在学校学的意思）· <strong>中文</strong>（妈妈看得懂）。一天 10 个，一学期过一遍。</p>
 
   <section class="panel" id="g-e1">
-    <div class="today-head"><span class="eyebrow">小学必备 800 词</span><span class="today-day">按字母顺序</span></div>
-    <p class="note">来源：教育部 초등학교 영어 기본 어휘 목록（公开整理本，796 词）。中文释义由本站编写，只给最常用的一两个意思；韩语释义保留课本用法。发现错误请告诉编者。</p>
+    <div class="today-head"><span class="eyebrow" data-ko="초등 필수 영단어 800">小学必备 800 词</span><span class="today-day" data-ko="알파벳 순">按字母顺序</span></div>
+    <p class="note zh">来源：教育部 초등학교 영어 기본 어휘 목록（公开整理本，796 词）。中文释义由本站编写，只给最常用的一两个意思；韩语释义保留课本用法。发现错误请告诉编者。</p><p class="note ko">출처: 교육부 초등학교 영어 기본 어휘 목록(공개 정리본, 796단어). 중국어 뜻은 이 사이트에서 가장 흔한 한두 가지만 적었고, 한국어 뜻은 교과서 쓰임을 따랐어요. 틀린 곳이 있으면 알려주세요.</p>
     <div class="hsk-tools">
-      <input id="q" type="search" placeholder="搜英语 / 韩语 / 中文" aria-label="搜索">
-      <button id="quiz" type="button">自测</button>
-      <button id="shuffle" type="button">打乱</button>
+      <input id="q" type="search" placeholder="搜英语 / 韩语 / 中文" data-ko-ph="영어 / 한국어 / 중국어 검색" aria-label="搜索">
+      <button id="quiz" type="button" data-ko="자가 테스트">自测</button>
+      <button id="shuffle" type="button" data-ko="섞기">打乱</button>
     </div>
     <div class="hsk-tools" id="abc" style="gap:6px"></div>
     <p class="hsk-count" id="cnt"></p>
     <ul class="hsk" id="list"></ul>
-    <p class="law">自测模式下韩语·中文被盖住，点卡片翻开；想只测中文，先按「打乱」再自测。初中必备词（教育部 초·중 3,000 词中的中学部分）整理中。</p>
+    <p class="law zh">自测模式下韩语·中文被盖住，点卡片翻开；想只测中文，先按「打乱」再自测。初中必备词（教育部 초·중 3,000 词中的中学部分）整理中。</p><p class="law ko">자가 테스트에서는 한국어·중국어 뜻이 가려지고, 카드를 누르면 보여요. 중학 필수 어휘(교육부 초·중 3,000단어 중 중학 부분)는 정리 중.</p>
   </section>
-  <footer class="foot">英语 · 最后更新 2026 年 9 月 17 日 · <a href="/yuyan">回 语言</a> · <a href="/guanyu#main">关于本站</a></footer>
+  <footer class="foot"><span class="zh">英语 · 最后更新 2026 年 9 月 19 日 · <a href="/yuyan">回 语言</a> · <a href="/guanyu#main">关于本站</a></span><span class="ko">영어 · 최종 수정 2026년 9월 19일 · <a href="/yuyan">언어로 돌아가기</a> · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
 <script>var PREFIX="g-";</script>
 <script>
@@ -99,7 +102,7 @@
   function render(arr){
     view=arr;
     list.innerHTML=arr.map(function(w){return '<li><div class="z" style="font-size:1.25rem">'+esc(w.w)+'</div><div class="k">'+esc(w.k)+'</div><div class="e" style="font-size:.9rem;color:var(--ink)">'+esc(w.z)+'</div></li>';}).join('');
-    cnt.textContent=arr.length+' / '+data.length+' 词';
+    cnt.textContent=arr.length+' / '+data.length+(document.documentElement.getAttribute('data-lang')==='ko'?'단어':' 词');
   }
   function filter(){
     var s=q.value.trim().toLowerCase();
@@ -115,6 +118,7 @@
   q.addEventListener('input',filter);
   document.getElementById('quiz').addEventListener('click',function(){list.classList.toggle('quiz');this.classList.toggle('on');list.querySelectorAll('li.show').forEach(function(l){l.classList.remove('show');});});
   document.getElementById('shuffle').addEventListener('click',function(){for(var i=data.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=data[i];data[i]=data[j];data[j]=t;}filter();});
+  document.addEventListener('hz-lang',function(){q.dispatchEvent(new Event('input'));});
   list.addEventListener('click',function(e){var li=e.target.closest('li');if(li&&list.classList.contains('quiz'))li.classList.toggle('show');});
   if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
 })();

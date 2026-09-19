@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh" data-ko="full">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-title" content="韩国生活指南">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="/style.css">
+<script src="/lang.js"></script>
 
 </head>
 <body>
@@ -49,48 +50,71 @@
         <circle cx="24" cy="24" r="10.5" fill="#FFFFFF"/>
         <path d="M24 16.5 L31.5 23.5 H29.5 V31 H25.8 V26.2 H22.2 V31 H18.5 V23.5 H16.5 Z" fill="#17323A"/>
       </svg>
-      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small>KOREA LIFE GUIDE · 中文</small></span>
+      <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/jiaoyu" data-site="edu">教育</a></li>
-      <li><a href="/zhufang" data-site="house">住房</a></li>
-      <li><a href="/lvyou" data-site="travel">旅游</a></li>
-      <li><a href="/yuyan" data-site="lang">语言</a></li>
-      <li><a href="/anquan" data-site="safe">安全</a></li>
-      <li><a class="soon" href="#" aria-disabled="true">工作·签证</a></li>
-      <li class="about-li"><a href="/guanyu" data-site="about">关于</a></li>
+      <li><a href="/jiaoyu" data-site="edu" data-ko="교육">教育</a></li>
+      <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
+      <li><a href="/yuyan" data-site="lang" data-ko="언어">语言</a></li>
+      <li><a href="/anquan" data-site="safe" data-ko="안전">安全</a></li>
+      <li><a class="soon" href="#" aria-disabled="true" data-ko="취업·비자">工作·签证</a></li>
+      <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
+    <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
 </nav>
 
 <div class="wrap site" id="site-home">
   <section class="home-hero">
-    <span class="eyebrow">KOREA LIFE GUIDE · 中文</span>
-    <h1>在韩国，把制度和流程讲清楚</h1>
-    <p class="kicker">给住在韩国的中国人，和来韩国旅行的你。每一条都注明「谁能用」和原文出处，不推测、不带货。</p>
+    <span class="eyebrow zh">KOREA LIFE GUIDE · 中文</span><span class="eyebrow ko">KOREA LIFE GUIDE · 한국어</span>
+    <h1 class="zh">在韩国，把制度和流程讲清楚</h1><h1 class="ko">한국의 제도와 절차를, 중국어로 알기 쉽게</h1>
+    <p class="kicker zh">给住在韩国的中国人，和来韩国旅行的你。每一条都注明「谁能用」和原文出处，不推测、不带货。</p>
+    <p class="kicker ko">한국에 사는 중국인과 한국을 찾는 중국인 여행자를 위한 안내 사이트예요. 모든 항목에 「누가 해당되는지」와 공식 출처를 적고, 추측이나 광고는 넣지 않아요. 한국인 가족·지인분은 「이 사이트에 대해」와 정부 지원, 중국어·영어 단어장 페이지부터 보시면 돼요.</p>
   </section>
 
-  <h2 style="margin-top:36px">来旅游的</h2>
+  <h2 style="margin-top:36px"><span class="zh">你是哪一种？先看这里</span><span class="ko">나는 어떤 경우? 여기서 시작</span></h2>
+  <div class="grid" style="margin-top:12px">
+    <a class="tile" href="/jiaoyu"><b><span class="zh">在韩国养孩子的中国妈妈·爸爸</span><span class="ko">한국에서 아이 키우는 중국인 부모</span></b><span class="zh">教育（按年级）· 政府补助 · 住房 청약 · 孩子的中文·英语</span><span class="ko">교육(학년별) · 정부 지원 · 주거 청약 · 아이 중국어·영어</span></a>
+    <a class="tile" href="/jiaoyu#uni"><b><span class="zh">来韩国留学的</span><span class="ko">한국 유학생</span></b><span class="zh">大学：国籍与 HSK · 安全：使领馆·紧急电话 · 韩语每日一句</span><span class="ko">대학 진학 · 안전(대사관·긴급전화) · 한국어 하루 한 문장 (중국어)</span></a>
+    <a class="tile" href="/lvyou"><b><span class="zh">来旅游、追星、做医美的</span><span class="ko">여행·콘서트·미용 시술로 오는 분</span></b><span class="zh">旅游 · 旅行韩语 30 句</span><span class="ko">여행 · 여행 한국어 30문장 (중국어)</span></a>
+    <a class="tile" href="/guanyu"><b><span class="zh">中国人的韩国家人</span><span class="ko">중국인 가족과 사는 한국분</span></b><span class="zh">右上角切到「한국어」：本站介绍 · 政府补助 · 孩子的 HSK·英语词表</span><span class="ko">이 사이트에 대해 · 정부 지원 목록 · 아이의 HSK·영단어장 — 한국어로 볼 수 있어요</span></a>
+  </div>
+
+  <h2 style="margin-top:36px"><span class="zh">来旅游的</span><span class="ko">한국을 여행하는 분</span></h2>
   <div class="paths" style="grid-template-columns:1fr;margin-top:12px">
     <a class="path travel" href="/lvyou">
       <div class="p-ico">🧳</div>
-      <h2>旅游</h2>
-      <p>追星来韩国怎么买票入场、做医美之前怎么避坑、免费 K-Beauty 体验在哪。</p>
-      <span class="p-go">进入 旅游 →</span>
+      <h2><span class="zh">旅游</span><span class="ko">여행</span></h2>
+      <p class="zh">追星来韩国怎么买票入场、做医美之前怎么避坑、免费 K-Beauty 体验在哪。</p><p class="ko">콘서트 티켓·입장 방법, 미용 시술 전 주의점, 무료 K-뷰티 체험 (중국어)</p>
+      <span class="p-go"><span class="zh">进入 旅游 →</span><span class="ko">여행 보기 →</span></span>
     </a>
   </div>
 
-  <h2 style="margin-top:36px">住在韩国的</h2>
+  <h2 style="margin-top:36px"><span class="zh">住在韩国的</span><span class="ko">한국에 사는 분</span></h2>
   <div class="grid" style="margin-top:12px">
-    <a class="tile" href="/jiaoyu"><b>教育</b><span>小学→初中→高中→大学：每年几月做什么 · 国籍与升学</span></a>
-    <a class="tile" href="/zhufang"><b>住房</b><span>청약谁能报 · 청약日历每周自动更新 · 租房整理中</span></a>
-    <a class="tile" href="/anquan"><b>安全</b><span>紧急电话 · 中国使领馆 · 有人纠缠时怎么办</span></a>
-    <a class="tile" href="/yuyan"><b>语言</b><span>韩语每日一句 · 中文 HSK 词表 · 英语小学 800 词</span></a>
-    <a class="tile soon" href="/guanyu"><b>工作·签证</b><span>整理中</span></a>
+    <a class="tile" href="/jiaoyu"><b><span class="zh">教育</span><span class="ko">교육</span></b><span class="zh">小学→初中→高中→大学：每年几月做什么 · 国籍与升学</span><span class="ko">정부 지원 최신 목록(한국어 병기) · 초·중·고·대학 시기별 안내(중국어)</span></a>
+    <a class="tile" href="/zhufang"><b><span class="zh">住房</span><span class="ko">주거</span></b><span class="zh">청약谁能报 · 청약日历每周自动更新 · 租房整理中</span><span class="ko">청약 자격 · 매주 자동 갱신 청약 달력 (중국어)</span></a>
+    <a class="tile" href="/anquan"><b><span class="zh">安全</span><span class="ko">안전</span></b><span class="zh">紧急电话 · 中国使领馆 · 有人纠缠时怎么办</span><span class="ko">긴급 전화 · 중국 대사관·영사관 · 스토킹 대처 (중국어)</span></a>
+    <a class="tile" href="/yuyan"><b><span class="zh">语言</span><span class="ko">언어</span></b><span class="zh">韩语每日一句 · 中文 HSK 词表 · 英语小学 800 词</span><span class="ko">중국어 HSK 단어장(한국어 뜻) · 초등 필수 영단어 800 (영·한·중) · 한국어 하루 한 문장</span></a>
+    <a class="tile soon" href="/guanyu"><b><span class="zh">工作·签证</span><span class="ko">취업·비자</span></b><span class="zh">整理中</span><span class="ko">준비 중</span></a>
   </div>
 
-  <p class="note home-note">本站不接受付费影响，合作会明确标注。号码、时间、法律条文以官方页面为准，无法确认的标注「未确认」。发现错误请告诉我们。</p>
-  <footer class="foot">最后更新 2026年9月17日 · <a href="/guanyu">关于本站</a></footer>
+  <h2 style="margin-top:36px"><span class="zh">官方入口：先收藏这个</span><span class="ko">공식 입구: 이것부터 저장</span></h2>
+  <article class="ntc" style="margin-top:12px">
+    <div class="ntc-top"><span class="tag ok" data-ko="서울시 공식 · 2026.9.1 새로 열림">首尔市官方 · 2026.9.1 新开</span></div>
+    <h3><span class="zh">首尔外国人门户「MY SEOUL+」</span><span class="ko">서울외국인포털 「MY SEOUL+」</span></h3>
+    <p class="ntc-sum zh">首尔市把外国人住民需要的信息整合到一个网站：出入境、住房、就业、医疗、教育、女性家庭、交通按领域分类；还有按「你是谁」（留学生、结婚移民、外国劳动者、同胞、移民背景青少年）整理的「定制信息」。主要内容有<strong>中文</strong>（另有韩·英·越南语），其他语言自动翻译，带 AI 聊天机器人。首尔全球中心、外国人住民中心等支援机构可在地图上找，韩语课·文化体验报名和法律·劳务·住房·签证咨询预约都能在网站里办。不用装 App，手机浏览器打开即可。</p>
+    <p class="ntc-sum ko">서울시가 외국인 주민에게 필요한 정보를 한 곳에 모은 사이트예요. 출입국·주거·취업·의료·교육·여성가족·교통 분야별 정보와, 유학생·결혼이민자·외국인노동자·동포·이주배경청소년 등 「대상별 맞춤정보」 메뉴가 있어요. 주요 내용은 한국어·영어·<strong>중국어</strong>·베트남어, 그 밖의 언어는 자동번역, AI 챗봇도 있어요. 서울글로벌센터·외국인주민센터 같은 지원시설을 지도에서 찾고, 한국어 교육·문화 체험 신청과 법률·노무·주거·비자 상담 예약까지 사이트 안에서 할 수 있어요. 앱 설치 없이 브라우저로 열면 돼요.</p>
+    <dl class="kv">
+      <dt><span class="zh">网址</span><span class="ko">주소</span></dt><dd><a href="https://global.seoul.go.kr" target="_blank" rel="noopener">global.seoul.go.kr</a></dd>
+      <dt><span class="zh">和本站的关系</span><span class="ko">이 사이트와의 관계</span></dt><dd class="zh">官方门户是「全」，本站是「先看什么、按你的情况怎么走」。查制度原文去官方，理解流程回这里。</dd><dd class="ko">공식 포털은 「전부」, 이 사이트는 「무엇부터 볼지, 내 상황에서 어떻게 가는지」예요. 제도 원문은 공식 포털에서, 흐름 이해는 여기서.</dd>
+      <dt><span class="zh">来源</span><span class="ko">출처</span></dt><dd><span class="zh">首尔市新闻稿 2026.9.2 · 整理 2026.9.19 · 功能未逐一亲测，以官网为准</span><span class="ko">서울시 보도자료 2026.9.2 · 정리 2026.9.19 · 기능은 하나하나 써 보지 않았으니 공식 사이트 기준</span></dd>
+    </dl>
+  </article>
+
+  <p class="note home-note zh">本站不接受付费影响，合作会明确标注。号码、时间、法律条文以官方页面为准，无法确认的标注「未确认」。发现错误请告诉我们。</p><p class="note home-note ko">이 사이트는 유료 광고의 영향을 받지 않으며, 협업이 있으면 그 자리에 표시합니다. 전화번호·기간·법 조항은 공식 페이지 기준이고, 확인 못 한 것은 「未确认(미확인)」으로 적습니다. 틀린 정보를 발견하시면 알려주세요.</p>
+  <footer class="foot"><span class="zh">最后更新 2026年9月19日 · <a href="/guanyu">关于本站</a></span><span class="ko">최종 수정 2026년 9월 19일 · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
 
 <script>if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js").catch(function(){});}</script>
