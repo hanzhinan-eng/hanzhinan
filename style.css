@@ -379,3 +379,14 @@ html[data-lang="ko"] .tabs button.soon::after{content:"준비중"}
 .tag.info{padding:3px 10px;margin:0;border:0} /* .info(카드 표) 규칙이 라벨에 섞이는 것 방지 */
 .nl-t{display:block;margin:6px 0 4px;font-weight:700;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
 .nl-d{font-size:.85rem;color:var(--ink-2)}
+
+/* 首页 情况入口 (2026-09-21) */
+.sit{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-top:16px;overflow:hidden}
+h2.sit-h{margin:0;padding:16px 18px 12px;font-size:1.15rem;display:flex;align-items:center;gap:8px}
+h2.sit-h::before{display:none}
+.sit-ico{font-size:1.3rem;line-height:1}
+.sit a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.sit a::after{content:"→";color:var(--accent);font-weight:700;flex:none}
+.sit a:hover{background:var(--accent-soft)}
+.sit-t b{display:block;font-size:1rem}
+.sit-t small{display:block;color:var(--ink-2);font-size:.85rem;margin-top:2px}
