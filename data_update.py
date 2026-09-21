@@ -30,7 +30,9 @@ def xml_items(text):
     msg = root.findtext(".//resultMsg") or root.findtext(".//returnAuthMsg") or ""
     if code and code not in ("00", "0", "000", "03"):   # 03 = NODATA (정상)
         raise RuntimeError(f"API 오류 {code} {msg}")
-    return [{c.tag: (c.text or "").strip() for c in it} for it in root.iter("item")]
+    rows = list(root.iter("item")) or list(root.iter("servList"))   # 복지서비스 API는 <item>이 아니라 <servList>로 줌 (09-21 로그: 오류 없이 0건 → 원인)
+    print("  xml:", "code=" + (code or "-"), "total=" + (root.findtext(".//totalCount") or "-"), "rows=" + str(len(rows)))
+    return [{c.tag: (c.text or "").strip() for c in it} for it in rows]
 def first(it, *names):   # 신·구 필드명 중 있는 것 사용
     for n in names:
         v = it.get(n)
@@ -56,20 +58,15 @@ def mc_get(path):
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read().decode("utf-8", "replace")
 def notice_parse(page, board):
+    # 실제 구조(09-21 로그): <a class=".." href="/posts/info/14918?page=1">제목</a><span class="body3 ..">2026-09-17</span><span ..>조회수</span>
     out = []
-    for m in re.finditer(r'<a\b[^>]*href="(/posts/(?:info|notice)/(\d+))[^"]*"[^>]*>(.*?)</a>', page, re.S):
-        path, pid, body = m.group(1), m.group(2), m.group(3)
-        chunks = [_html.unescape(re.sub(r"\s+", " ", c)).strip() for c in re.split(r"<[^>]+>", body)]
-        chunks = [c for c in chunks if c]
-        d = None
-        for c in chunks:
-            d = re.search(r"(20\d\d)[-.](\d{1,2})[-.](\d{1,2})", c)
-            if d: break
-        texts = [c for c in chunks if not re.fullmatch(r"[\d\-.: ]+", c) and len(c) >= 6]
-        if not d or not texts: continue
-        try: date = datetime.date(int(d.group(1)), int(d.group(2)), int(d.group(3)))
+    pat = r'<a\b[^>]*href="(/posts/(?:info|notice)/(\d+))[^"]*"[^>]*>(.*?)</a>\s*(?:<[^>]+>\s*){0,3}(20\d\d)[-.](\d{1,2})[-.](\d{1,2})'
+    for m in re.finditer(pat, page, re.S):
+        title = _html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3)))).strip()
+        if len(title) < 4: continue
+        try: date = datetime.date(int(m.group(4)), int(m.group(5)), int(m.group(6)))
         except ValueError: continue
-        out.append({"id": pid, "path": path, "title": max(texts, key=len), "date": date, "board": board})
+        out.append({"id": m.group(2), "path": m.group(1), "title": title, "date": date, "board": m.group(1).split("/")[2]})
     return out
 def notice_fetch():
     items, ok = [], 0
@@ -177,22 +174,33 @@ def welfare_render(items):
 TOUR_BASES = ["https://apis.data.go.kr/B551011/ChsService2/searchFestival2", "https://apis.data.go.kr/B551011/ChsService1/searchFestival1"]
 AREA_ZH = {"1": "首尔", "2": "仁川", "31": "京畿", "39": "济州", "6": "釜山"}
 def tour_fetch():
+    # 09-21 로그: ChsService2는 오류 없이 0건, ChsService1은 400(폐지) → 2만 사용.
+    # 지역·종료일 조건을 서버에 주지 않고 넓게 받아서 여기서 거른다 (조건 이름이 버전마다 달라 0건이 나오는 것을 피함).
     start = TODAY.replace(day=1); end = (start + datetime.timedelta(days=62)).replace(day=1) - datetime.timedelta(days=1)
+    s8, e8 = start.strftime("%Y%m%d"), end.strftime("%Y%m%d")
     out = []
-    for base in TOUR_BASES:
+    for pg in (1, 2, 3):
+        p = {"serviceKey": KEY, "MobileOS": "ETC", "MobileApp": "hanzhinan", "_type": "json", "numOfRows": 100, "pageNo": pg, "arrange": "A", "eventStartDate": s8}
         try:
-            for area in ["1", "2", "31"]:
-                p = {"serviceKey": KEY, "MobileOS": "ETC", "MobileApp": "hanzhinan", "_type": "json", "numOfRows": 50, "pageNo": 1, "arrange": "A",
-                     "eventStartDate": start.strftime("%Y%m%d"), "eventEndDate": end.strftime("%Y%m%d"), "areaCode": area}
-                j = json.loads(get(base, p))
-                items = j["response"]["body"]["items"]
-                if not items: continue
-                for it in items["item"]:
-                    it["_area"] = AREA_ZH.get(area, area); out.append(it)
-            if out: break
+            j = json.loads(get(TOUR_BASES[0], p))
+            body = j["response"]["body"]; items = body.get("items") or {}
+            rows = items.get("item", []) if isinstance(items, dict) else []
+            print(f"tour p{pg}: header={j['response'].get('header')} total={body.get('totalCount')} rows={len(rows)}")
+            if pg == 1 and rows: print("  tour keys:", sorted(rows[0].keys()))
         except Exception as e:
-            print("tour base failed", base, e); out = []
+            print("tour failed", pg, e); break
+        if not rows: break
+        for it in rows:
+            area = str(first(it, "areacode", "areaCode", "lDongRegnCd"))
+            zh = {"1": "首尔", "2": "仁川", "31": "京畿", "11": "首尔", "28": "仁川", "41": "京畿"}.get(area)   # 구 지역코드 / 신 법정동 시도코드 — 首尔·仁川·京畿만
+            if not zh: continue
+            s, e = it.get("eventstartdate", ""), it.get("eventenddate", "")
+            if s and s > e8: continue
+            if e and e < TODAY.strftime("%Y%m%d"): continue
+            it["_area"] = zh; out.append(it)
+        if len(rows) < 100: break
     out.sort(key=lambda x: x.get("eventstartdate", ""))
+    print("tour kept", len(out))
     return out[:30]
 def tour_sample():
     return [{"title": "首尔灯节", "addr1": "首尔特别市中区清溪川路", "eventstartdate": "20261001", "eventenddate": "20261031", "tel": "02-120", "_area": "首尔", "firstimage": ""},
