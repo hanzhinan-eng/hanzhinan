@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # 공공데이터 자동 갱신 3종 — 복지서비스(补助) · 관광행사(本月活动) · 아파트 실거래(房价)
 # 실행: APPLYHOME_KEY=키 python3 data_update.py [notice|welfare|tour|apt|all]   (--sample: 견본 데이터)
-import os, sys, re, json, datetime, statistics, urllib.request, urllib.parse
+import os, sys, re, json, time, datetime, statistics, urllib.request, urllib.parse
 import xml.etree.ElementTree as ET
 
 KST = datetime.timezone(datetime.timedelta(hours=9))
@@ -12,11 +12,17 @@ SAMPLE = "--sample" in sys.argv
 STAMP = f"{TODAY.year}.{TODAY.month}.{TODAY.day} 自动更新"
 
 def esc(t): return str(t or "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-def get(url, params, timeout=40):
+def get(url, params, timeout=25):
     q = urllib.parse.urlencode(params)
     req = urllib.request.Request(url + "?" + q, headers={"User-Agent": "hanzhinan-bot"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", "replace")
+    last = None
+    for attempt in range(3):   # data.go.kr는 해외에서 가끔 timeout → 3번까지 다시 시도
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last = e; print(f"  retry {attempt + 1}/3:", e); time.sleep(3 * (attempt + 1))
+    raise last
 def replace_block(path, tag, body, stamp_id):
     p = os.path.join(HERE, path); html = open(p, encoding="utf-8").read()
     new = re.sub(rf"(<!-- {tag}:START -->\n).*?(<!-- {tag}:END -->)", lambda m: m.group(1) + body + m.group(2), html, flags=re.S)
@@ -249,11 +255,13 @@ def apt_fetch():
     ym = apt_month(); rows = []
     url = apt_pick_url(ym)
     if not url: return ym, rows
+    fails = 0
     for code, zh, ko in GU:
         try:
             items = xml_items(get(url, {"serviceKey": KEY, "LAWD_CD": code, "DEAL_YMD": ym, "pageNo": 1, "numOfRows": 1000}))
         except Exception as e:
-            print("apt failed", ko, e); items = []
+            print("apt failed", ko, e); items = []; fails += 1
+            if fails >= 3: print("apt: 연속 실패 → 중단"); break
         prices, ppy = [], []
         for it in items:
             try:
@@ -292,13 +300,18 @@ def main():
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what in ("welfare", "all"):
         items = welfare_sample() if SAMPLE else welfare_fetch()
-        changed |= replace_block("jiaoyu.html", "WELFARE", welfare_render(items), "welfare-stamp")
+        if items: changed |= replace_block("jiaoyu.html", "WELFARE", welfare_render(items), "welfare-stamp")
+        else: print("welfare: 0건 → 기존 내용 유지")
     if what in ("tour", "all"):
         items = tour_sample() if SAMPLE else tour_fetch()
-        changed |= replace_block("lvyou.html", "TOUR", tour_render(items), "tour-stamp")
+        if items: changed |= replace_block("lvyou.html", "TOUR", tour_render(items), "tour-stamp")
+        else: print("tour: 0건 → 기존 내용 유지")
     if what in ("apt", "all"):
         ym, rows = apt_sample() if SAMPLE else apt_fetch()
-        changed |= replace_block("zhufang.html", "APT", apt_render(ym, rows), "apt-stamp")
+        got = [r for r in rows if r["n"]]
+        print("apt:", ym, "구", len(got), "/ 25")
+        if SAMPLE or len(got) >= 20: changed |= replace_block("zhufang.html", "APT", apt_render(ym, rows), "apt-stamp")   # 일부만 받았으면 표를 덮지 않음
+        else: print("apt: 데이터 부족 → 기존 표 유지")
     if changed:
         sm = os.path.join(HERE, "sitemap.xml")
         if os.path.exists(sm):
