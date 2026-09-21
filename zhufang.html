@@ -69,9 +69,9 @@
       <button role="tab" class="on" data-tab="apply">청약·新房</button>
       <button role="tab" data-tab="cal">청약日历</button>
       <button role="tab" data-tab="price">房价</button>
-      <button role="tab" class="soon" disabled data-tab="rent">租房入门</button>
-      <button role="tab" class="soon" disabled data-tab="scam">防诈骗</button>
-      <button role="tab" class="soon" disabled data-tab="pub">公共住房</button>
+      <button role="tab" data-tab="rent">租房入门</button>
+      <button role="tab" data-tab="scam">防诈骗</button>
+      <button role="tab" data-tab="pub">公共住房</button>
     </div>
   </div>
 </nav>
@@ -119,7 +119,7 @@
         <tr><td style="white-space:nowrap"><strong>外国籍配偶</strong><br>（中国妈妈本人）</td><td>凭家族关系证明书，算「赡养家属」，<strong>+5 分</strong>（国土部：婚姻关系特殊，例外承认）</td><td>算家庭成员，一起报</td></tr>
         <tr><td style="white-space:nowrap"><strong>外国籍孩子</strong></td><td><strong>不算</strong>赡养家属，0 分</td><td>写在家族关系证明书上的未成年孩子<strong>算</strong>（国土部：未成年孩子的抚养需要不分国籍）</td></tr>
         <tr><td style="white-space:nowrap"><strong>韩国籍孩子</strong></td><td>算</td><td>算</td></tr>
-        <tr><td style="white-space:nowrap"><strong>外国人本人做申请人</strong></td><td colspan="2">办了外国人登录、有청약통장就能报，但「无房家庭」等条件按整个家庭算；配偶是韩国人的，通常由韩国籍一方做申请人更简单</td></tr>
+        <tr><td style="white-space:nowrap"><strong>外国人本人做申请人</strong></td><td colspan="2"><strong>特别供给不行。</strong>청약홈 FAQ 写明：外国人不能报国民住宅，也不能报民营住宅的<strong>特别供给</strong>；能报的是非管制地区民营住宅的<strong>一般供给</strong>等少数几种。所以新婚特供要由<strong>韩国籍配偶做申请人</strong>，外国配偶作为家庭成员一起算（2026.9.21 订正）</td></tr>
       </tbody>
     </table>
     </div>
@@ -144,7 +144,7 @@
     <table>
       <thead><tr><th>听说……</th><th>其实</th></tr></thead>
       <tbody>
-        <tr><td>外国人不能청약</td><td>能。外国人登录 + 청약통장 就能报。结婚移民家庭通过新婚特供中签的案例，编者确认过。</td></tr>
+        <tr><td>家里有外国人就不能청약</td><td>能。由<strong>韩国籍配偶做申请人</strong>，外国配偶算家庭成员。结婚移民家庭通过新婚特供中签的案例，编者确认过。外国人<strong>本人</strong>做申请人的话，只能报非管制地区民营住宅的一般供给等（청약홈 FAQ）。</td></tr>
         <tr><td>我在中国有房，算有房</td><td>只看韩国境内的住房。中国的房产不算「有房」，但可能进资产计算（追첨制名额时）。</td></tr>
         <tr><td>结婚 7 年是按结婚仪式算</td><td>按<strong>혼인신고</strong>（结婚登记）日期到楼盘公告日。在中国先登记的，看韩国承认的登记日。</td></tr>
         <tr><td>中签了不想要，放弃就行</td><td>放弃或被取消后，几年内<strong>不能再청약</strong>（再当选限制），特别供给的一次机会也没了。报之前想好。</td></tr>
@@ -159,9 +159,10 @@
         <li>찾기쉬운 생활법령정보「신혼부부 > 주거지원 > 신혼부부 특별공급」· 주택공급에 관한 규칙</li>
         <li>한국일보 2022.5.20「외국인 배우자 인정, 외국인 자녀는 불인정…들쑥날쑥 청약 가점제」（국토교통부 유권해석）</li>
         <li>민영 아파트 2026 신혼부부 특별공급 서류 안내(당첨자 서류검수) · 청약홈 applyhome.co.kr</li>
+        <li>청약홈 FAQ「외국인의 청약 가능 범위」（2026.9.21 核对，订正「外国人本人做申请人」一栏）</li>
       </ol>
     </div>
-    <p class="next">下一页 → <a href="/zhufang#cal">청약日历：这两周能报的新楼盘</a> · 整理中：租房入门 · 防诈骗 · 公共住房</p>
+    <p class="next">下一页 → <a href="/zhufang#cal">청약日历：这两周能报的新楼盘</a> · <a href="/zhufang#rent" data-go="rent">租房入门</a> · <a href="/zhufang#scam" data-go="scam">防诈骗</a> · <a href="/zhufang#pub" data-go="pub">公共住房</a></p>
   </section>
   <section class="panel" id="h-cal" hidden>
     <div class="today-head"><span class="eyebrow">청약日历 · 首都圈新楼盘</span><span class="today-day" id="cal-stamp">청약홈 2026.9.21 自动更新</span></div>
@@ -337,7 +338,387 @@
     <p class="law">来源：국토교통부 실거래가 공개시스템（公共数据门户 API）。中位数 = 把当月所有成交按价格排队，正中间那一套。套数少的区（几十套以下）波动大，看趋势别看单月。</p>
     <p class="next">← <a href="/zhufang#apply">청약规则</a> · <a href="/zhufang#cal">청약日历</a></p>
   </section>
-  <footer class="foot">住房 · 最后核对 2026 年 9 月 16 日 · 规则以各楼盘 입주자 모집공고 为准 · <a href="/guanyu#main">关于本站</a></footer>
+  <section class="panel" id="h-rent" hidden>
+    <div class="today-head"><span class="eyebrow">租房入门 · 월세·전세</span><span class="today-day">整理日期 2026.9.21</span></div>
+    <h2>在韩国租房：签约顺序，和外国人最不能漏的一步</h2>
+    <p class="note">本页只讲制度和顺序，数字都来自韩国政府页面（出处在页尾）。<strong>编者未亲测每一步</strong>；写「惯例」的地方不是法律规定，各中介做法不同。</p>
+
+    <h3>一、三种租法</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>叫法</th><th>怎么付</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>월세</strong><br>月租</td><td>押金（보증금）+ 每月房租。押金退房时全额退。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>전세</strong><br>全租</td><td>一次交一大笔押金，<strong>不交月租</strong>，到期全额退。押金大，所以被骗损失也大 → 看「<a href="/zhufang#scam" data-go="scam">防诈骗</a>」。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>반전세</strong><br>半全租</td><td>押金比月租高很多 + 少量月租。法律上和月租一样都是「임대차」。</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="law">三种都受「주택임대차보호법」保护，合同里对租客不利、违反这部法的条款无效。管理费（관리비）一般另算——这是惯例，签约前问清包含什么。</p>
+
+    <h3>二、签约顺序</h3>
+    <ol class="steps">
+      <li><b>看房 + 查房本（등기부등본）</b><p>看中了先别交钱。在 <a href="https://www.iros.go.kr" target="_blank" rel="noopener">인터넷등기소</a> 查这套房的登记簿：网上阅览 700 韩元。看房主是谁、有没有抵押。怎么看 → 「<a href="/zhufang#scam" data-go="scam">防诈骗</a>」第二节。</p></li>
+      <li><b>签合同：用政府的标准合同，拿齐三样文件</b><p>法务部有「주택임대차 표준계약서」（2023 年修订版，里面已写进「查欠税」「信息不符可无条件解约」等条款）。通过中介（공인중개사）签的，要拿到：<strong>合同 · 중개대상물 확인·설명서（房屋状况说明书）· 공제증서（中介的赔偿保证书）</strong>。</p></li>
+      <li><b>定金</b><p>签约时付一部分（惯例约押金的 10%），余款入住当天付。合同前先付的「가계약금」也是惯例，不是法律规定——付之前把退不退写成文字。</p></li>
+      <li><b>尾款当天：先再查一次房本，再付钱</b><p>政府的原话是「付尾款前再确认一次登记簿，看房主有没有变」。没问题再转账、拿钥匙。</p></li>
+      <li><b>当天就去办两件事：체류지 변경신고 + 확정일자</b><p>这是外国人最不能漏的一步，见下面第三、四节。<strong>保护从办完的第二天 0 点才开始</strong>，所以入住当天办。</p></li>
+      <li><b>30 天内：전월세신고（租赁合同申报）</b><p>押金超过 6,000 万韩元<strong>或</strong>月租超过 30 万韩元的要申报，见第五节。</p></li>
+    </ol>
+
+    <h3>三、체류지 변경신고 = 外国人的「전입신고」</h3>
+    <p>韩国人搬家要办「전입신고」（迁入申报），办了才能对抗新房主、在房子被拍卖时保住押金，这叫<strong>대항력</strong>。外国人没有住民登录，靠的是<strong>外国人登录 + 체류지 변경신고（居留地变更申报）</strong>。大法院 2016 年判决确认：这两样的效力和住民登录一样。</p>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>你是</th><th>办什么</th><th>期限</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>登录外国人</strong><br>F-6·F-5·F-2·D-2·E 系列等</td><td>체류지 변경신고</td><td>搬进新住处起 <strong>15 天内</strong></td></tr>
+        <tr><td style="white-space:nowrap"><strong>F-4 在外同胞</strong><br>（办了국내거소신고）</td><td>국내거소 이전신고</td><td>搬家起 <strong>14 天内</strong></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">免费 · 当场办完</span></div>
+      <h3>怎么办</h3>
+      <dl class="kv">
+        <dt>去哪</dt><dd>新住处的 <strong>주민센터（읍·면·동）</strong>、시·군·구청，或管辖出入境·外国人厅</dd>
+        <dt>带什么</dt><dd>护照或外国人登录证 · <strong>租房合同</strong>（证明住处的文件）</dd>
+        <dt>网上</dt><dd>HiKorea 也能办，但只能本人、<strong>要 3 天处理</strong>、登录证背面不写新地址。押金要紧的，亲自去当场办。</dd>
+        <dt>逾期</dt><dd>登录外国人：法定最高 100 万韩元罚金 · F-4：200 万韩元以下过怠料。<em>实际按逾期天数罚多少，编者未确认</em></dd>
+        <dt>生效</dt><dd>住进去 + 申报完成的<strong>第二天 0 点</strong>起有대항력</dd>
+      </dl>
+    </article>
+    <p class="law">依据：출입국관리법 제36조·제88조의2 제2항 · 대법원 2016.10.13. 선고 2015다14136 판결（外国人登录·居留地变更申报 = 住民登录的对抗力）· F-4 的居所申报同日另有判决承认。정부24「체류지 변경신고」「국내거소 이전신고」。</p>
+
+    <h3>四、확정일자：在合同上盖一个日期章</h3>
+    <p>대항력 + <strong>확정일자</strong> 两样齐了，房子被拍卖时，你比在你之后登记的债权人<strong>先拿回押金</strong>（우선변제권）。</p>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>项目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">去哪</td><td>주민센터（办체류지 변경신고时一起办）· 등기소 · 法院 · 公证人</td></tr>
+        <tr><td style="white-space:nowrap">费用</td><td>每份 <strong>600 韩元</strong>（合同超过 4 张，每多 4 张加 100）</td></tr>
+        <tr><td style="white-space:nowrap">证件</td><td>规定里写明「护照或外国人登录证」可以 → 外国人和韩国人一样办</td></tr>
+        <tr><td style="white-space:nowrap">省事办法</td><td>办第五节的「전월세신고」时附上合同，<strong>확정일자 自动给</strong></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="law">网上（인터넷등기소）也能申请확정일자，但外国人能否在线办、费用多少，编者未从官方页面确认。</p>
+
+    <h3>五、전월세신고：30 天内申报合同</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>项目</th><th>内容（2025.6 起罚款生效）</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">谁要报</td><td>押金 <strong>超过 6,000 万</strong>韩元 <strong>或</strong> 月租 <strong>超过 30 万</strong>韩元的住宅租约。金额不变的续约不用报。</td></tr>
+        <tr><td style="white-space:nowrap">地区</td><td>首都圈全部、广域市、世宗、济州、各道的「市」（道里的「郡」除外；京畿道的郡也要报）</td></tr>
+        <tr><td style="white-space:nowrap">期限</td><td>签约日起 <strong>30 天内</strong></td></tr>
+        <tr><td style="white-space:nowrap">去哪</td><td>주민센터，或 <a href="https://rtms.molit.go.kr" target="_blank" rel="noopener">rtms.molit.go.kr</a>（부동산거래관리시스템）</td></tr>
+        <tr><td style="white-space:nowrap">不报</td><td>指导期 2025.5.31 结束。<strong>2025.6.1 以后签的合同</strong>，迟报罚 2 万～30 万韩元</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>六、住进去以后的权利</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>权利</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>续约请求权</strong><br>계약갱신요구권</td><td>到期前 <strong>6 个月～2 个月</strong>之间提出，可以再住 2 年，<strong>只能用 1 次</strong>（2+2）。房主要自己住等法定理由才能拒绝。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>涨租上限</strong></td><td>续约时押金·月租最多涨 <strong>5%</strong></td></tr>
+        <tr><td style="white-space:nowrap"><strong>小额租客优先</strong><br>소액임차인</td><td>首尔：押金 <strong>1 亿 6,500 万</strong>韩元以下的，房子被拍卖时最多 <strong>5,500 万</strong>韩元排在抵押权前面拿（不超过房价的一半；其他地区金额更低）。前提还是第三节的대항력。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>押金不退</strong></td><td>合同结束了拿不回押金 → 向房子所在地法院申请「<strong>임차권등기명령</strong>」。登记完成<strong>之后</strong>再搬走，대항력·우선변제권 才保得住。</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>七、中介费上限（住宅租赁）</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>交易金额</th><th>上限费率</th><th>封顶</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">不到 5 千万</td><td>0.5%</td><td>20 万</td></tr>
+        <tr><td style="white-space:nowrap">5 千万～1 亿</td><td>0.4%</td><td>30 万</td></tr>
+        <tr><td style="white-space:nowrap">1 亿～6 亿</td><td>0.3%</td><td>—</td></tr>
+        <tr><td style="white-space:nowrap">6 亿～12 亿</td><td>0.4%</td><td>—</td></tr>
+        <tr><td style="white-space:nowrap">12 亿～15 亿</td><td>0.5%</td><td>—</td></tr>
+        <tr><td style="white-space:nowrap">15 亿以上</td><td>0.6%</td><td>—</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="law">月租的「交易金额」= 押金 + 月租 × 100；这样算出来不到 5 千万的，改用 押金 + 月租 × 70。例：押金 1,000 万 + 月租 60 万 → 1,000 + 6,000 = 7,000 万 → 0.4%，最多 28 万韩元。以上是上限，实际按各市·道条例；오피스텔 另有费率；增值税可能另加。</p>
+
+    <h3>八、能用中文问的电话</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>电话</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><a href="tel:1345">1345</a></td><td>外国人综合咨询中心。平日 9～22 点，有中文（18 点后只有韩·英·中）。체류지 변경신고问这里。</td></tr>
+        <tr><td style="white-space:nowrap"><a href="tel:1577-1366">1577-1366</a></td><td>다누리콜센터。365 天 24 小时，有中文。律师咨询每周二 14～16 点，要预约。</td></tr>
+        <tr><td style="white-space:nowrap"><a href="tel:02-2133-1200">02-2133-1200</a>～1208</td><td>首尔市전월세 종합지원센터（租房·合同·纠纷咨询）。<em>没有外语咨询的说明</em>，请会韩语的家人一起打。</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="sources">
+      <b>出处（2026.9.21 核对）</b>
+      <ol>
+        <li>찾기쉬운 생활법령정보「주택임대차」：임대차 유형 · 계약 · 대항력·확정일자 · 계약갱신 · 소액임차인 · 임차권등기명령；「부동산 중개」중개보수</li>
+        <li>정부24「체류지 변경신고」「국내거소 이전신고」· 법무부 출입국·외국인정책본부（표준계약서 2023 수정본 게시）</li>
+        <li>대법원 2016.10.13. 선고 2015다14136 판결（대법원 판례속보）</li>
+        <li>대한민국 정책브리핑 2025「주택 임대차계약 신고제 계도기간 종료」（지연신고 과태료 2만～30만 원）</li>
+        <li>서울주거포털 · 다누리（liveinkorea.kr）· 법무부 외국인종합안내센터 1345</li>
+      </ol>
+    </div>
+    <p class="next">下一页 → <a href="/zhufang#scam" data-go="scam">防诈骗：签约前查什么</a></p>
+  </section>
+  <section class="panel" id="h-scam" hidden>
+    <div class="today-head"><span class="eyebrow">防诈骗 · 전세사기 예방</span><span class="today-day">整理日期 2026.9.21</span></div>
+    <h2>押金怎么不被骗：签约前查 7 样，尾款当天再查 1 次</h2>
+    <p class="note">押金诈骗（전세사기）不分国籍。据引用国土部统计的报道，被认定的受害者里外国人有 500 多件。<strong>外国人受害后能拿到的支援比韩国人少</strong>（见第五节），所以更要在签约前自己查。本页内容来自韩国法制处·政府政策简报·首尔市页面；<strong>编者未亲测</strong>。</p>
+
+    <h3>一、官方列出的几种套路</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>套路</th><th>怎么回事</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>깡통전세</strong><br>空壳全租</td><td>押金接近甚至超过房价。房主没本钱（无资本갭투자）、或挂名房主，到期退不出钱。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>抢在你前面</strong></td><td>你的保护从申报<strong>第二天 0 点</strong>才生效。房主在这之前把房子过户或拿去抵押贷款。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>신탁 房</strong><br>信托</td><td>房子已信托给信托公司，真正的所有权不在「房主」手里。没有信托公司同意签的合同可能无效。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>假中介</strong></td><td>无资格的人、或「중개보조원」（中介助理）出面签约。助理<strong>不能</strong>写合同，而且必须先说明自己是助理。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>合同有假</strong></td><td>同一套房签给几个人、冒充房主或代理人等。</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>二、签约前查 7 样</h3>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">① 등기부등본 · 房本</span></div>
+      <h3>房主是谁、欠了多少</h3>
+      <dl class="kv">
+        <dt>在哪查</dt><dd><a href="https://www.iros.go.kr" target="_blank" rel="noopener">인터넷등기소</a> iros.go.kr，24 小时。网上阅览 <strong>700</strong> 韩元 · 网上发给 1,000 · 登记所窗口 1,200</dd>
+        <dt>표제부</dt><dd>地址、栋·号 和你要租的是不是同一套</dd>
+        <dt>갑구</dt><dd>所有权。房主姓名 · 有没有 <strong>압류·가압류·가처분·경매</strong>（查封·拍卖）</dd>
+        <dt>을구</dt><dd><strong>근저당권</strong>（抵押，看「채권최고액」金额）· 전세권。顺位号 = 谁先拿钱</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">② 신탁 · 信托</span></div>
+      <h3>갑구 里出现「신탁」两个字就停</h3>
+      <dl class="kv">
+        <dt>要看</dt><dd><strong>신탁원부</strong>（信托原簿）——写着谁有权出租、要不要信托公司同意</dd>
+        <dt>在哪拿</dt><dd>只能<strong>亲自去登记所</strong>，网上拿不到</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">③ 房主本人</span></div>
+      <h3>签字的人 = 房本上的人吗</h3>
+      <dl class="kv">
+        <dt>身份证</dt><dd>주민등록증真伪：电话 <a href="tel:1382">1382</a> 或 정부24 · 驾照：경찰청 교통민원24</dd>
+        <dt>共同所有</dt><dd>建议和<strong>全部</strong>所有人签</dd>
+        <dt>代理人</dt><dd>要<strong>위임장（委托书）+ 인감증명서</strong>，两处印章一致；委托书写明房屋·押金条件·委托范围。<strong>配偶来签也要</strong>。</dd>
+        <dt>转账</dt><dd>押金只转到房本上房主本人名下的账户——这是普遍建议，不是官方条文</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">④ 中介</span></div>
+      <h3>是不是登记在册的공인중개사</h3>
+      <dl class="kv">
+        <dt>在哪查</dt><dd>首尔：<a href="https://land.seoul.go.kr" target="_blank" rel="noopener">land.seoul.go.kr</a> 부동산중개업 정보 · 全国：브이월드 · 한국공인중개사협회 · 店里挂的登记证</dd>
+        <dt>공제증서</dt><dd>中介出错造成损失时的赔偿保证：个人中介 <strong>2 亿</strong>韩元以上，法人 4 亿以上。签约时要拿到复印件</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">⑤ 市价 · 전세가율</span></div>
+      <h3>押金占房价的几成</h3>
+      <dl class="kv">
+        <dt>在哪查</dt><dd>国土部实际成交价 <a href="https://rt.molit.go.kr" target="_blank" rel="noopener">rt.molit.go.kr</a> · 한국부동산원 부동산테크（小公寓·빌라）· HUG「<strong>안심전세</strong>」App（빌라市价、恶性房主·欠税信息、自我诊断）· 本站「<a href="/zhufang#price" data-go="price">房价</a>」</dd>
+        <dt>警戒线</dt><dd>首尔市把전세가율 <strong>80% 以上</strong>的地区列为「깡통전세 危险」。押金 +（前面的抵押）超过房价八成，要特别小心。빌라 没有成交记录，最难判断</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">⑥ 房主欠税</span></div>
+      <h3>欠的税排在你的押金前面</h3>
+      <dl class="kv">
+        <dt>国税</dt><dd>押金<strong>超过 1,000 万</strong>韩元：签约后到入住日之前，<strong>不用房主同意</strong>就能查。去任何一个세무서 民원봉사실，带 申请书 · 身份证 · 租房合同</dd>
+        <dt>地方税</dt><dd>2023.4.1 起同样不用房主同意，去任何一个시·군·구청 세무부서。只能本人当场看，不能复印拍照</dd>
+        <dt>签约前</dt><dd>房主同意的话，签约前就能查。标准合同里房主本来就有义务出示「纳税证明」</dd>
+      </dl>
+    </article>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag info">⑦ 다가구 · 一栋多户</span></div>
+      <h3>你前面还排着几个租客</h3>
+      <dl class="kv">
+        <dt>为什么</dt><dd>다가구주택 整栋一个房本，别的租客的押金不写在房本上，但排在你前面</dd>
+        <dt>怎么查</dt><dd>房主有义务在签约时出示<strong>先顺位확정일자 现况·押金信息</strong>（주택임대차보호법 제3조의7）；经房主同意，你也能自己申请「확정일자 부여현황」。전입세대확인서 只能去주민센터 当面申请</dd>
+        <dt>对不上</dt><dd>房主说的和事实不符，标准合同里写了可以<strong>不付违约金解约</strong></dd>
+      </dl>
+    </article>
+
+    <h3>三、合同里要有的两条</h3>
+    <p>法务部标准合同（2023 修订）已经有，用别的合同就要求加上：</p>
+    <ol class="steps">
+      <li><b>到租客办完申报的第二天为止，房主不得设定抵押等担保权</b><p>违反的，租客可以解约并要求赔偿。——堵的就是「抢在你前面」那个套路。</p></li>
+      <li><b>发现没告知的先顺位租约或欠税，可无违约金解约</b><p>第二节 ⑥ ⑦ 查出问题时靠这条退定金。</p></li>
+    </ol>
+    <p class="law">「办不了보증보험就合同无效」是民间常建议加的特约，不是标准合同原文；加不加和房主商量。标准合同的条文原文，编者未能打开法务部 PDF 逐字核对，以上是政府政策简报的说明。</p>
+
+    <h3>四、尾款当天</h3>
+    <ol class="steps">
+      <li><b>付钱前再查一次등기부등본</b><p>700 韩元。看房主有没有变、有没有新抵押。</p></li>
+      <li><b>当天办 체류지 변경신고 + 확정일자</b><p>办法在「<a href="/zhufang#rent" data-go="rent">租房入门</a>」第三、四节。晚一天，危险就多一天。</p></li>
+    </ol>
+
+    <h3>五、보증보험（押金返还保证）：外国人这里要自己打电话</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>项目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">是什么</td><td>房主到期不退押金，由保证机构先赔给你。HUG（주택도시보증공사）· HF · SGI서울보증 三家</td></tr>
+        <tr><td style="white-space:nowrap">HUG 条件</td><td>合同期过半之前申请 · 已办申报和확정일자 · 先顺位债权不到房价 60% · 没有查封拍卖 · 房主不在禁止名单 · 保证额度 = 房价 × 90% − 先顺位债权</td></tr>
+        <tr><td style="white-space:nowrap">费用</td><td>年 0.097%～0.211%</td></tr>
+        <tr><td style="white-space:nowrap"><strong>外国人能不能办</strong></td><td><strong>未确认。</strong>HUG 官网编者打不开，没能核对。签约<strong>之前</strong>先打 HUG <a href="tel:1566-9009">1566-9009</a> 问「외국인도 전세보증금반환보증 가입 가능한가요? 필요 서류는?」</td></tr>
+        <tr><td style="white-space:nowrap">保费补助</td><td>政府·地方政府有「보증료 지원」（最多 40 万韩元），但首尔·京畿的公告都写明<strong>外国人（含外国国籍同胞）除外</strong></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>六、已经出事了</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>做什么</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>임차권등기명령</strong></td><td>合同结束拿不回押金 → 向房子所在地法院申请。<strong>登记完成后</strong>再搬走，权利才保得住。2023 年起不用等房主收到通知就能登记。</td></tr>
+        <tr><td style="white-space:nowrap">有보증보험的</td><td>合同结束 1 个月拿不到 + 办完임차권등기 → 向 HUG 请求履行 <a href="tel:1566-9009">1566-9009</a></td></tr>
+        <tr><td style="white-space:nowrap"><strong>전세사기피해자</strong><br>特别法</td><td>有效到 <strong>2027.5.31</strong>；但 <strong>2025.6.1 以后第一次签约的不适用</strong>。条件：已办申报+확정일자 · 押金 5 亿以下 · 受害租客 2 人以上 · 房主有不退押金的故意嫌疑。向房子所在地方政府（首尔 = 区厅）或 jeonse.kgeop.go.kr 申请。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>外国人</strong></td><td>国籍不是条件，外国人<strong>可以</strong>被认定为受害者。但据 2026.8 京畿道向国土部的建议及相关报道，<strong>公共租赁住房供给和住宅基金低息贷款外国人拿不到</strong>，制度尚未修改。<em>此项来自媒体报道，非国土部原文</em></td></tr>
+        <tr><td style="white-space:nowrap">电话</td><td>HUG 전세피해지원센터 <a href="tel:1533-8119">1533-8119</a> · 대한법률구조공단 <a href="tel:132">132</a>（平日）· 首尔市 <a href="tel:02-2133-1200">02-2133-1200</a> · 中文先打 다누리 <a href="tel:1577-1366">1577-1366</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">截图保存 · 签约那天对一遍</span></div>
+      <h3>一页清单</h3>
+      <dl class="kv">
+        <dt>签约前</dt><dd>□ 등기부등본：房主姓名·查封·근저당·신탁 □ 房主身份证 / 代理人委托书+印鉴 □ 中介登记·공제증서 □ 市价和押金比例 □ 다가구：先顺位押金 □ 打 1566-9009 问보증보험</dd>
+        <dt>合同</dt><dd>□ 用标准合同 □ 「申报第二天前不得抵押」 □ 「信息不符无违约金解约」 □ 拿齐 合同·확인설명서·공제증서</dd>
+        <dt>签约后</dt><dd>□ 세무서·구청 查房主欠税（押金超 1,000 万） □ 30 天内 전월세신고</dd>
+        <dt>尾款日</dt><dd>□ 再查등기부등본 □ 转到房主本人账户 □ 当天 체류지 변경신고 + 확정일자</dd>
+      </dl>
+    </article>
+
+    <div class="sources">
+      <b>出处（2026.9.21 核对）</b>
+      <ol>
+        <li>찾기쉬운 생활법령정보「전세사기 피해자 지원」（피해유형 · 예방：등기부·신탁원부 · 임대인 확인 · 공인중개사 · 보증 · 임차권등기명령 · 특별법）；「주택임대차」</li>
+        <li>대한민국 정책브리핑：미납 국세·지방세 열람（2023～2024）· 주택임대차보호법 개정（임대인 정보제시 의무·표준계약서 특약, 2023）· 전세사기피해자법 연장（2025）</li>
+        <li>서울주거포털：전세보증금반환보증 · 보증료 지원（외국인 제외 명시）· 전세사기 피해 지원；경기주거복지포털 보증료 지원</li>
+        <li>서울시 2022.8「전세가율 80%·90% 이상 지역」안내 · 정부24「전입세대확인서」</li>
+        <li>外国人受害者支援限制：아주경제 2026.8.9 · 경기신문（경기도의 국토부 건의）——二手出处</li>
+      </ol>
+    </div>
+    <p class="next">← <a href="/zhufang#rent" data-go="rent">租房入门</a> · 下一页 → <a href="/zhufang#pub" data-go="pub">公共住房：外国人能不能申请</a></p>
+  </section>
+  <section class="panel" id="h-pub" hidden>
+    <div class="today-head"><span class="eyebrow">公共住房 · 공공임대·특별공급</span><span class="today-day">整理日期 2026.9.21</span></div>
+    <h2>公共住房：外国人自己不能申请，但韩国籍配偶申请时你算家庭成员</h2>
+    <p class="note">这一页「未确认」的地方比别的页多：LH·마이홈·국토부 的官网编者这次打不开，下面的规则是从<strong>首尔市·京畿道·光州的住房福利中心官方 FAQ、청약홈 FAQ、法制处</strong>核对的。每个公告的条件都不一样，<strong>申请前一定打电话问</strong>（页尾有号码）。</p>
+
+    <h3>一、先看结论</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>你家的情况</th><th>公共租赁（LH·SH 임대주택）</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>外国人本人</strong>申请<br>F-6·F-5·F-4·D·E 都一样</td><td><strong>不能。</strong>首尔住房门户写明「외국인은 신청 할 수 없습니다」，京畿道 FAQ 同样。原因：申请人必须是주민등록표 上的「무주택세대구성원」，外国人没有住民登录。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>韩国籍配偶</strong>申请</td><td><strong>能。</strong>外国配偶算进家庭成员（家庭人数·收入·资产·有没有房，都一起查）。条件见第二节。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>已归化</strong>（入了韩国籍）</td><td>有住民登录，和韩国人一样。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>夫妻都是外国人</strong></td><td>公共租赁申请不了。能用的看第四节。</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="law">F-5 永住、F-4 同胞有没有单独的例外规定，编者没找到；官方说明一律写「外国人」不可。</p>
+
+    <h3>二、韩国籍配偶申请时，外国家人怎么算</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>谁</th><th>算进家庭成员的条件</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>外国配偶</strong></td><td>① 写在韩国配偶的<strong>가족관계등록부</strong>上（办了혼인신고）+ ② 办了<strong>外国人登录</strong>或国内居所申报。<strong>地址不在一起也算。</strong></td></tr>
+        <tr><td style="white-space:nowrap"><strong>外国籍孩子·父母</strong><br>（直系）</td><td>① 写在가족관계등록부上 + ② 办了外国人登录或居所申报 + ③ <strong>写进了申请人的주민등록표 등본，或登录证上的居留地和申请人地址相同</strong>。比配偶多一条③。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>反过来</strong></td><td>配偶是<strong>没办外国人登录的外国人</strong>，或不住在韩国的在外国民 → 韩国籍一方<strong>也申请不了</strong>（没有登录号，查不了有没有房）。</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <article class="ntc">
+      <div class="ntc-top"><span class="tag ok">建议先办 · 免费</span></div>
+      <h3>把自己写进家里的「주민등록표 등본」</h3>
+      <dl class="kv">
+        <dt>是什么</dt><dd>2018.3.20 起，外国配偶·外国直系亲属可以<strong>显示在</strong>韩国家人的住民登录表등본上</dd>
+        <dt>怎么办</dt><dd><strong>不会自动显示</strong>。本人或家里的세대원去주민센터申请。要已办外国人登录或居所申报</dd>
+        <dt>注意</dt><dd>不会因此发住民登录号·住民登录证。办完后정부24 打印的등본上就有你</dd>
+        <dt>用处</dt><dd>申请住房、孩子入学、各种补助时，一张등본就能证明「一家人住在一起」</dd>
+      </dl>
+    </article>
+    <p class="law">没写在韩国配偶가족관계등록부上的外国籍孩子（比如前一段婚姻的孩子）算不算，编者没找到官方回答 → 打 LH <a href="tel:1600-1004">1600-1004</a> 问。</p>
+
+    <h3>三、다문화가족 특별공급：多文化家庭的专门名额</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>项目</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">是什么</td><td>「기관추천 특별공급」（机关推荐特别供给）里的一类。<strong>只有국민주택</strong>（公共分양等）有，民营楼盘的机关推荐名单里没有多文化家庭</td></tr>
+        <tr><td style="white-space:nowrap">条件</td><td>多文化家庭成员 · 和配偶在<strong>同一地址住满 3 年</strong> · 公告日无房家庭成员 · 청약통장加入满 6 个月、缴满 6 次 · 一家一次</td></tr>
+        <tr><td style="white-space:nowrap">谁来申请</td><td>首尔市 2023 年的公告写明申请人要是「<strong>한국 국적자</strong>」——没归化的结婚移民不能用自己名字报，由韩国籍配偶报。<em>全国是否一样、2026 年是否不变，编者未确认</em></td></tr>
+        <tr><td style="white-space:nowrap">去哪</td><td>住址所在的<strong>동주민센터</strong>受理 → 市·区的多文化家庭部门推荐。首尔市 가족다문화담당관 <a href="tel:02-2133-8700">02-2133-8700</a></td></tr>
+        <tr><td style="white-space:nowrap">怎么知道有</td><td>不定期。首尔的公告会登在한울타리（mcfamily.or.kr）公告栏 → 本站「<a href="/jiaoyu#notice">教育 › 最新通知</a>」每周自动抓</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="law">依据：주택공급에 관한 규칙 제35조（찾기쉬운 생활법령정보「다문화가족 주택 지원」）· 서울시 2023.12 다문화가족 특별공급 안내。公共<strong>租赁</strong>对多文化家庭有没有优先或加分，编者没能确认。</p>
+
+    <h3>四、外国人自己能用的</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>制度</th><th>外国人</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong>주거급여</strong><br>住房补贴</td><td><strong>部分可以。</strong>办了外国人登录，且：和韩国人婚姻中并且本人或配偶怀孕 / 养育韩国籍未成年子女 / 和配偶的韩国籍父母一起生活；或离婚·丧偶后养育韩国籍未成年子女。2026 年收入线：中位收入 48% 以下。<em>这是基础生活保障的外国人特例；住房补贴是否完全照此适用，编者未见原文</em>，去동주민센터 或 복지로 申请。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>买民营新房</strong><br>청약</td><td>청약홈 FAQ：外国人<strong>不能</strong>报国民住宅、<strong>不能</strong>报民营住宅的特别供给。能报的是<strong>非管制地区民营住宅的一般供给</strong>、未售出房的先到先得、无顺位供给（公共住房除外）。→ 结婚移民家庭的新婚特供，由<strong>韩国籍配偶做申请人</strong>，见「<a href="/zhufang#apply" data-go="apply">청약</a>」</td></tr>
+        <tr><td style="white-space:nowrap"><strong>首尔 청년안심주택</strong></td><td>入住资格写明要「대한민국 국적」。不能。</td></tr>
+        <tr><td style="white-space:nowrap"><strong>首尔新婚夫妇<br>押金贷款利息补助</strong></td><td>条件：结婚登记 7 年内 · 夫妻合计年收入 1.3 亿以下 · 都无房 · 首尔押金 7 亿以下的房。<em>配偶是外国人时怎么算，页面没写</em> → 다산콜 <a href="tel:120">120</a></td></tr>
+        <tr><td style="white-space:nowrap"><strong>미리내집</strong><br>首尔新婚长期全租</td><td>结婚登记 7 年内 · 首尔无房家庭成员 · 夫妻都 5 年无房 · 收入·资产线。<em>外国配偶没有单独说明</em>；按第一、二节的一般规则应是韩国籍配偶申请——报名前打 SH <a href="tel:1600-3456">1600-3456</a> 确认</td></tr>
+        <tr><td style="white-space:nowrap"><strong>버팀목·디딤돌</strong><br>政策贷款</td><td><em>未确认。</em>问办理银行。</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>五、问谁</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>电话</th><th>问什么</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><a href="tel:1577-1366">1577-1366</a></td><td>다누리콜센터，<strong>中文</strong>，24 小时。先打这个，请他们帮忙三方通话</td></tr>
+        <tr><td style="white-space:nowrap"><a href="tel:1600-1004">1600-1004</a></td><td>LH·마이홈 咨询。平日 9～18 点。全国公共租赁的资格</td></tr>
+        <tr><td style="white-space:nowrap"><a href="tel:1600-3456">1600-3456</a></td><td>SH（首尔）。장기전세·미리내집·首尔的公共租赁</td></tr>
+        <tr><td style="white-space:nowrap"><a href="tel:1644-7445">1644-7445</a></td><td>청약홈。分양·특별공급 的资格</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>打电话时可以这样问：「<span lang="ko">배우자가 외국인(외국인등록 했음)인데, 한국인 배우자 명의로 신청하면 외국인 배우자도 세대원으로 인정되나요? 필요한 서류가 뭔가요?</span>」</p>
+
+    <div class="sources">
+      <b>出处（2026.9.21 核对）</b>
+      <ol>
+        <li>서울주거포털「공공임대주택」신청자격（외국인 신청 불가）· 경기주거복지포털 FAQ · 광주광역시 종합주거복지센터 FAQ（외국인 배우자·직계존비속 자격검증 대상）</li>
+        <li>청약홈（한국부동산원）FAQ：외국인의 청약 가능 범위 · 무주택세대구성원 기준</li>
+        <li>대한민국 정책브리핑（행정안전부）2018：외국인 배우자 주민등록표 등본 표기</li>
+        <li>찾기쉬운 생활법령정보「다문화가족 주택 지원」「기초생활보장 외국인 특례」· 서울시 다문화가족 특별공급 안내（2023.12, 한울타리 게시）· SH 기관추천 특별공급</li>
+        <li>서울주거포털 주거급여（2026 기준）· 서울시 청년안심주택 · 신혼부부 임차보증금 이자지원 · SH 미리내집 청약자격</li>
+      </ol>
+    </div>
+    <p class="next">← <a href="/zhufang#scam" data-go="scam">防诈骗</a> · <a href="/zhufang#apply" data-go="apply">청약规则</a> · <a href="/zhufang#cal" data-go="cal">청약日历</a></p>
+  </section>
+  <footer class="foot">住房 · 最后核对 2026 年 9 月 21 日 · 规则以各楼盘 입주자 모집공고 为准 · <a href="/guanyu#main">关于本站</a></footer>
 </div>
 <script>var PREFIX="h-";</script>
 <script>
