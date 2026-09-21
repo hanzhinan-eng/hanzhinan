@@ -363,3 +363,19 @@ html[data-lang="ko"] .tile.soon b::after{content:"준비중"}
   .lang-btn{padding:4px 8px;font-size:.74rem}
 }
 html[data-lang="ko"] .tabs button.soon::after{content:"준비중"}
+
+/* 关于 · 最近更新 */
+.upd{list-style:none;margin:12px 0 0;padding:0}
+.upd li{padding:10px 0;border-bottom:1px solid rgba(23,50,58,.1);line-height:1.7}
+.upd li:last-child{border-bottom:0}
+.upd b{display:inline-block;min-width:3.2em;color:#12A889;font-variant-numeric:tabular-nums}
+
+/* 教育 · 最新通知 (自动) */
+.nlist{list-style:none;margin:14px 0 0;padding:0}
+.nlist li{padding:14px 0;border-bottom:1px solid var(--line)}
+.nlist li:last-child{border-bottom:0}
+.nl-top{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.nl-top .tag{line-height:1.5;white-space:nowrap}
+.tag.info{padding:3px 10px;margin:0;border:0} /* .info(카드 표) 규칙이 라벨에 섞이는 것 방지 */
+.nl-t{display:block;margin:6px 0 4px;font-weight:700;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.nl-d{font-size:.85rem;color:var(--ink-2)}

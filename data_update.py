@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 공공데이터 자동 갱신 3종 — 복지서비스(补助) · 관광행사(本月活动) · 아파트 실거래(房价)
-# 실행: APPLYHOME_KEY=키 python3 data_update.py [welfare|tour|apt|all]   (--sample: 견본 데이터)
+# 실행: APPLYHOME_KEY=키 python3 data_update.py [notice|welfare|tour|apt|all]   (--sample: 견본 데이터)
 import os, sys, re, json, datetime, statistics, urllib.request, urllib.parse
 import xml.etree.ElementTree as ET
 
@@ -40,6 +40,79 @@ def codes_to_zh(v, table):   # "010,020" 같은 코드면 中文으로, 이미 �
     parts = [x.strip() for x in str(v or "").split(",") if x.strip()]
     if parts and all(x.isdigit() for x in parts): return "·".join(table.get(x, x) for x in parts)
     return "·".join(parts)
+
+# ---------------- 0. 한울타리 공지 (最新通知) — 열쇠 필요 없음 ----------------
+# 서울시가족센터 「한울타리」 게시판 2곳의 최근 글 제목·날짜·원문 링크만. 본문은 베끼지 않고, 제목은 번역하지 않음(원문 그대로).
+import html as _html
+MC = "https://mcfamily.or.kr"
+BOARDS = [("info", "서울의 정보", "首尔信息"), ("notice", "공지사항", "中心公告")]
+NOTICE_DAYS = 60; NOTICE_MAX = 12
+SKIP = ["합격자", "당첨자", "개인정보처리방침", "선정 결과", "결과 발표", "입찰", "휴관", "점검"]
+TAG_ZH = [("무료", "免费"), ("모집", "招募中"), ("다문화", "多文化"), ("결혼이민", "结婚移民"), ("외국인", "外国人"), ("초등", "小学"), ("청소년", "青少年"), ("영유아", "婴幼儿"), ("돌봄", "托管"), ("방과후", "课后"),
+          ("한국어", "韩语"), ("교육", "教育"), ("멘토링", "辅导"), ("진로", "升学·职业"), ("장학", "奖学金"), ("취업", "就业"), ("창업", "创业"), ("자격증", "证书"), ("체험", "体验"), ("공모전", "征集比赛"),
+          ("축제", "庆典"), ("한마당", "庆典"), ("상담", "咨询"), ("법률", "法律"), ("주거", "住房"), ("임대", "租赁住房"), ("의료", "医疗"), ("통번역", "翻译")]
+def mc_get(path):
+    req = urllib.request.Request(MC + path, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.read().decode("utf-8", "replace")
+def notice_parse(page, board):
+    out = []
+    for m in re.finditer(r'<a\b[^>]*href="(/posts/(?:info|notice)/(\d+))[^"]*"[^>]*>(.*?)</a>', page, re.S):
+        path, pid, body = m.group(1), m.group(2), m.group(3)
+        chunks = [_html.unescape(re.sub(r"\s+", " ", c)).strip() for c in re.split(r"<[^>]+>", body)]
+        chunks = [c for c in chunks if c]
+        d = None
+        for c in chunks:
+            d = re.search(r"(20\d\d)[-.](\d{1,2})[-.](\d{1,2})", c)
+            if d: break
+        texts = [c for c in chunks if not re.fullmatch(r"[\d\-.: ]+", c) and len(c) >= 6]
+        if not d or not texts: continue
+        try: date = datetime.date(int(d.group(1)), int(d.group(2)), int(d.group(3)))
+        except ValueError: continue
+        out.append({"id": pid, "path": path, "title": max(texts, key=len), "date": date, "board": board})
+    return out
+def notice_fetch():
+    items, ok = [], 0
+    for board, ko, zh in BOARDS:
+        for pg in (1, 2):
+            try:
+                page = mc_get(f"/posts/{board}?page={pg}")
+                got = notice_parse(page, board); ok += 1
+                print(f"notice {board} p{pg}: bytes={len(page)} parsed={len(got)}")
+                if not got:   # 구조가 바뀌었을 때 원인 찾기용
+                    i = page.find(f'href="/posts/{board}/')
+                    print("  anchors:", page.count(f'href="/posts/{board}/'), "| snippet:", page[max(0, i - 200):i + 600].replace("\n", " ") if i >= 0 else "none")
+                items += got
+            except Exception as e:
+                print("notice failed", board, pg, e)
+    if not ok or not items: return None   # 접속 실패·파싱 0건이면 기존 내용 유지 (빈 목록으로 덮지 않음)
+    seen, out = set(), []
+    for it in sorted(items, key=lambda x: x["date"], reverse=True):
+        key = re.sub(r"\W+", "", it["title"])[:40]
+        if key in seen or it["id"] in seen: continue
+        if (TODAY - it["date"]).days > NOTICE_DAYS or it["date"] > TODAY: continue
+        if any(s in it["title"] for s in SKIP): continue
+        seen.add(key); seen.add(it["id"]); out.append(it)
+    return out[:NOTICE_MAX]
+def notice_sample():
+    return [{"id": "14918", "path": "/posts/info/14918", "title": "열매나눔재단 여성가장 창업지원 「2026년 With우리 열매맘 창업지원사업」", "date": TODAY - datetime.timedelta(days=4), "board": "info"},
+            {"id": "14895", "path": "/posts/info/14895", "title": "[서울시립마포청소년센터] 초등 다문화 청소년을 위한 무료 방과후 돌봄 교실", "date": TODAY - datetime.timedelta(days=10), "board": "info"},
+            {"id": "14818", "path": "/posts/notice/14818", "title": "[한국건강가정진흥원] 다누리콜센터1577-1366 지원언어 확대 안내(아랍어, 인도네시아어)", "date": TODAY - datetime.timedelta(days=38), "board": "notice"}]
+def notice_render(items):
+    if not items: return '    <p class="note"><span class="zh">最近 60 天没有新通知。每周一自动更新。</span><span class="ko">최근 60일 안에 새 글이 없어요. 매주 월요일 자동 갱신.</span></p>\n'
+    bz = {b: (ko, zh) for b, ko, zh in BOARDS}
+    lis = []
+    for it in items:
+        tags = []
+        for k, z in TAG_ZH:
+            if k in it["title"] and z not in tags: tags.append(z)
+        new = '<span class="tag ok">新</span> ' if (TODAY - it["date"]).days <= 7 else ""
+        tagh = "".join(f'<span class="tag info">{esc(x)}</span> ' for x in tags[:4])
+        d = it["date"]; ko, zh = bz[it["board"]]
+        lis.append(f'      <li>\n        <div class="nl-top">{new}{tagh}</div>\n'
+                   f'        <a class="nl-t" href="{MC}{it["path"]}" target="_blank" rel="noopener" lang="ko">{esc(it["title"])}</a>\n'
+                   f'        <div class="nl-d">{d.year}.{d.month}.{d.day} · <span class="zh">{zh}</span><span class="ko">{ko}</span></div>\n      </li>\n')
+    return '    <ul class="nlist">\n' + "".join(lis) + '    </ul>\n'
 
 # ---------------- 1. 복지서비스 (补助) ----------------
 WELFARE_URL = "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001"
@@ -202,8 +275,13 @@ def apt_render(ym, rows):
 
 def main():
     what = next((a for a in sys.argv[1:] if not a.startswith("--")), "all")
-    if not SAMPLE and not KEY: sys.exit("APPLYHOME_KEY 없음 (테스트는 --sample)")
     changed = False
+    if what in ("notice", "all"):
+        items = notice_sample() if SAMPLE else notice_fetch()
+        if items is None: print("notice: 접속 실패 또는 0건 → 기존 내용 유지")
+        else: changed |= replace_block("jiaoyu.html", "NOTICE", notice_render(items), "notice-stamp")
+    if not SAMPLE and not KEY:
+        print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what in ("welfare", "all"):
         items = welfare_sample() if SAMPLE else welfare_fetch()
         changed |= replace_block("jiaoyu.html", "WELFARE", welfare_render(items), "welfare-stamp")
