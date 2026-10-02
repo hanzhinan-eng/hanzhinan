@@ -402,3 +402,10 @@ h2.sit-h::before{display:none}
 .ntbl .nt-sub{display:block;font-size:.8rem;color:var(--ink-2);margin-top:2px}
 .ntbl .nt-d,.ntbl .nt-l,.ntbl th:nth-child(2),.ntbl th:nth-child(3){white-space:nowrap}
 .ntbl .nt-l a{font-weight:700}
+
+/* 2026-10-02 「家长要知道的 3 件事」 박스 */
+.must{margin:16px 0 22px;padding:14px 16px;border-radius:14px;background:#FFF8E1;border:1px solid #F5D77A}
+.must-h{display:block;font-size:1rem;margin-bottom:8px}
+.must dl{margin:0}
+.must dt{font-weight:700;font-size:.9rem;margin-top:8px}
+.must dd{margin:2px 0 0;line-height:1.6;font-size:.95rem}
