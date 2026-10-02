@@ -397,3 +397,8 @@ h2.sit-h::before{display:none}
 .soon-tag{flex:none;font-size:.75rem;border:1px dashed var(--line);border-radius:999px;padding:2px 8px}
 .home-other{margin-top:28px;font-size:.9rem;color:var(--ink-2)}
 .home-other a{color:var(--ink-2)}
+/* 2026-10-02 가족센터 소식 표: 내용 | 날짜 | 원문 */
+.ntbl td{vertical-align:top;line-height:1.5;word-break:keep-all;overflow-wrap:anywhere}
+.ntbl .nt-sub{display:block;font-size:.8rem;color:var(--ink-2);margin-top:2px}
+.ntbl .nt-d,.ntbl .nt-l,.ntbl th:nth-child(2),.ntbl th:nth-child(3){white-space:nowrap}
+.ntbl .nt-l a{font-weight:700}

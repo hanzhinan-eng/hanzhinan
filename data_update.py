@@ -102,20 +102,24 @@ def notice_sample():
             {"id": "14895", "path": "/posts/info/14895", "title": "[서울시립마포청소년센터] 초등 다문화 청소년을 위한 무료 방과후 돌봄 교실", "date": TODAY - datetime.timedelta(days=10), "board": "info"},
             {"id": "14818", "path": "/posts/notice/14818", "title": "[한국건강가정진흥원] 다누리콜센터1577-1366 지원언어 확대 안내(아랍어, 인도네시아어)", "date": TODAY - datetime.timedelta(days=38), "board": "notice"}]
 def notice_render(items):
+    # 2026-10-02: 목록 → 간단한 표 (내용 | 날짜 | 원문). 제목은 원문 그대로, 앞의 [기관명]은 작은 글씨로 분리
     if not items: return '    <p class="note"><span class="zh">最近 60 天没有新通知。每周一自动更新。</span><span class="ko">최근 60일 안에 새 글이 없어요. 매주 월요일 자동 갱신.</span></p>\n'
-    bz = {b: (ko, zh) for b, ko, zh in BOARDS}
-    lis = []
+    rows = []
     for it in items:
+        t = it["title"].strip()
+        m = re.match(r"^\s*\[([^\]]{1,30})\]\s*(.+)$", t)
+        org, main = (m.group(1), m.group(2)) if m else ("", t)
         tags = []
         for k, z in TAG_ZH:
-            if k in it["title"] and z not in tags: tags.append(z)
+            if k in t and z not in tags: tags.append(z)
         new = '<span class="tag ok">新</span> ' if (TODAY - it["date"]).days <= 7 else ""
-        tagh = "".join(f'<span class="tag info">{esc(x)}</span> ' for x in tags[:4])
-        d = it["date"]; ko, zh = bz[it["board"]]
-        lis.append(f'      <li>\n        <div class="nl-top">{new}{tagh}</div>\n'
-                   f'        <a class="nl-t" href="{MC}{it["path"]}" target="_blank" rel="noopener" lang="ko">{esc(it["title"])}</a>\n'
-                   f'        <div class="nl-d">{d.year}.{d.month}.{d.day} · <span class="zh">{zh}</span><span class="ko">{ko}</span></div>\n      </li>\n')
-    return '    <ul class="nlist">\n' + "".join(lis) + '    </ul>\n'
+        sub = " · ".join(x for x in [esc(org), " · ".join(tags[:3])] if x)
+        d = it["date"]
+        rows.append(f'        <tr><td>{new}<span lang="ko">{esc(main)}</span>' + (f'<small class="nt-sub">{sub}</small>' if sub else "") +
+                    f'</td><td class="nt-d">{d.month}.{d.day}</td><td class="nt-l"><a href="{MC}{it["path"]}" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>\n')
+    return ('    <div class="tbl ntbl">\n    <table>\n      <thead><tr><th><span class="zh">内容（韩文原标题）</span><span class="ko">내용</span></th>'
+            '<th><span class="zh">发布</span><span class="ko">게시</span></th><th><span class="zh">原文</span><span class="ko">원문</span></th></tr></thead>\n      <tbody>\n'
+            + "".join(rows) + '      </tbody>\n    </table>\n    </div>\n')
 
 # ---------------- 1. 복지서비스 (补助) ----------------
 WELFARE_URL = "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001"
