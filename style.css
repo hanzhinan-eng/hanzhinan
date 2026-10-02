@@ -409,3 +409,4 @@ h2.sit-h::before{display:none}
 .must dl{margin:0}
 .must dt{font-weight:700;font-size:.9rem;margin-top:8px}
 .must dd{margin:2px 0 0;line-height:1.6;font-size:.95rem}
+.ntbl tr.pick td{background:#FFF8E1}

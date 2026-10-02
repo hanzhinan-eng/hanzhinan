@@ -96,7 +96,7 @@ def notice_fetch():
         if (TODAY - it["date"]).days > NOTICE_DAYS or it["date"] > TODAY: continue
         if any(s in it["title"] for s in SKIP): continue
         seen.add(key); seen.add(it["id"]); out.append(it)
-    return out[:NOTICE_MAX]
+    return out   # 2026-10-02: 게시판별로 나눠서 main에서 각각 NOTICE_MAX개씩
 def notice_sample():
     return [{"id": "14918", "path": "/posts/info/14918", "title": "열매나눔재단 여성가장 창업지원 「2026년 With우리 열매맘 창업지원사업」", "date": TODAY - datetime.timedelta(days=4), "board": "info"},
             {"id": "14895", "path": "/posts/info/14895", "title": "[서울시립마포청소년센터] 초등 다문화 청소년을 위한 무료 방과후 돌봄 교실", "date": TODAY - datetime.timedelta(days=10), "board": "info"},
@@ -304,7 +304,11 @@ def main():
     if what in ("notice", "all"):
         items = notice_sample() if SAMPLE else notice_fetch()
         if items is None: print("notice: 접속 실패 또는 0건 → 기존 내용 유지")
-        else: changed |= replace_block("butie.html", "NOTICE", notice_render(items), "notice-stamp")
+        else:   # 2026-10-02: 한울타리처럼 나눔 — 서울의 정보(info) / 공지사항(notice)
+            info = [x for x in items if x["board"] == "info"][:NOTICE_MAX]
+            note = [x for x in items if x["board"] == "notice"][:NOTICE_MAX]
+            changed |= replace_block("butie.html", "INFO", notice_render(info), "info-stamp")
+            changed |= replace_block("butie.html", "NOTICE", notice_render(note), "notice-stamp")
     if not SAMPLE and not KEY:
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what == "welfare":   # 2026-10-02 정부지원 항목 폐지 → 자동 실행(all)에서 제외
