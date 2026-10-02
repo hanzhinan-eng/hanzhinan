@@ -39,7 +39,7 @@
     p.innerHTML=(level==='part'
       ? '이 페이지는 제목과 안내만 한국어예요. 본문은 아직 중국어만 있어요.'
       : '이 페이지는 아직 중국어만 있어요. 한국어 안내가 있는 곳: ')
-      + (level==='part' ? '' : '<a href="/">홈</a> · <a href="/guanyu">이 사이트에 대해</a> · <a href="/jiaoyu#notice">정부 지원</a> · <a href="/hsk">중국어 HSK</a> · <a href="/yingyu">초등 영단어</a>');
+      + (level==='part' ? '' : '<a href="/">홈</a> · <a href="/guanyu">이 사이트에 대해</a> · <a href="/butie">정부 지원</a> · <a href="/hsk">중국어 HSK</a> · <a href="/yingyu">초등 영단어</a>');
     var first=site.querySelector('.crumb, h1, .home-hero') || site.firstElementChild;
     site.insertBefore(p, first);
   }

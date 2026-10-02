@@ -390,3 +390,10 @@ h2.sit-h::before{display:none}
 .sit a:hover{background:var(--accent-soft)}
 .sit-t b{display:block;font-size:1rem}
 .sit-t small{display:block;color:var(--ink-2);font-size:.85rem;margin-top:2px}
+
+/* 2026-10-02 개편: 아직 없는 항목(筹备中) 줄 — 링크 아님 */
+.sit-soon{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-top:1px solid var(--line);color:var(--ink-2)}
+.sit-soon .sit-t b{color:var(--ink-2)}
+.soon-tag{flex:none;font-size:.75rem;border:1px dashed var(--line);border-radius:999px;padding:2px 8px}
+.home-other{margin-top:28px;font-size:.9rem;color:var(--ink-2)}
+.home-other a{color:var(--ink-2)}

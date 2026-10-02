@@ -122,13 +122,19 @@ WELFARE_URL = "https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/N
 THEME_ZH = {"010": "身体健康", "020": "心理健康", "030": "生活支援", "040": "住房", "050": "工作", "060": "文化·休闲", "070": "安全·危机", "080": "怀孕·生育", "090": "托育", "100": "教育", "110": "收养·寄养", "120": "保护·照护", "130": "平民金融", "140": "法律"}
 LIFE_ZH = {"001": "婴幼儿", "002": "儿童", "003": "青少年", "004": "青年", "005": "中壮年", "006": "老年", "007": "怀孕·生育"}
 TARGET_ZH = {"010": "多文化·脱北民", "020": "多子女", "030": "报勋对象", "040": "残疾人", "050": "低收入", "060": "单亲·祖孙"}
-QUERIES = [  # 우리 독자에게 맞는 조건만
+QUERIES = [  # 우리 독자 = 한국에서 아이 키우는 중국인 엄마 (2026-10-02 개편: 주거 전체 → 임신·영유아로 교체)
     {"trgterIndvdlArray": "010"},                     # 다문화
     {"trgterIndvdlArray": "020"},                     # 다자녀
-    {"intrsThemaArray": "100", "lifeArray": "002"},   # 교육 × 아동
-    {"intrsThemaArray": "040"},                       # 주거
+    {"intrsThemaArray": "080"},                       # 임신·출산
+    {"lifeArray": "001"},                             # 영유아
     {"intrsThemaArray": "090"},                       # 보육
+    {"intrsThemaArray": "100", "lifeArray": "002"},   # 교육 × 아동
 ]
+# 아이 키우는 가정과 관계없는 것 거르기. 단, 제목에 「다문화」가 있으면 남김 (예: 다문화·탈북학생 멘토링)
+EXCLUDE = ["북한이탈", "탈북", "영농", "개발제한", "보육교직원", "특수학", "장애학생", "지방세", "고효율가전", "노후공공임대", "성폭력"]
+def welfare_keep(it):
+    t = it.get("servNm", "")
+    return "다문화" in t or not any(k in t for k in EXCLUDE)
 def welfare_fetch():
     seen, out = set(), []
     for q in QUERIES:
@@ -138,7 +144,7 @@ def welfare_fetch():
         except Exception as e: print("welfare query failed", q, e); continue
         for it in items:
             sid = it.get("servId")
-            if not sid or sid in seen: continue
+            if not sid or sid in seen or not welfare_keep(it): continue
             seen.add(sid); out.append(it)
     out.sort(key=lambda x: first(x, "lastModYmd", "inqNum"), reverse=True)
     return out[:24]
@@ -295,12 +301,12 @@ def main():
     if what in ("notice", "all"):
         items = notice_sample() if SAMPLE else notice_fetch()
         if items is None: print("notice: 접속 실패 또는 0건 → 기존 내용 유지")
-        else: changed |= replace_block("jiaoyu.html", "NOTICE", notice_render(items), "notice-stamp")
+        else: changed |= replace_block("butie.html", "NOTICE", notice_render(items), "notice-stamp")
     if not SAMPLE and not KEY:
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what in ("welfare", "all"):
         items = welfare_sample() if SAMPLE else welfare_fetch()
-        if items: changed |= replace_block("jiaoyu.html", "WELFARE", welfare_render(items), "welfare-stamp")
+        if items: changed |= replace_block("butie.html", "WELFARE", welfare_render(items), "welfare-stamp")
         else: print("welfare: 0건 → 기존 내용 유지")
     if what in ("tour", "all"):
         items = tour_sample() if SAMPLE else tour_fetch()
@@ -316,7 +322,7 @@ def main():
         sm = os.path.join(HERE, "sitemap.xml")
         if os.path.exists(sm):
             t = open(sm, encoding="utf-8").read()
-            t = re.sub(r"(<loc>https://hanzhinan.com/(jiaoyu|lvyou|zhufang)</loc><lastmod>)[0-9-]+", lambda m: m.group(1) + TODAY.isoformat(), t)
+            t = re.sub(r"(<loc>https://hanzhinan.com/(butie|lvyou|zhufang)</loc><lastmod>)[0-9-]+", lambda m: m.group(1) + TODAY.isoformat(), t)
             open(sm, "w", encoding="utf-8").write(t)
 
 if __name__ == "__main__":
