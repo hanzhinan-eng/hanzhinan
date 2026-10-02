@@ -308,7 +308,7 @@ def main():
         else: changed |= replace_block("butie.html", "NOTICE", notice_render(items), "notice-stamp")
     if not SAMPLE and not KEY:
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
-    if what in ("welfare", "all"):
+    if what == "welfare":   # 2026-10-02 정부지원 항목 폐지 → 자동 실행(all)에서 제외
         items = welfare_sample() if SAMPLE else welfare_fetch()
         if items: changed |= replace_block("butie.html", "WELFARE", welfare_render(items), "welfare-stamp")
         else: print("welfare: 0건 → 기존 내용 유지")
