@@ -417,3 +417,23 @@ h2.sit-h::before{display:none}
 .evf-row button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 14px;font:inherit;font-size:.92rem;cursor:pointer}
 .evf-row button.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .evf-none{color:var(--ink-2)}
+
+/* 2026-10-06 导游证备考 每周计划 */
+.tgp-top{display:flex;align-items:center;gap:10px;margin:8px 0 14px}
+.tgp-bar{flex:1;height:10px;border-radius:999px;background:var(--accent-soft);overflow:hidden}
+.tgp-bar i{display:block;height:100%;background:var(--accent);border-radius:999px;transition:width .3s}
+.tgp-top span{font-size:.85rem;color:var(--ink-2);white-space:nowrap}
+.tgp-lbl{margin:6px 0;font-weight:700;color:var(--accent)}
+.tgp-filter{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 10px}
+.tgp-filter button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.tgp-filter button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.tgp-w{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.tgp-w.cur{border:2px solid var(--accent)}
+.tgp-w.done{opacity:.6}
+.tgp-wh{display:flex;gap:10px;align-items:baseline;font-size:.85rem;color:var(--ink-2)}
+.tgp-wh b{color:var(--ink);font-size:.95rem}
+.tgp-wh em{margin-left:auto;font-style:normal;font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+.tgp-t{margin:6px 0 8px;font-weight:600}
+.tgp-w label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px dashed var(--line);cursor:pointer}
+.tgp-w input{width:20px;height:20px;margin:1px 0 0;flex:none;accent-color:var(--accent)}
+.tgp-w input:checked+span{text-decoration:line-through;color:var(--ink-2)}
