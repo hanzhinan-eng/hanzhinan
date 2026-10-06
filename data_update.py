@@ -54,7 +54,9 @@ def codes_to_zh(v, table):   # "010,020" 같은 코드면 中文으로, 이미 �
 import html as _html
 MC = "https://mcfamily.or.kr"
 BOARDS = [("info", "서울의 정보", "首尔信息"), ("notice", "공지사항", "中心公告")]
-NOTICE_DAYS = 60; NOTICE_MAX = 12
+NOTICE_DAYS = 180; NOTICE_MAX = 15
+# 2026-10-06: 중국 관련만 (月亮妈妈). 제목 기준
+CN_KEEP = re.compile(r"중국|중국어|중문|中文|화교|이중언어|통번역|통역|번역")
 SKIP = ["합격자", "당첨자", "개인정보처리방침", "선정 결과", "결과 발표", "입찰", "휴관", "점검"]
 TAG_ZH = [("무료", "免费"), ("모집", "招募中"), ("다문화", "多文化"), ("결혼이민", "结婚移民"), ("외국인", "外国人"), ("초등", "小学"), ("청소년", "青少年"), ("영유아", "婴幼儿"), ("돌봄", "托管"), ("방과후", "课后"),
           ("한국어", "韩语"), ("교육", "教育"), ("멘토링", "辅导"), ("진로", "升学·职业"), ("장학", "奖学金"), ("취업", "就业"), ("창업", "创业"), ("자격증", "证书"), ("체험", "体验"), ("공모전", "征集比赛"),
@@ -77,7 +79,7 @@ def notice_parse(page, board):
 def notice_fetch():
     items, ok = [], 0
     for board, ko, zh in BOARDS:
-        for pg in (1, 2):
+        for pg in (1, 2, 3, 4, 5):
             try:
                 page = mc_get(f"/posts/{board}?page={pg}")
                 got = notice_parse(page, board); ok += 1
@@ -104,7 +106,7 @@ def notice_sample():
 def notice_render(items):
     # 2026-10-02: 목록 → 간단한 표 (내용 | 날짜 | 원문). 제목은 원문 그대로, 앞의 [기관명]은 작은 글씨로 분리
     # 2026-10-02: 표 하나로 통일 — ⭐추천 행(손으로 관리)은 표 위쪽 고정, 여기서는 자동 행(<tr>)만 만든다
-    if not items: return '        <tr><td colspan="3"><span class="zh">最近 60 天没有新帖子。每周一自动更新。</span><span class="ko">최근 60일 새 글 없음. 매주 월요일 자동 갱신.</span></td></tr>\n'
+    if not items: return '        <tr><td colspan="3"><span class="zh">最近半年没有和中国·中文相关的帖子。每周一自动更新。</span><span class="ko">최근 6개월 중국 관련 글 없음. 매주 월요일 자동 갱신.</span></td></tr>\n'
     rows = []
     for it in items:
         t = it["title"].strip()
@@ -352,6 +354,8 @@ def main():
         items = notice_sample() if SAMPLE else notice_fetch()
         if items is None: print("notice: 접속 실패 또는 0건 → 기존 내용 유지")
         else:   # 2026-10-02: 한울타리처럼 나눔 — 서울의 정보(info) / 공지사항(notice)
+            items = [x for x in items if CN_KEEP.search(x["title"])]
+            print("notice cn-related", len(items))
             info = [x for x in items if x["board"] == "info"][:NOTICE_MAX]
             note = [x for x in items if x["board"] == "notice"][:NOTICE_MAX]
             changed |= replace_block("butie.html", "INFO", notice_render(info), "info-stamp")

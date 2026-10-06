@@ -58,6 +58,7 @@
       <li><a class="on" href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
       <li><a href="/mama" data-site="mama" data-ko="자격증">资格证</a></li>
       <li><a href="/gongzuo" data-site="work" data-ko="일자리">找工作</a></li>
+      <li><a href="/lvyou" data-site="travel" data-ko="여행">旅游</a></li>
       <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
     <button class="lang-btn" id="lang-btn" type="button">한국어</button>
@@ -68,13 +69,14 @@
       <button role="tab" class="on" data-tab="apply">청약·新房</button>
       <button role="tab" data-tab="cal">청약日历</button>
       <button role="tab" data-tab="price">房价</button>
+      <button role="tab" data-tab="tax" data-ko="세금">税金</button>
     </div>
   </div>
 </nav>
 
 <div class="wrap site" id="site-house">
   <div class="crumb">首页 › 住房</div>
-  <h1>在韩国安家：청약、청약日历、房价</h1>
+  <h1>在韩国安家：청약、청약日历、房价、税金</h1>
   <p class="kicker">先从最多人问的开始：<strong>结婚移民家庭能不能申请新房청약？能。</strong>编者确认过结婚移民家庭通过「新婚夫妇特别供给」中签的实际案例。下面把规则、外国人怎么算、要准备什么材料写清楚。</p>
 
   <section class="panel" id="h-apply">
@@ -312,9 +314,84 @@
     </div>
 <!-- APT:END -->
     <p class="law">来源：국토교통부 실거래가 공개시스템（公共数据门户 API）。中位数 = 把当月所有成交按价格排队，正中间那一套。套数少的区（几十套以下）波动大，看趋势别看单月。</p>
-    <p class="next">← <a href="/zhufang#apply">청약规则</a> · <a href="/zhufang#cal">청약日历</a></p>
+    <p class="next">下一页 → <a href="/zhufang#tax" data-go="tax">买房·持有要交哪些税</a></p>
   </section>
-  <footer class="foot">住房 · 最后核对 2026 年 9 月 21 日 · 规则以各楼盘 입주자 모집공고 为准 · <a href="/guanyu#main">关于本站</a></footer>
+  <section class="panel" id="h-tax" hidden>
+    <div class="today-head"><span class="eyebrow">税金 · 买房和持有</span><span class="today-day">整理日期 2026.10.6</span></div>
+    <h2>买房、换房、持有：要交哪些税，什么时候交</h2>
+    <p class="note">按「夫妻名下一套房，在首尔换房」的情况整理。税率以 <a href="https://www.wetax.go.kr" target="_blank" rel="noopener">위택스</a>·<a href="https://www.hometax.go.kr" target="_blank" rel="noopener">홈택스</a> 和法令原文为准；本站不替你算具体金额，用文末的官方计算器。<strong>还没在国会通过的修改案不写。</strong>税法每年可能调整，本页每年核对一次。</p>
+
+    <h3>一、一年里什么时候交什么</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>时间</th><th>税</th><th>谁交</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">买房后 60 天内</td><td>取得税 취득세</td><td>买方，自己申报</td></tr>
+        <tr><td style="white-space:nowrap"><strong>6 月 1 日</strong></td><td>（基准日）</td><td>这一天房子在谁名下，当年的财产税·综合不动产税就由谁交</td></tr>
+        <tr><td style="white-space:nowrap">7 月 · 9 月</td><td>财产税 재산세</td><td>房主，区厅寄缴费单</td></tr>
+        <tr><td style="white-space:nowrap">9 月 16–30 日</td><td>综合不动产税「一户一套特例」申请</td><td>夫妻共同名义、需要时才申请</td></tr>
+        <tr><td style="white-space:nowrap">12 月 1–15 日</td><td>综合不动产税 종부세</td><td>公示价超过扣除额的房主</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">换房时的小提醒：<strong>交尾款（잔금）定在 6 月 1 日之前还是之后，决定当年财产税由买方还是卖方交。</strong>6 月 1 日当天或之前过户 → 买方交；6 月 2 日以后 → 卖方交。</p>
+
+    <h3>二、买的时候：取得税（취득세）</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>成交价</th><th>一套房（含换房时的「暂时两套」）</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">6 亿以下</td><td><strong>1%</strong></td></tr>
+        <tr><td style="white-space:nowrap">6 亿～9 亿</td><td><strong>1～3%</strong>，价格越高税率越高：税率(%) = 成交价(亿) × 2/3 − 3。例：7.5 亿 → 2%</td></tr>
+        <tr><td style="white-space:nowrap">9 亿以上</td><td><strong>3%</strong></td></tr>
+        <tr><td style="white-space:nowrap">另外加</td><td>地方教育税（约为取得税的十分之一）；专用面积超过 <strong>85㎡</strong> 再加农特税 0.2%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <ul class="checks">
+      <li><b>期限</b>：取得日（交尾款或登记，较早的那天）起 <strong>60 天内</strong>申报缴纳，<a href="https://www.wetax.go.kr" target="_blank" rel="noopener">위택스</a> 网上可以办。晚了有加算税。</li>
+      <li><b>首尔全区是「调整对象地区」</b>（2025.10.15 对策）。在这里买第二套房，取得税是 <strong>8%</strong>。</li>
+      <li><b>换房不算第二套</b>：买了新房、旧房还没卖，属于「暂时两套（일시적 2주택）」——<strong>新房取得日起 3 年内卖掉旧房</strong>，就按一套房的 1～3% 交。3 年内没卖掉，会追征差额。</li>
+    </ul>
+
+    <h3>三、卖旧房：转让所得税（양도세）——换房免税三条件</h3>
+    <ol class="steps">
+      <li><b>旧房买了满 1 年以后，才买新房</b></li>
+      <li><b>旧房持有满 2 年</b><p>旧房当初是在调整对象地区买的，还要<strong>实际住满 2 年</strong>。</p></li>
+      <li><b>新房取得日起 3 年内卖掉旧房</b><p>3 年从新房的取得日（交尾款·登记）算，不是从签合同那天算。晚一天也不行。</p></li>
+    </ol>
+    <p>三条都满足：旧房卖价 <strong>12 亿以下全部免税</strong>，超过 12 亿的部分才算税。</p>
+
+    <h3>四、每年：财产税（재산세）</h3>
+    <ul class="checks">
+      <li><b>分两次</b>：住宅的财产税 7 月交一半、9 月交一半（金额 20 万韩元以下的，7 月一次交完）。</li>
+      <li><b>一户一套、公示价 9 亿以下</b>：适用较低的特例税率（0.05～0.35%）。这个特例<strong>目前到 2026 年为止</strong>，之后是否延长未定。</li>
+      <li>按<strong>公示价格</strong>算，不是按成交价。自己房子的公示价在 <a href="https://www.realtyprice.kr" target="_blank" rel="noopener">부동산 공시가격 알리미</a> 查。</li>
+    </ul>
+
+    <h3>五、12 月：综合不动产税（종부세）——夫妻共同名义要看这里</h3>
+    <div class="tbl">
+    <table>
+      <thead><tr><th>名义</th><th>扣除额（公示价）</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap">一个人名下一套</td><td><strong>12 亿</strong></td><td>满 60 岁起有高龄扣除，持有满 5 年起有长期持有扣除</td></tr>
+        <tr><td style="white-space:nowrap">夫妻共同名义（默认）</td><td><strong>每人 9 亿，合计 18 亿</strong></td><td>不用申请</td></tr>
+        <tr><td style="white-space:nowrap">夫妻共同名义 + 申请特例</td><td><strong>12 亿</strong> + 高龄·长期持有扣除</td><td>每年 9 月 16–30 日申请；申请过、情况没变的，以后不用再申请</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note"><strong>四十多岁的夫妻</strong>：高龄扣除（满 60 岁起）还用不上，所以一般<strong>保持「每人 9 亿、合计 18 亿」更有利</strong>，不用申请特例。持有很久、或公示价接近 18 亿以上时，用国税厅计算器两种都算一下再决定。公示价在扣除额以下的，根本不用交综合不动产税。</p>
+
+    <h3>六、官方计算器和查询</h3>
+    <ul class="checks">
+      <li><a href="https://www.wetax.go.kr" target="_blank" rel="noopener">위택스</a>：取得税申报、财产税查询·缴纳（地方税）</li>
+      <li><a href="https://www.hometax.go.kr" target="_blank" rel="noopener">홈택스</a>：转让所得税、综合不动产税的模拟计算和申报（国税）</li>
+      <li><a href="https://www.realtyprice.kr" target="_blank" rel="noopener">부동산 공시가격 알리미</a>：查自己房子的公示价格</li>
+    </ul>
+    <p class="law">依据：지방세법（취득세·재산세）、종합부동산세법、소득세법（1세대 1주택 비과세）、2025.10.15 주택시장 안정화 대책。本页按 2026 年 10 月公开的法令解说整理，个别情况（继承、赠与、分期付款房、入住权等）不适用，以税务机关答复为准。</p>
+    <p class="next">← <a href="/zhufang#price">房价</a> · <a href="/zhufang#apply">청약规则</a></p>
+  </section>
+  <footer class="foot">住房 · 最后核对 2026 年 10 月 6 日 · 规则以各楼盘 입주자 모집공고 为准 · <a href="/guanyu#main">关于本站</a></footer>
 </div>
 <script>var PREFIX="h-";</script>
 <script>
