@@ -2,7 +2,7 @@
 # 한울타리(서울시가족센터) 구인공고 → 中国·中文 관련만 골라 gongzuo.html 「招聘」 탭에 카드로
 # 실행: python3 jobs_update.py            (--sample: 견본 데이터, 네트워크 없음)
 # 표준 라이브러리만. 본문은 베끼지 않고 제목·기관·조건 요약·원문 링크만.
-import os, sys, re, json, time, html, datetime, urllib.request
+import os, sys, re, json, time, html, datetime, urllib.request, urllib.parse
 
 KST = datetime.timezone(datetime.timedelta(hours=9))
 TODAY = datetime.datetime.now(KST).date()
@@ -131,47 +131,56 @@ DANURI = "https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6"
 NAT_KEEP = re.compile(r"중국|중문|통번역|번역|통역|이중언어")
 NAT_SKIP = re.compile(r"결과|합격|발표|면접전형|서류전형|취소|연기")
 REGION = re.compile(r"(서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)[^<]{0,4}?\s*[가-힣]{1,5}(?:구|군|시)")
-def danuri_fetch(pages=4):
-    out, seen = [], set()
-    for p in range(1, pages + 1):
-        url = f"{DANURI}/list.do?cpage={p}&rows=10"
-        try:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko"})
-            with urllib.request.urlopen(req, timeout=60) as r: page = r.read().decode("utf-8", "replace")
-        except Exception as e:
-            print("danuri failed", p, e); break
-        hits = list(re.finditer(r'article_seq=(\d+)[^>]*>(.*?)</a>', page, re.S))
-        print(f"danuri p{p}: bytes={len(page)} anchors={len(hits)}")
-        if p == 1 and hits:
-            i = hits[0].start(); print("  danuri sample:", re.sub(r"\s+", " ", page[max(0, i - 300):i + 700]))
-        for m in hits:
-            sid = m.group(1)
-            title = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(2)))).strip()
-            if sid in seen or len(title) < 4: continue
-            seen.add(sid)
-            win = page[m.end():m.end() + 900]
-            dm = re.search(r"(20\d\d)[-.](\d{1,2})[-.](\d{1,2})", win)
-            rm = REGION.search(re.sub(r"<[^>]+>", " ", win))
-            out.append({"id": sid, "title": title, "date": f"{dm.group(1)}-{int(dm.group(2)):02d}-{int(dm.group(3)):02d}" if dm else "", "region": rm.group(0).strip() if rm else ""})
-        time.sleep(0.5)
-    keep = []
-    for it in out:
-        if not NAT_KEEP.search(it["title"]) or NAT_SKIP.search(it["title"]): continue
-        if it["date"] and it["date"] < (TODAY - datetime.timedelta(days=45)).isoformat(): continue
-        keep.append(it)
-    print("danuri listed", len(out), "kept", len(keep))
-    return out, keep[:30]
+def danuri_parse(page):
+    # 10-06 실제 구조 확인: <dl><dt><div><span>[ 지역 ]</span></div><a href="view.do?article_seq=N…"><span>제목</span></a></dt>
+    #                       <dd><ul><li>채용기간</li><li>시작 ~ 마감</li><li>접수|예정|완료</li></ul></dd></dl>
+    out = []
+    for chunk in re.split(r"<dl[\s>]", page)[1:]:
+        chunk = chunk.split("</dl>")[0]
+        m = re.search(r"article_seq=(\d+)[^>]*>(.*?)</a>", chunk, re.S)
+        if not m or "채용기간" not in chunk: continue
+        txt = lambda h: html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h))).strip()
+        rg = re.search(r"\[\s*([^\]<]{2,20}?)\s*\]", txt(chunk[:m.start()]))
+        ds = re.findall(r"(20\d\d)-(\d\d)-(\d\d)", chunk[m.end():])
+        st = re.search(r"(접수|예정|완료)", txt(chunk[m.end():]).replace("채용기간", ""))
+        out.append({"id": m.group(1), "title": txt(m.group(2)), "region": rg.group(1) if rg else "",
+                    "start": "-".join(ds[0]) if ds else "", "end": "-".join(ds[1]) if len(ds) > 1 else "",
+                    "status": st.group(1) if st else ""})
+    return out
+DANURI_QUERIES = [("중국", ""), ("이중언어", "TITLE"), ("통번역", "TITLE"), ("번역", "TITLE")]   # (검색어, ""=제목+내용 / TITLE=제목)
+def danuri_fetch():
+    seen, keep, listed = set(), [], 0
+    for kw, cond in DANURI_QUERIES:
+        for stat in ("02", "01"):   # 02 접수 · 01 예정
+            url = f"{DANURI}/list.do?cpage=1&rows=50&condition={cond}&keyword={urllib.parse.quote(kw)}&search_recruit_stat={stat}"
+            try:
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko"})
+                with urllib.request.urlopen(req, timeout=60) as r: page = r.read().decode("utf-8", "replace")
+            except Exception as e:
+                print("danuri failed", kw, stat, e); continue
+            items = danuri_parse(page); listed += len(items)
+            print(f"danuri {kw}/{cond or 'ALL'}/{stat}: bytes={len(page)} items={len(items)}")
+            for it in items:
+                if it["id"] in seen or NAT_SKIP.search(it["title"]): continue
+                if it["end"] and it["end"] < TODAY.isoformat(): continue
+                seen.add(it["id"]); it["cn"] = (kw == "중국"); keep.append(it)
+            time.sleep(0.5)
+    keep.sort(key=lambda x: x["end"] or "9999")
+    print("danuri listed", listed, "kept", len(keep))
+    return listed, keep[:30]
 def nat_render(items):
-    if not items: return '        <tr><td colspan="3"><span class="zh">这周没有标题里写中国·中文·通翻译的岗位。</span><span class="ko">이번 주 해당 공고 없음.</span></td></tr>\n'
+    if not items: return '        <tr><td colspan="3"><span class="zh">这周没有正在招聘的中文·通翻译·双语岗位。</span><span class="ko">이번 주 접수 중인 해당 공고 없음.</span></td></tr>\n'
     rows = []
     for it in items:
-        d = it["date"]; ds = f"{int(d[5:7])}.{int(d[8:10])}" if d else ""
+        e = it["end"]; ds = f"{int(e[5:7])}.{int(e[8:10])}" if e and e < "2100" else '<span class="zh">长期</span><span class="ko">상시</span>'
+        tag = '<span class="tag ok" data-ko="중국어">中文</span> ' if it.get("cn") else ""
+        stt = '<span class="tag info" data-ko="예정">即将开始</span> ' if it.get("status") == "예정" else ""
         sub = f'<small class="nt-sub">{esc(it["region"])}</small>' if it["region"] else ""
-        rows.append(f'        <tr><td><span lang="ko">{esc(it["title"])}</span>{sub}</td><td class="nt-d">{ds}</td><td class="nt-l"><a href="{DANURI}/view.do?article_seq={it["id"]}" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>\n')
+        rows.append(f'        <tr><td>{tag}{stt}<span lang="ko">{esc(it["title"])}</span>{sub}</td><td class="nt-d"><span class="zh">截止</span><span class="ko">마감</span> {ds}</td><td class="nt-l"><a href="{DANURI}/view.do?article_seq={it["id"]}" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>\n')
     return "".join(rows)
 def nat_update():
     if SAMPLE:
-        keep = [{"id": "169574", "title": "동래구가족센터 통번역지원사 모집 채용 공고", "date": "2026-10-18", "region": "부산 동래구"}]; listed = keep
+        keep = [{"id": "169574", "title": "동래구가족센터 통번역지원사 모집 채용 공고", "start": "2026-10-02", "end": "2026-10-18", "region": "부산 동래구", "status": "접수", "cn": True}]; listed = 1
     else:
         listed, keep = danuri_fetch()
     if not listed: print("danuri: 0건 → 기존 내용 유지"); return False
