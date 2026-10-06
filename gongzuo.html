@@ -53,29 +53,29 @@
       <span class="brand-text"><span class="brand-row"><b class="c1">韩</b><b class="c2">国</b><b class="c3">生</b><b class="c4">活</b><b class="c5">指</b><b class="c6">南</b></span><small data-ko="KOREA LIFE GUIDE · 中文·한국어">KOREA LIFE GUIDE · 中文</small></span>
     </a>
     <ul class="menu">
-      <li><a href="/butie" data-site="aid" data-ko="가족센터">家庭中心</a></li>
+      <li><a href="/butie" data-site="aid" data-ko="정보">信息</a></li>
       <li><a href="/jiaoyu" data-site="school" data-ko="학교">上学</a></li>
       <li><a href="/zhufang" data-site="house" data-ko="주거">住房</a></li>
-      <li><a class="on" href="/mama" data-site="mama" data-ko="엄마 본인">妈妈自己</a></li>
+      <li><a href="/mama" data-site="mama" data-ko="자격증">资格证</a></li>
+      <li><a class="on" href="/gongzuo" data-site="work" data-ko="일자리">找工作</a></li>
       <li class="about-li"><a href="/guanyu" data-site="about" data-ko="소개">关于</a></li>
     </ul>
     <button class="lang-btn" id="lang-btn" type="button">한국어</button>
   </div>
   <div class="subnav" data-for="work">
-    <div class="tabs" role="tablist" aria-label="工作·签证 · 分类">
-      <span class="sub-label" data-ko="취업·비자">工作·签证</span>
-      <button role="tab" class="on" data-tab="jobs" data-ko="채용">招聘</button>
-      <button role="tab" class="soon" disabled data-tab="visa" data-ko="비자">签证</button>
-      <button role="tab" class="soon" disabled data-tab="part" data-ko="시간제취업">留学生打工</button>
+    <div class="tabs" role="tablist" aria-label="找工作 · 分类">
+      <span class="sub-label" data-ko="일자리">找工作</span>
+      <button role="tab" class="on" data-tab="jobs" data-ko="서울">首尔</button>
+      <button role="tab" data-tab="nat" data-ko="전국">全国</button>
     </div>
   </div>
 </nav>
 
 <div class="wrap site" id="site-work">
-  <div class="crumb"><span class="zh"><a href="/mama">妈妈自己</a> › 找工作</span><span class="ko"><a href="/mama">엄마 본인</a> › 일자리</span></div>
-  <h1 class="zh">在韩国找工作：先看官方渠道里给中国人的岗位</h1><h1 class="ko">한국에서 일자리 찾기: 공식 채널의 중국인 대상 공고부터</h1>
-  <p class="kicker zh">首尔市家庭中心（서울시가족센터）运营的多文化门户「한울타리」有一个面向结婚移民·移民的<strong>招聘板</strong>，企业通过家庭中心发布，登记时写明「出身国」和「语言」。本站每周一自动把其中<strong>指定中国人·中文</strong>的、和<strong>不限国籍</strong>的岗位挑出来，只列条件摘要和原文链接，报名请到原文。</p>
-  <p class="kicker ko">서울시가족센터가 운영하는 다문화 포털 「한울타리」의 채용공고 중 출신국·언어가 중국·중국어이거나 국적 무관인 것만 매주 월요일 자동으로 골라 보여줘요. 조건 요약과 원문 링크만 있고, 지원은 원문에서. 중국인 배우자·가족의 일자리를 찾아보실 때 쓰세요.</p>
+  <div class="crumb"><span class="zh">首页 › 找工作</span><span class="ko">홈 › 일자리</span></div>
+  <h1 class="zh">找工作：首尔和全国家庭中心里给中国人的岗位</h1><h1 class="ko">일자리: 서울·전국 가족센터의 중국인 대상 공고</h1>
+  <p class="kicker zh">从首尔（한울타리）和全国（다누리）家庭中心的招聘里，挑出<strong>指定中国·中文</strong>和<strong>不限国籍</strong>的岗位，每周一自动更新。只列标题·条件摘要和原文链接，报名请到原文。</p>
+  <p class="kicker ko">서울(한울타리)과 전국(다누리) 가족센터 채용 공고 중 중국·중국어 지정, 국적 무관 공고를 매주 월요일 자동으로 골라요.</p>
 
   <section class="panel" id="w-jobs">
     <div class="today-head"><span class="eyebrow" data-ko="한울타리 채용공고 · 자동 갱신">한울타리 招聘 · 自动更新</span><span class="today-day" id="jobs-stamp">한울타리 2026.10.5 自动更新</span></div>
@@ -148,6 +148,22 @@
 <!-- JOBS:END -->
     <p class="law zh">数据来源：서울시가족센터 한울타리 「채용공고」（mcfamily.or.kr/jobs/opening）。每周一自动抓取最近 6 页公告，去掉已截止的，按登记日排。岗位真伪·条件请以原文和企业为准；本站与发布企业无关。</p>
     <p class="law ko">출처: 서울시가족센터 한울타리 「채용공고」. 매주 월요일 최근 6쪽을 자동으로 읽어 마감된 것을 빼고 등록일 순으로 보여줘요. 공고의 진위·조건은 원문과 기업 기준이며 이 사이트는 게시 기업과 무관해요.</p>
+  </section>
+  <section class="panel" id="w-nat" hidden>
+    <div class="today-head"><span class="eyebrow" data-ko="다누리 전국 가족센터 채용 · 자동 갱신">다누리 全国家庭中心招聘 · 自动更新</span><span class="today-day" id="nat-stamp">每周一自动更新</span></div>
+    <p class="kicker zh">每周一从「다누리」全国家庭中心招聘栏自动挑出标题里有<strong>中国·中文·通翻译·双语</strong>的岗位（结果公告、合格名单不收）。标题是韩文原文，点「原文」看条件和截止日。</p>
+    <p class="kicker ko">매주 월요일 다누리 전국 가족센터 채용 게시판에서 제목에 중국·중국어·통번역·이중언어가 들어간 공고만 골라요. 결과·합격 공고는 빼요.</p>
+    <div class="tbl ntbl">
+    <table>
+      <thead><tr><th><span class="zh">岗位（韩文原标题）</span><span class="ko">공고</span></th><th><span class="zh">日期</span><span class="ko">날짜</span></th><th><span class="zh">原文</span><span class="ko">원문</span></th></tr></thead>
+      <tbody>
+<!-- JOBS_NAT:START -->
+        <tr><td colspan="3"><span class="zh">第一次自动更新后显示（每周一）。现在可以先看 <a href="https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6/list.do" target="_blank" rel="noopener">다누리 招聘栏</a>。</span><span class="ko">첫 자동 갱신 뒤에 표시돼요.</span></td></tr>
+<!-- JOBS_NAT:END -->
+      </tbody>
+    </table>
+    </div>
+    <p class="next">← <a href="/gongzuo#jobs" data-go="jobs">首尔</a> · <a href="/mama">资格证</a></p>
   </section>
   <footer class="foot"><span class="zh">工作·签证 · 招聘 每周一自动更新 · <a href="/guanyu#main">关于本站</a></span><span class="ko">취업·비자 · 채용 매주 월요일 자동 갱신 · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
