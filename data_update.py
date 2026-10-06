@@ -174,7 +174,7 @@ def welfare_render(items):
             if d and (TODAY - datetime.date(int(d[:4]), int(d[4:6]), int(d[6:8]))).days <= 14: new = '<span class="tag ok">新</span> '
         except Exception: pass
         link = first(it, "servDtlLink", "servDtlUrl") or f"https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId={sid}"
-        cards.append(f'''    <article class="ntc">
+        cards.append(f'''    <article class="ntc ev" data-s="{esc(s)}" data-e="{esc(e)}" data-area="{it.get("_area", "")}">
       <div class="ntc-top">{new}<span class="tag info">{tags or "福利服务"}</span></div>
       <h3>{title}</h3>
       <p class="ntc-sum">{dg}</p>

@@ -81,10 +81,16 @@
   <section class="panel" id="t-event" hidden>
     <div class="today-head"><span class="eyebrow">本月活动 · 首尔·仁川·京畿</span><span class="today-day" id="tour-stamp">2026.9.28 自动更新</span></div>
     <h2>这两个月有什么活动：节日、庆典、展览</h2>
-    <p class="kicker">韩国旅游发展局（한국관광공사）官方中文数据，每周一自动更新，只列首尔·仁川·京畿两个月内的活动。来之前对一下日期，很多庆典只办一周。</p>
+    <p class="kicker">韩国旅游发展局（한국관광공사）官方中文数据，每周一自动更新，只列首尔·仁川·京畿两个月内的活动。月历上每个活动一种颜色，点日期看当天有什么。</p>
     <p class="note">活动可能临时取消或改期，出发前打 <strong>1330</strong>（韩国旅游热线，有中文）确认。本站不推荐、不评价。</p>
+    <div class="evcal" id="evcal" aria-label="活动月历">
+      <div class="evcal-h"><button type="button" class="evcal-nav" data-d="-1" aria-label="上个月">‹</button><b id="evcal-m"></b><button type="button" class="evcal-nav" data-d="1" aria-label="下个月">›</button></div>
+      <div class="evcal-g" id="evcal-g"></div>
+      <div class="evcal-day" id="evcal-day"></div>
+      <div class="evcal-lg" id="evcal-lg"></div>
+    </div>
 <!-- TOUR:START -->
-    <article class="ntc">
+    <article class="ntc ev" data-s="20260101" data-e="20261231" data-area="首尔">
       <div class="ntc-top"><span class="tag ok">首尔 · 进行中</span></div>
       <h3>国乐表演《进宴》（국악공연 진연）</h3>
       <dl class="kv">
@@ -93,7 +99,7 @@
         <dt>咨询</dt><dd>+82-2-953-0515</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20260404" data-e="20261129" data-area="京畿">
       <div class="ntc-top"><span class="tag ok">京畿 · 进行中</span></div>
       <h3>拿到许可了 (곰뱅이텄다)</h3>
       <dl class="kv">
@@ -102,7 +108,7 @@
         <dt>咨询</dt><dd>1330（中文旅游热线）</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="首尔">
       <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
       <h3>凤山假面舞都聚起来吧！(봉산탈춤 다 모여라~ )</h3>
       <dl class="kv">
@@ -111,7 +117,7 @@
         <dt>咨询</dt><dd>1330（中文旅游热线）</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261002" data-e="20261005" data-area="京畿">
       <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
       <h3>安城男寺党巴吾德儿节 (안성맞춤 남사당 바우덕이축제)</h3>
       <dl class="kv">
@@ -120,7 +126,7 @@
         <dt>咨询</dt><dd>+82-31-678-5414</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="仁川">
       <div class="ntc-top"><span class="tag info">仁川 · 即将开始</span></div>
       <h3>富平风物节 (부평풍물대축제)</h3>
       <dl class="kv">
@@ -129,7 +135,7 @@
         <dt>咨询</dt><dd>+82-32-509-7516</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="仁川">
       <div class="ntc-top"><span class="tag info">仁川 · 即将开始</span></div>
       <h3>苏莱浦口庆典(소래포구축제)</h3>
       <dl class="kv">
@@ -138,7 +144,7 @@
         <dt>咨询</dt><dd>82-70-8820-4038</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261004" data-e="20261004" data-area="首尔">
       <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
       <h3>正祖大王陵行次共同再现(정조대왕 능행차 공동재현)</h3>
       <dl class="kv">
@@ -147,7 +153,7 @@
         <dt>咨询</dt><dd>首尔+82-2-786-0610水原 +82-31-5191-2367华城 +82-70-4202-1017</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261004" data-e="20261011" data-area="京畿">
       <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
       <h3>水原华城文化节(수원화성문화제)</h3>
       <dl class="kv">
@@ -156,7 +162,7 @@
         <dt>咨询</dt><dd>+82-31-5191-3647</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261007" data-e="20261025" data-area="首尔">
       <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
       <h3>D.FESTA小剧场庆典（D.FESTA 소극장축제）</h3>
       <dl class="kv">
@@ -165,7 +171,7 @@
         <dt>咨询</dt><dd>02-741-4188</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261011" data-e="20261011" data-area="京畿">
       <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
       <h3>高阳秋季花卉节（고양가을꽃축제）</h3>
       <dl class="kv">
@@ -174,7 +180,7 @@
         <dt>咨询</dt><dd>031-908-7750</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261016" data-e="20261018" data-area="首尔">
       <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
       <h3>江东先史文化庆典 (강동선사문화축제)</h3>
       <dl class="kv">
@@ -183,7 +189,7 @@
         <dt>咨询</dt><dd>+82-2-3425-5240</dd>
       </dl>
     </article>
-    <article class="ntc">
+    <article class="ntc ev" data-s="20261023" data-e="20261025" data-area="京畿">
       <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
       <h3>骊州五谷渡口节 (여주오곡나루축제)</h3>
       <dl class="kv">
@@ -425,6 +431,54 @@
   </section>
   <footer class="foot">旅游 · 紧急情况见「安全」菜单 · 最后核对 2026 年 9 月 17 日 · <a href="/guanyu#main">关于本站</a></footer>
 </div>
+<script>
+(function(){
+  var COLORS=["#E4572E","#2E86DE","#17A589","#F39C12","#8E44AD","#D81B60","#2ECC71","#795548","#00ACC1","#C0CA33","#5C6BC0","#FF7043"];
+  var cards=[].slice.call(document.querySelectorAll('article.ev'));
+  if(!cards.length){var c0=document.getElementById('evcal');if(c0)c0.remove();return;}
+  function pd(x){return new Date(+x.slice(0,4),+x.slice(4,6)-1,+x.slice(6,8));}
+  var LONG=31, evs=[], ci=0;
+  cards.forEach(function(c,i){
+    var s=c.dataset.s,e=c.dataset.e||s; if(!/^\d{8}$/.test(s))return;
+    var ev={s:pd(s),e:pd(/^\d{8}$/.test(e)?e:s),t:c.querySelector('h3').textContent,a:c.dataset.area||'',el:c};
+    ev.long=(ev.e-ev.s)/864e5>LONG;
+    ev.col=ev.long?'#9AAAB5':COLORS[ci++%COLORS.length];
+    c.id=c.id||('ev'+i); c.style.borderLeft='6px solid '+ev.col; evs.push(ev);
+  });
+  var now=new Date(); now.setHours(0,0,0,0);
+  var cur=new Date(now.getFullYear(),now.getMonth(),1), first=new Date(cur), last=new Date(cur.getFullYear(),cur.getMonth()+1,1);
+  var g=document.getElementById('evcal-g'), mEl=document.getElementById('evcal-m'), dayEl=document.getElementById('evcal-day'), lg=document.getElementById('evcal-lg');
+  function on(ev,d){return ev.s<=d&&d<=ev.e;}
+  function item(ev){return '<a href="#'+ev.el.id+'" class="evcal-it"><i style="background:'+ev.col+'"></i><span>'+ev.t+'</span><small>'+ev.a+' · '+(ev.s.getMonth()+1)+'.'+ev.s.getDate()+'～'+(ev.e.getMonth()+1)+'.'+ev.e.getDate()+'</small></a>';}
+  function showDay(d){
+    var l=evs.filter(function(ev){return on(ev,d);});
+    dayEl.innerHTML='<b>'+(d.getMonth()+1)+'月'+d.getDate()+'日</b> '+(l.length?l.map(item).join(''):'<span class="evcal-none">这天没有登记的活动</span>');
+    [].forEach.call(g.querySelectorAll('.evcal-c'),function(x){x.classList.toggle('sel',+x.dataset.t===+d);});
+  }
+  function draw(){
+    var y=cur.getFullYear(),m=cur.getMonth(); mEl.textContent=y+'年'+(m+1)+'月';
+    var h='';['日','一','二','三','四','五','六'].forEach(function(w){h+='<div class="evcal-w">'+w+'</div>';});
+    var start=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
+    for(var i=0;i<start;i++)h+='<div></div>';
+    for(var d=1;d<=days;d++){
+      var dt=new Date(y,m,d), l=evs.filter(function(ev){return !ev.long&&on(ev,dt);});
+      var bars=l.slice(0,4).map(function(ev){return '<i style="background:'+ev.col+'"></i>';}).join('')+(l.length>4?'<em>+'+(l.length-4)+'</em>':'');
+      h+='<button type="button" class="evcal-c'+(+dt===+now?' today':'')+(dt<now?' past':'')+'" data-t="'+(+dt)+'"><span>'+d+'</span>'+bars+'</button>';
+    }
+    g.innerHTML=h;
+    var ms=new Date(y,m,1), me=new Date(y,m+1,0);
+    var inM=evs.filter(function(ev){return ev.s<=me&&ev.e>=ms;});
+    var sh=inM.filter(function(ev){return !ev.long;}), lo=inM.filter(function(ev){return ev.long;});
+    lg.innerHTML=(sh.length?'<p class="evcal-t">这个月的活动（颜色 = 日历上的线）</p>'+sh.map(item).join(''):'')+(lo.length?'<p class="evcal-t">长期活动（一个月以上，日历上不画线）</p>'+lo.map(item).join(''):'');
+    showDay(now.getFullYear()===y&&now.getMonth()===m?now:ms);
+    [].forEach.call(document.querySelectorAll('.evcal-nav'),function(b){var t=new Date(y,m+(+b.dataset.d),1);b.disabled=t<first||t>last;});
+  }
+  [lg,dayEl].forEach(function(box){box.addEventListener('click',function(e){var a=e.target.closest('.evcal-it');if(!a)return;e.preventDefault();var t=document.getElementById(a.getAttribute('href').slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});});
+  g.addEventListener('click',function(e){var c=e.target.closest('.evcal-c');if(c)showDay(new Date(+c.dataset.t));});
+  [].forEach.call(document.querySelectorAll('.evcal-nav'),function(b){b.addEventListener('click',function(){cur=new Date(cur.getFullYear(),cur.getMonth()+(+b.dataset.d),1);draw();});});
+  draw();
+})();
+</script>
 <script>var PREFIX="t-";</script>
 <script>
 (function(){

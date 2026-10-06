@@ -410,3 +410,29 @@ h2.sit-h::before{display:none}
 .must dt{font-weight:700;font-size:.9rem;margin-top:8px}
 .must dd{margin:2px 0 0;line-height:1.6;font-size:.95rem}
 .ntbl tr.pick td{background:#FFF8E1}
+
+/* 2026-10-06 本月活动 月历：每个活动一种颜色 */
+.evcal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin:14px 0 22px}
+.evcal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.evcal-h b{font-size:1.05rem}
+.evcal-nav{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;width:34px;height:34px;font-size:1.2rem;cursor:pointer}
+.evcal-nav:disabled{opacity:.3;cursor:default}
+.evcal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.evcal-w{text-align:center;font-size:.75rem;color:var(--ink-2);padding:2px 0}
+.evcal-c{min-height:52px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:3px 3px 4px;display:flex;flex-direction:column;align-items:stretch;gap:2px;cursor:pointer;font:inherit}
+.evcal-c span{font-size:.78rem;text-align:left;line-height:1.2}
+.evcal-c i{display:block;height:5px;border-radius:3px}
+.evcal-c em{font-size:.65rem;font-style:normal;color:var(--ink-2);text-align:left}
+.evcal-c.past{opacity:.45}
+.evcal-c.today{border-color:var(--accent);border-width:2px}
+.evcal-c.today span{color:var(--accent);font-weight:700}
+.evcal-c.sel{background:var(--accent-soft)}
+.evcal-day{margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.evcal-day>b{display:block;margin-bottom:4px}
+.evcal-none{color:var(--ink-2);font-size:.9rem}
+.evcal-t{margin:14px 0 4px;font-size:.8rem;color:var(--ink-2)}
+.evcal-it{display:grid;grid-template-columns:14px 1fr;column-gap:8px;align-items:center;padding:6px 0;color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--line)}
+.evcal-it i{width:12px;height:12px;border-radius:3px;grid-row:span 2}
+.evcal-it span{font-size:.92rem}
+.ntc.ev.flash{box-shadow:0 0 0 3px var(--accent)}
+.evcal-it small{color:var(--ink-2);font-size:.75rem}
