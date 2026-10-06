@@ -298,6 +298,53 @@ def apt_render(ym, rows):
     </div>
 '''
 
+
+# ---------------- 5. 국가자격 시험일정 (妈妈自己 › 考证) — 2026-10-06 ----------------
+# 한국산업인력공단 「국가자격 시험일정 조회 서비스」(data.go.kr 15074408). 같은 APPLYHOME_KEY(공공데이터포털 계정) 사용
+EXAM_URL = "https://apis.data.go.kr/B490007/qualExamSchd/getQualExamSchdList"
+EXAMS = [("EXAM_TOUR", "S", "9629", "관광통역안내사", "面试"), ("EXAM_MED", "T", "9105", "국제의료관광코디네이터", "实技")]
+def exam_fetch(qualgb, jm):
+    out = []
+    for yy in (TODAY.year, TODAY.year + 1):
+        p = {"serviceKey": KEY, "numOfRows": 20, "pageNo": 1, "dataFormat": "json", "implYy": yy, "qualgbCd": qualgb, "jmCd": jm}
+        try:
+            j = json.loads(get(EXAM_URL, p))
+            body = j.get("body") or j.get("response", {}).get("body", {})
+            items = body.get("items") or []
+            if isinstance(items, dict): items = items.get("item", [])
+            if isinstance(items, dict): items = [items]
+            print(f"exam {jm} {yy}: header={j.get('header') or j.get('response', {}).get('header')} rows={len(items)}")
+            out += items
+        except Exception as e:
+            print("exam failed", jm, yy, e)
+    return out
+def _d(s):
+    s = str(s or "")
+    try: return datetime.date(int(s[:4]), int(s[4:6]), int(s[6:8]))
+    except Exception: return None
+def _md(a, b=None):
+    a, b = _d(a), _d(b)
+    if not a: return ""
+    t = f"{a.month}.{a.day}"
+    if b and b != a: t += f"～{b.month}.{b.day}" if b.month != a.month else f"～{b.day}"
+    return t
+def exam_sample():
+    return [{"implYy": str(TODAY.year), "implSeq": "1", "description": "국가전문자격 관광통역안내사", "docRegStartDt": f"{TODAY.year}0706", "docRegEndDt": f"{TODAY.year}0710", "docExamStartDt": f"{TODAY.year}0905", "docExamEndDt": f"{TODAY.year}0905", "docPassDt": f"{TODAY.year}1021", "pracRegStartDt": f"{TODAY.year}0706", "pracRegEndDt": f"{TODAY.year}0710", "pracExamStartDt": f"{TODAY.year}1114", "pracExamEndDt": f"{TODAY.year}1115", "pracPassDt": f"{TODAY.year}1216"}]
+def exam_render(items, prac_zh):
+    rows = []
+    for it in sorted(items, key=lambda x: (str(x.get("implYy")), str(x.get("implSeq")))):
+        last = _d(it.get("pracPassDt")) or _d(it.get("docPassDt"))
+        if last and last < TODAY - datetime.timedelta(days=30): continue   # 끝난 지 한 달 넘은 회차는 숨김
+        reg = _md(it.get("docRegStartDt"), it.get("docRegEndDt"))
+        parts = [f"报名 <strong>{reg}</strong>" if reg else "",
+                 f"笔试 {_md(it.get('docExamStartDt'), it.get('docExamEndDt'))}" if it.get("docExamStartDt") else "",
+                 f"笔试发榜 {_md(it.get('docPassDt'))}" if it.get("docPassDt") else "",
+                 f"{prac_zh} {_md(it.get('pracExamStartDt'), it.get('pracExamEndDt'))}" if it.get("pracExamStartDt") else "",
+                 f"最终发榜 {_md(it.get('pracPassDt'))}" if it.get("pracPassDt") else ""]
+        rows.append(f"<strong>{esc(it.get('implYy'))} 第 {esc(it.get('implSeq'))} 回</strong>：" + " · ".join(x for x in parts if x))
+    if not rows: return '<span class="zh">今年的考试已结束，明年日程公布后这里自动更新。</span>'
+    return "<br>".join(rows)
+
 def main():
     what = next((a for a in sys.argv[1:] if not a.startswith("--")), "all")
     changed = False
@@ -309,6 +356,11 @@ def main():
             note = [x for x in items if x["board"] == "notice"][:NOTICE_MAX]
             changed |= replace_block("butie.html", "INFO", notice_render(info), "info-stamp")
             changed |= replace_block("butie.html", "NOTICE", notice_render(note), "notice-stamp")
+    if what in ("exam", "all") and (SAMPLE or KEY):
+        for tag, qg, jm, name, prac in EXAMS:
+            items = exam_sample() if SAMPLE else exam_fetch(qg, jm)
+            if items: changed |= replace_block("mama.html", tag, exam_render(items, prac) + "\n", "exam-stamp")
+            else: print(f"exam {name}: 0건 → 기존 내용 유지")
     if not SAMPLE and not KEY:
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what == "welfare":   # 2026-10-02 정부지원 항목 폐지 → 자동 실행(all)에서 제외
@@ -329,7 +381,7 @@ def main():
         sm = os.path.join(HERE, "sitemap.xml")
         if os.path.exists(sm):
             t = open(sm, encoding="utf-8").read()
-            t = re.sub(r"(<loc>https://hanzhinan.com/(butie|lvyou|zhufang)</loc><lastmod>)[0-9-]+", lambda m: m.group(1) + TODAY.isoformat(), t)
+            t = re.sub(r"(<loc>https://hanzhinan.com/(butie|lvyou|zhufang|mama)</loc><lastmod>)[0-9-]+", lambda m: m.group(1) + TODAY.isoformat(), t)
             open(sm, "w", encoding="utf-8").write(t)
 
 if __name__ == "__main__":
