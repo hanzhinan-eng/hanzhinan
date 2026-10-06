@@ -222,29 +222,37 @@ def tour_fetch():
 def tour_sample():
     return [{"title": "首尔灯节", "addr1": "首尔特别市中区清溪川路", "eventstartdate": "20261001", "eventenddate": "20261031", "tel": "02-120", "_area": "首尔", "firstimage": ""},
             {"title": "京畿世界陶瓷双年展", "addr1": "京畿道利川市", "eventstartdate": "20260918", "eventenddate": "20261101", "tel": "031-631-6501", "_area": "京畿", "firstimage": ""}]
+TOUR_DETAIL = "https://apis.data.go.kr/B551011/ChsService2/detailCommon2"
+def tour_homepage(cid):
+    # 행사 공식 홈페이지 (관광공사 상세정보 homepage 필드: '<a href="...">' 형태)
+    if not cid or not KEY: return ""
+    try:
+        j = json.loads(get(TOUR_DETAIL, {"serviceKey": KEY, "MobileOS": "ETC", "MobileApp": "hanzhinan", "_type": "json", "contentId": cid}))
+        items = j["response"]["body"].get("items") or {}
+        row = (items.get("item") or [{}])[0] if isinstance(items, dict) else {}
+        hp = str(row.get("homepage") or "")
+        m = re.search(r'href=["\']?([^"\' >]+)', hp) or re.search(r"(https?://[^\s<\"']+)", hp)
+        return html.unescape(m.group(1)) if m else ""
+    except Exception as e:
+        print("tour detail failed", cid, e); return ""
+def tour_ko(title):
+    m = re.search(r"[（(]([^（()）]*[가-힣][^（()）]*)[)）]\s*$", title or "")
+    return (m.group(1) if m else title or "").strip()
 def tour_render(items):
-    if not items: return '    <p class="note">这两个月首尔·仁川·京畿没有登记的活动。每周一自动更新。</p>\n'
+    if not items: return '        <tr><td colspan="3">这两个月首尔·仁川·京畿没有登记的活动。每周一自动更新。</td></tr>\n'
     def md(s): return f"{int(s[4:6])}.{int(s[6:8])}" if len(s) == 8 else "—"
-    cards = []
+    rows = []
     for it in items:
         s, e = it.get("eventstartdate", ""), it.get("eventenddate", "")
-        on = ""
-        try:
-            sd, ed = datetime.date(int(s[:4]), int(s[4:6]), int(s[6:8])), datetime.date(int(e[:4]), int(e[4:6]), int(e[6:8]))
-            on = "进行中" if sd <= TODAY <= ed else ("即将开始" if sd > TODAY else "")
-        except Exception: pass
-        tel = esc(it.get("tel"))
-        cards.append(f'''    <article class="ntc">
-      <div class="ntc-top"><span class="tag {"ok" if on == "进行中" else "info"}">{it.get("_area", "")}{(" · " + on) if on else ""}</span></div>
-      <h3>{esc(it.get("title"))}</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>{md(s)} ～ {md(e)}</dd>
-        <dt>地点</dt><dd>{esc(it.get("addr1")) or "见官网"}</dd>
-        <dt>咨询</dt><dd>{tel or "1330（中文旅游热线）"}</dd>
-      </dl>
-    </article>
-''')
-    return "".join(cards)
+        t = it.get("title", ""); ko = tour_ko(t); zh = re.sub(r"\s*[（(][^（()）]*[가-힣][^（()）]*[)）]\s*$", "", t).strip() or t
+        hp = it.get("_homepage") or tour_homepage(first(it, "contentid", "contentId"))
+        if hp:
+            link = f'<a href="{esc(hp)}" target="_blank" rel="noopener">官网 ↗</a>'
+        else:
+            link = f'<a href="https://search.naver.com/search.naver?query={urllib.parse.quote(ko)}" target="_blank" rel="noopener">查询 ↗</a>'
+        sub = f'<small class="nt-sub" lang="ko">{esc(ko)}</small>' if ko and ko != zh else ""
+        rows.append(f'        <tr class="evr" data-area="{it.get("_area", "")}" data-s="{esc(s)}" data-e="{esc(e)}"><td>{esc(zh)}{sub}</td><td class="nt-d">{md(s)}～{md(e)}</td><td class="nt-l">{link}</td></tr>\n')
+    return "".join(rows)
 
 # ---------------- 3. 아파트 실거래 (房价) ----------------
 APT_URLS = ["https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev",   # 상세 자료 (승인된 쪽)

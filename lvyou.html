@@ -81,124 +81,35 @@
   <section class="panel" id="t-event" hidden>
     <div class="today-head"><span class="eyebrow">本月活动 · 首尔·仁川·京畿</span><span class="today-day" id="tour-stamp">2026.9.28 自动更新</span></div>
     <h2>这两个月有什么活动：节日、庆典、展览</h2>
-    <p class="kicker">韩国旅游发展局（한국관광공사）官方中文数据，每周一自动更新，只列首尔·仁川·京畿两个月内的活动。月历上每个活动一种颜色，点日期看当天有什么。</p>
+    <p class="kicker">韩国旅游发展局（한국관광공사）官方中文数据，每周一自动更新，只列首尔·仁川·京畿两个月内的活动。先选地区和月份，只看那个月在办的活动。</p>
     <p class="note">活动可能临时取消或改期，出发前打 <strong>1330</strong>（韩国旅游热线，有中文）确认。本站不推荐、不评价。</p>
-    <div class="evcal" id="evcal" aria-label="活动月历">
-      <div class="evcal-h"><button type="button" class="evcal-nav" data-d="-1" aria-label="上个月">‹</button><b id="evcal-m"></b><button type="button" class="evcal-nav" data-d="1" aria-label="下个月">›</button></div>
-      <div class="evcal-g" id="evcal-g"></div>
-      <div class="evcal-day" id="evcal-day"></div>
-      <div class="evcal-lg" id="evcal-lg"></div>
+    <div class="evf" id="evf">
+      <div class="evf-row" role="group" aria-label="地区"><button type="button" class="on" data-a="首尔">首尔</button><button type="button" data-a="仁川">仁川</button><button type="button" data-a="京畿">京畿</button></div>
+      <div class="evf-row" role="group" aria-label="月份" id="evf-m"></div>
     </div>
+    <div class="tbl ntbl">
+    <table id="evt">
+      <thead><tr><th>活动</th><th>期间</th><th>介绍</th></tr></thead>
+      <tbody>
 <!-- TOUR:START -->
-    <article class="ntc ev" data-s="20260101" data-e="20261231" data-area="首尔">
-      <div class="ntc-top"><span class="tag ok">首尔 · 进行中</span></div>
-      <h3>国乐表演《进宴》（국악공연 진연）</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>1.1 ～ 12.31</dd>
-        <dt>地点</dt><dd>首尔特别市钟路区仁寺洞5街10（仁寺洞）</dd>
-        <dt>咨询</dt><dd>+82-2-953-0515</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20260404" data-e="20261129" data-area="京畿">
-      <div class="ntc-top"><span class="tag ok">京畿 · 进行中</span></div>
-      <h3>拿到许可了 (곰뱅이텄다)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>4.4 ～ 11.29</dd>
-        <dt>地点</dt><dd>경기도 안성시 보개면 남사당로 198-2</dd>
-        <dt>咨询</dt><dd>1330（中文旅游热线）</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="首尔">
-      <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
-      <h3>凤山假面舞都聚起来吧！(봉산탈춤 다 모여라~ )</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.2 ～ 10.4</dd>
-        <dt>地点</dt><dd>서울특별시 종로구 종로1길 45 (세종로)</dd>
-        <dt>咨询</dt><dd>1330（中文旅游热线）</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261002" data-e="20261005" data-area="京畿">
-      <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
-      <h3>安城男寺党巴吾德儿节 (안성맞춤 남사당 바우덕이축제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.2 ～ 10.5</dd>
-        <dt>地点</dt><dd>京畿道安城市宝盖面男寺党路198</dd>
-        <dt>咨询</dt><dd>+82-31-678-5414</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="仁川">
-      <div class="ntc-top"><span class="tag info">仁川 · 即将开始</span></div>
-      <h3>富平风物节 (부평풍물대축제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.2 ～ 10.4</dd>
-        <dt>地点</dt><dd>仁川广域市富平区富平大路34-1（富平洞）</dd>
-        <dt>咨询</dt><dd>+82-32-509-7516</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261002" data-e="20261004" data-area="仁川">
-      <div class="ntc-top"><span class="tag info">仁川 · 即将开始</span></div>
-      <h3>苏莱浦口庆典(소래포구축제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.2 ～ 10.4</dd>
-        <dt>地点</dt><dd>仁川广域市南洞区獐岛路86-17</dd>
-        <dt>咨询</dt><dd>82-70-8820-4038</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261004" data-e="20261004" data-area="首尔">
-      <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
-      <h3>正祖大王陵行次共同再现(정조대왕 능행차 공동재현)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.4 ～ 10.4</dd>
-        <dt>地点</dt><dd>首尔特别市钟路区社稷路161 (世宗路)</dd>
-        <dt>咨询</dt><dd>首尔+82-2-786-0610水原 +82-31-5191-2367华城 +82-70-4202-1017</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261004" data-e="20261011" data-area="京畿">
-      <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
-      <h3>水原华城文化节(수원화성문화제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.4 ～ 10.11</dd>
-        <dt>地点</dt><dd>京畿道水原市八达区正祖路 825(南昌洞)</dd>
-        <dt>咨询</dt><dd>+82-31-5191-3647</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261007" data-e="20261025" data-area="首尔">
-      <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
-      <h3>D.FESTA小剧场庆典（D.FESTA 소극장축제）</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.7 ～ 10.25</dd>
-        <dt>地点</dt><dd>首尔特别市钟路区大学路120（东崇洞）</dd>
-        <dt>咨询</dt><dd>02-741-4188</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261011" data-e="20261011" data-area="京畿">
-      <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
-      <h3>高阳秋季花卉节（고양가을꽃축제）</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.11 ～ 10.11</dd>
-        <dt>地点</dt><dd>京畿道高阳市一山东区湖水路595</dd>
-        <dt>咨询</dt><dd>031-908-7750</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261016" data-e="20261018" data-area="首尔">
-      <div class="ntc-top"><span class="tag info">首尔 · 即将开始</span></div>
-      <h3>江东先史文化庆典 (강동선사문화축제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.16 ～ 10.18</dd>
-        <dt>地点</dt><dd>首尔特别市江东区奥林匹克路875（岩寺洞）</dd>
-        <dt>咨询</dt><dd>+82-2-3425-5240</dd>
-      </dl>
-    </article>
-    <article class="ntc ev" data-s="20261023" data-e="20261025" data-area="京畿">
-      <div class="ntc-top"><span class="tag info">京畿 · 即将开始</span></div>
-      <h3>骊州五谷渡口节 (여주오곡나루축제)</h3>
-      <dl class="kv">
-        <dt>时间</dt><dd>10.23 ～ 10.25</dd>
-        <dt>地点</dt><dd>京畿道骊州市川松洞290-3</dd>
-        <dt>咨询</dt><dd>+82-31-881-9693</dd>
-      </dl>
-    </article>
+        <tr class="evr" data-area="首尔" data-s="20260101" data-e="20261231"><td>国乐表演《进宴》<small class="nt-sub" lang="ko">국악공연 진연</small></td><td class="nt-d">1.1～12.31</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EA%B5%AD%EC%95%85%EA%B3%B5%EC%97%B0%20%EC%A7%84%EC%97%B0" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="京畿" data-s="20260404" data-e="20261129"><td>拿到许可了<small class="nt-sub" lang="ko">곰뱅이텄다</small></td><td class="nt-d">4.4～11.29</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EA%B3%B0%EB%B1%85%EC%9D%B4%ED%85%84%EB%8B%A4" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="首尔" data-s="20261002" data-e="20261004"><td>凤山假面舞都聚起来吧！<small class="nt-sub" lang="ko">봉산탈춤 다 모여라~</small></td><td class="nt-d">10.2～10.4</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EB%B4%89%EC%82%B0%ED%83%88%EC%B6%A4%20%EB%8B%A4%20%EB%AA%A8%EC%97%AC%EB%9D%BC~" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="京畿" data-s="20261002" data-e="20261005"><td>安城男寺党巴吾德儿节<small class="nt-sub" lang="ko">안성맞춤 남사당 바우덕이축제</small></td><td class="nt-d">10.2～10.5</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EC%95%88%EC%84%B1%EB%A7%9E%EC%B6%A4%20%EB%82%A8%EC%82%AC%EB%8B%B9%20%EB%B0%94%EC%9A%B0%EB%8D%95%EC%9D%B4%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="仁川" data-s="20261002" data-e="20261004"><td>富平风物节<small class="nt-sub" lang="ko">부평풍물대축제</small></td><td class="nt-d">10.2～10.4</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EB%B6%80%ED%8F%89%ED%92%8D%EB%AC%BC%EB%8C%80%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="仁川" data-s="20261002" data-e="20261004"><td>苏莱浦口庆典<small class="nt-sub" lang="ko">소래포구축제</small></td><td class="nt-d">10.2～10.4</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EC%86%8C%EB%9E%98%ED%8F%AC%EA%B5%AC%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="首尔" data-s="20261004" data-e="20261004"><td>正祖大王陵行次共同再现<small class="nt-sub" lang="ko">정조대왕 능행차 공동재현</small></td><td class="nt-d">10.4～10.4</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EC%A0%95%EC%A1%B0%EB%8C%80%EC%99%95%20%EB%8A%A5%ED%96%89%EC%B0%A8%20%EA%B3%B5%EB%8F%99%EC%9E%AC%ED%98%84" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="京畿" data-s="20261004" data-e="20261011"><td>水原华城文化节<small class="nt-sub" lang="ko">수원화성문화제</small></td><td class="nt-d">10.4～10.11</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EC%88%98%EC%9B%90%ED%99%94%EC%84%B1%EB%AC%B8%ED%99%94%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="首尔" data-s="20261007" data-e="20261025"><td>D.FESTA小剧场庆典<small class="nt-sub" lang="ko">D.FESTA 소극장축제</small></td><td class="nt-d">10.7～10.25</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=D.FESTA%20%EC%86%8C%EA%B7%B9%EC%9E%A5%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="京畿" data-s="20261011" data-e="20261011"><td>高阳秋季花卉节<small class="nt-sub" lang="ko">고양가을꽃축제</small></td><td class="nt-d">10.11～10.11</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EA%B3%A0%EC%96%91%EA%B0%80%EC%9D%84%EA%BD%83%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="首尔" data-s="20261016" data-e="20261018"><td>江东先史文化庆典<small class="nt-sub" lang="ko">강동선사문화축제</small></td><td class="nt-d">10.16～10.18</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EA%B0%95%EB%8F%99%EC%84%A0%EC%82%AC%EB%AC%B8%ED%99%94%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
+        <tr class="evr" data-area="京畿" data-s="20261023" data-e="20261025"><td>骊州五谷渡口节<small class="nt-sub" lang="ko">여주오곡나루축제</small></td><td class="nt-d">10.23～10.25</td><td class="nt-l"><a href="https://search.naver.com/search.naver?query=%EC%97%AC%EC%A3%BC%EC%98%A4%EA%B3%A1%EB%82%98%EB%A3%A8%EC%B6%95%EC%A0%9C" target="_blank" rel="noopener">查询 ↗</a></td></tr>
 <!-- TOUR:END -->
+      </tbody>
+    </table>
+    </div>
+    <p class="evf-none" id="evf-none" hidden>这个地区这个月没有登记的活动。</p>
+    <p class="law">「官网」= 活动官方网站（韩国旅游发展局数据里登记的）；没有官网的活动显示「查询」，打开韩文名的 Naver 搜索，能看到官方介绍、地点和时间。</p>
     <p class="law">数据来源：한국관광공사 TourAPI 中文服务（公共数据门户）。</p>
   </section>
   <section class="panel" id="t-fan">
@@ -433,49 +344,18 @@
 </div>
 <script>
 (function(){
-  var COLORS=["#E4572E","#2E86DE","#17A589","#F39C12","#8E44AD","#D81B60","#2ECC71","#795548","#00ACC1","#C0CA33","#5C6BC0","#FF7043"];
-  var cards=[].slice.call(document.querySelectorAll('article.ev'));
-  if(!cards.length){var c0=document.getElementById('evcal');if(c0)c0.remove();return;}
-  function pd(x){return new Date(+x.slice(0,4),+x.slice(4,6)-1,+x.slice(6,8));}
-  var LONG=31, evs=[], ci=0;
-  cards.forEach(function(c,i){
-    var s=c.dataset.s,e=c.dataset.e||s; if(!/^\d{8}$/.test(s))return;
-    var ev={s:pd(s),e:pd(/^\d{8}$/.test(e)?e:s),t:c.querySelector('h3').textContent,a:c.dataset.area||'',el:c};
-    ev.long=(ev.e-ev.s)/864e5>LONG;
-    ev.col=ev.long?'#9AAAB5':COLORS[ci++%COLORS.length];
-    c.id=c.id||('ev'+i); c.style.borderLeft='6px solid '+ev.col; evs.push(ev);
-  });
-  var now=new Date(); now.setHours(0,0,0,0);
-  var cur=new Date(now.getFullYear(),now.getMonth(),1), first=new Date(cur), last=new Date(cur.getFullYear(),cur.getMonth()+1,1);
-  var g=document.getElementById('evcal-g'), mEl=document.getElementById('evcal-m'), dayEl=document.getElementById('evcal-day'), lg=document.getElementById('evcal-lg');
-  function on(ev,d){return ev.s<=d&&d<=ev.e;}
-  function item(ev){return '<a href="#'+ev.el.id+'" class="evcal-it"><i style="background:'+ev.col+'"></i><span>'+ev.t+'</span><small>'+ev.a+' · '+(ev.s.getMonth()+1)+'.'+ev.s.getDate()+'～'+(ev.e.getMonth()+1)+'.'+ev.e.getDate()+'</small></a>';}
-  function showDay(d){
-    var l=evs.filter(function(ev){return on(ev,d);});
-    dayEl.innerHTML='<b>'+(d.getMonth()+1)+'月'+d.getDate()+'日</b> '+(l.length?l.map(item).join(''):'<span class="evcal-none">这天没有登记的活动</span>');
-    [].forEach.call(g.querySelectorAll('.evcal-c'),function(x){x.classList.toggle('sel',+x.dataset.t===+d);});
-  }
+  var rows=[].slice.call(document.querySelectorAll('#evt tr.evr')); if(!rows.length)return;
+  var now=new Date(), ym=[0,1].map(function(k){var d=new Date(now.getFullYear(),now.getMonth()+k,1);return {y:d.getFullYear(),m:d.getMonth()+1};});
+  var today=now.getFullYear()*10000+(now.getMonth()+1)*100+now.getDate(), area='首尔', sel=0, mBox=document.getElementById('evf-m');
+  mBox.innerHTML=ym.map(function(x,i){return '<button type="button" data-i="'+i+'"'+(i===0?' class="on"':'')+'>'+x.m+'月</button>';}).join('');
+  function key(x,last){return x.y*10000+x.m*100+(last?31:1);}
   function draw(){
-    var y=cur.getFullYear(),m=cur.getMonth(); mEl.textContent=y+'年'+(m+1)+'月';
-    var h='';['日','一','二','三','四','五','六'].forEach(function(w){h+='<div class="evcal-w">'+w+'</div>';});
-    var start=new Date(y,m,1).getDay(), days=new Date(y,m+1,0).getDate();
-    for(var i=0;i<start;i++)h+='<div></div>';
-    for(var d=1;d<=days;d++){
-      var dt=new Date(y,m,d), l=evs.filter(function(ev){return !ev.long&&on(ev,dt);});
-      var bars=l.slice(0,4).map(function(ev){return '<i style="background:'+ev.col+'"></i>';}).join('')+(l.length>4?'<em>+'+(l.length-4)+'</em>':'');
-      h+='<button type="button" class="evcal-c'+(+dt===+now?' today':'')+(dt<now?' past':'')+'" data-t="'+(+dt)+'"><span>'+d+'</span>'+bars+'</button>';
-    }
-    g.innerHTML=h;
-    var ms=new Date(y,m,1), me=new Date(y,m+1,0);
-    var inM=evs.filter(function(ev){return ev.s<=me&&ev.e>=ms;});
-    var sh=inM.filter(function(ev){return !ev.long;}), lo=inM.filter(function(ev){return ev.long;});
-    lg.innerHTML=(sh.length?'<p class="evcal-t">这个月的活动（颜色 = 日历上的线）</p>'+sh.map(item).join(''):'')+(lo.length?'<p class="evcal-t">长期活动（一个月以上，日历上不画线）</p>'+lo.map(item).join(''):'');
-    showDay(now.getFullYear()===y&&now.getMonth()===m?now:ms);
-    [].forEach.call(document.querySelectorAll('.evcal-nav'),function(b){var t=new Date(y,m+(+b.dataset.d),1);b.disabled=t<first||t>last;});
+    var a=key(ym[sel]),b=key(ym[sel],1),n=0;
+    rows.forEach(function(r){var e=+(r.dataset.e||r.dataset.s),ok=r.dataset.area===area&&+r.dataset.s<=b&&e>=a&&e>=today;r.hidden=!ok;if(ok)n++;});
+    document.getElementById('evf-none').hidden=n>0; document.getElementById('evt').hidden=n===0;
+    [].forEach.call(document.querySelectorAll('#evf button'),function(btn){btn.classList.toggle('on',btn.dataset.a?btn.dataset.a===area:+btn.dataset.i===sel);});
   }
-  [lg,dayEl].forEach(function(box){box.addEventListener('click',function(e){var a=e.target.closest('.evcal-it');if(!a)return;e.preventDefault();var t=document.getElementById(a.getAttribute('href').slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'center'});t.classList.add('flash');setTimeout(function(){t.classList.remove('flash');},1600);}});});
-  g.addEventListener('click',function(e){var c=e.target.closest('.evcal-c');if(c)showDay(new Date(+c.dataset.t));});
-  [].forEach.call(document.querySelectorAll('.evcal-nav'),function(b){b.addEventListener('click',function(){cur=new Date(cur.getFullYear(),cur.getMonth()+(+b.dataset.d),1);draw();});});
+  document.getElementById('evf').addEventListener('click',function(e){var btn=e.target.closest('button');if(!btn)return;if(btn.dataset.a)area=btn.dataset.a;else sel=+btn.dataset.i;draw();});
   draw();
 })();
 </script>
