@@ -437,3 +437,6 @@ h2.sit-h::before{display:none}
 .tgp-w label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-top:1px dashed var(--line);cursor:pointer}
 .tgp-w input{width:20px;height:20px;margin:1px 0 0;flex:none;accent-color:var(--accent)}
 .tgp-w input:checked+span{text-decoration:line-through;color:var(--ink-2)}
+.tgp-date{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-weight:600;margin:6px 0 4px}
+.tgp-date input{font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.tgp-date small{flex-basis:100%;font-weight:400;color:var(--ink-2);font-size:.8rem}
