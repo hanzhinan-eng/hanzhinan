@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>영어 100일</title>
+<style>
+:root{
+  --bg:#f7f5f0; --card:#ffffff; --ink:#1f2328; --sub:#6b6f76; --line:#e6e2d8;
+  --accent:#2f6f5e; --accent-soft:#e3efe9; --mark:#fff3b0; --done:#2f6f5e; --locked:#c9c5bb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16181b; --card:#1f2226; --ink:#e8e6e1; --sub:#9a9ea5; --line:#2e3238;
+    --accent:#7cc4ab; --accent-soft:#23342e; --mark:#4a4220; --done:#7cc4ab; --locked:#3a3e44;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16181b; --card:#1f2226; --ink:#e8e6e1; --sub:#9a9ea5; --line:#2e3238;
+  --accent:#7cc4ab; --accent-soft:#23342e; --mark:#4a4220; --done:#7cc4ab; --locked:#3a3e44;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","PingFang SC",sans-serif;
+  line-height:1.6;font-size:16px}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 80px}
+header h1{font-size:22px;margin:8px 0 2px}
+header p{margin:0;color:var(--sub);font-size:14px}
+.progress{margin:12px 0 4px;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.progress div{height:100%;background:var(--accent);width:0}
+.progress-txt{font-size:13px;color:var(--sub)}
+.days{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:14px 0 18px}
+.days button{aspect-ratio:1;border:1px solid var(--line);background:var(--card);color:var(--ink);
+  border-radius:8px;font-size:12px;padding:0;cursor:pointer}
+.days button.locked{color:var(--locked);cursor:default}
+.days button.done{background:var(--accent-soft);border-color:var(--done);color:var(--done);font-weight:600}
+.days button.current{outline:2px solid var(--accent);outline-offset:1px}
+.days button.next{border-color:var(--accent);border-style:dashed}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{font-size:17px;margin:0 0 10px;color:var(--accent)}
+.lesson-head h2{font-size:21px;color:var(--ink);margin:0}
+.lesson-head .situ{color:var(--sub);margin:4px 0 0}
+.daytag{font-size:13px;font-weight:700;color:var(--accent)}
+.word{display:grid;grid-template-columns:1fr auto;gap:2px 8px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.word:last-child{border-bottom:0}
+.en{font-weight:700;font-size:17px}
+.pron{color:var(--sub);font-size:14px}
+.mean{font-size:14px}
+.zh{color:var(--sub);font-size:14px}
+.sent{padding:10px 0;border-bottom:1px dashed var(--line)}
+.sent:last-child{border-bottom:0}
+.sent .en{display:block}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px}
+.speak{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;
+  padding:3px 10px;font-size:13px;cursor:pointer}
+.dots{display:flex;gap:4px}
+.dots span{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--accent);cursor:pointer}
+.dots span.on{background:var(--accent)}
+.hint{font-size:12px;color:var(--sub)}
+.challenge{background:var(--mark);border-radius:10px;padding:10px 12px}
+.grammar{font-size:15px}
+.dl{padding:6px 0}
+.dl .who{display:inline-block;width:22px;font-weight:700;color:var(--accent)}
+.blank{background:var(--accent-soft);border-radius:6px;padding:0 6px;cursor:pointer;font-weight:700}
+.blank.hide{color:transparent;min-width:60px;display:inline-block;border-bottom:2px solid var(--accent)}
+.quiz-item{padding:10px 0;border-bottom:1px dashed var(--line)}
+.quiz-item:last-child{border-bottom:0}
+details summary{cursor:pointer;color:var(--accent);font-size:14px;margin-top:4px}
+details .ans{font-weight:700;margin-top:4px}
+.donebtn{width:100%;padding:14px;border:0;border-radius:12px;background:var(--accent);color:var(--card);
+  font-size:16px;font-weight:700;cursor:pointer}
+.donebtn.is-done{background:var(--accent-soft);color:var(--accent)}
+.nav{display:flex;gap:8px;margin-top:10px}
+.nav button{flex:1;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;cursor:pointer}
+.nav button:disabled{opacity:.4;cursor:default}
+.settings{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--sub);margin-top:6px}
+.settings label{display:flex;align-items:center;gap:4px}
+.empty{color:var(--sub);text-align:center;padding:30px 10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>영어 100일 🌙</h1>
+    <p>하루 10분 · 소리 내어 3번 · 통문장 암기</p>
+    <div class="progress"><div id="bar"></div></div>
+    <div class="progress-txt" id="ptxt"></div>
+    <div class="settings">
+      <label><input type="checkbox" id="slow" checked> 천천히 읽기</label>
+    </div>
+  </header>
+
+  <div class="days" id="days"></div>
+  <main id="lesson"></main>
+</div>
+
+<script src="my-english-data.js"></script>
+<script>
+(function(){
+  var LESSONS = window.LESSONS || [];
+  var byDay = {};
+  LESSONS.forEach(function(l){ byDay[l.day] = l; });
+
+  // ---- 저장 (이 기기에만 저장됨) ----
+  var KEY = "my-english-progress-v1";
+  function load(){
+    try { return JSON.parse(localStorage.getItem(KEY)) || {done:{}, last:1}; }
+    catch(e){ return {done:{}, last:1}; }
+  }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+  var state = load();
+  if(!state.done) state.done = {};
+
+  function nextDay(){
+    for(var d=1; d<=100; d++){ if(byDay[d] && !state.done[d]) return d; }
+    return null;
+  }
+
+  // ---- 읽어주기 (기기에 내장된 음성) ----
+  var voice = null;
+  function pickVoice(){
+    if(!("speechSynthesis" in window)) return;
+    var vs = speechSynthesis.getVoices();
+    voice = vs.find(function(v){ return v.lang === "en-US" && v.localService; })
+         || vs.find(function(v){ return v.lang === "en-US"; })
+         || vs.find(function(v){ return /^en/.test(v.lang); }) || null;
+  }
+  if("speechSynthesis" in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+  function speak(text){
+    if(!("speechSynthesis" in window)){ alert("이 기기에서는 읽어주기를 쓸 수 없어요."); return; }
+    speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text.replace(/_+/g, ""));
+    u.lang = "en-US"; if(voice) u.voice = voice;
+    u.rate = document.getElementById("slow").checked ? 0.75 : 1;
+    speechSynthesis.speak(u);
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+
+  function speakBtn(text){
+    return '<button class="speak" data-say="'+esc(text)+'">🔊 듣기</button>';
+  }
+  function dots(){
+    return '<span class="dots"><span></span><span></span><span></span></span><span class="hint">따라 말할 때마다 톡</span>';
+  }
+
+  // ---- Day 버튼 ----
+  var current = state.last && byDay[state.last] ? state.last : (nextDay() || 1);
+
+  function renderDays(){
+    var nd = nextDay();
+    var html = "";
+    for(var d=1; d<=100; d++){
+      var cls = [];
+      if(!byDay[d]) cls.push("locked");
+      if(state.done[d]) cls.push("done");
+      if(d === current) cls.push("current");
+      if(d === nd) cls.push("next");
+      html += '<button class="'+cls.join(" ")+'" data-day="'+d+'">'+(state.done[d] ? "✓" : d)+'</button>';
+    }
+    document.getElementById("days").innerHTML = html;
+
+    var n = Object.keys(state.done).filter(function(k){ return state.done[k]; }).length;
+    document.getElementById("bar").style.width = n + "%";
+    document.getElementById("ptxt").textContent =
+      "완료 " + n + " / 100일 · 준비된 수업 " + LESSONS.length + "일" + (nd ? " · 이어서 할 날: Day " + nd : "");
+  }
+
+  // ---- 수업 화면 ----
+  function renderLesson(){
+    var l = byDay[current];
+    var el = document.getElementById("lesson");
+    if(!l){ el.innerHTML = '<div class="card empty">Day '+current+' 수업은 아직 준비 중이에요.</div>'; return; }
+
+    var h = "";
+    h += '<div class="card lesson-head"><div class="daytag">DAY '+l.day+'</div><h2>'+esc(l.title)+'</h2><p class="situ">'+esc(l.situation)+'</p></div>';
+
+    h += '<div class="card"><h2>① 오늘의 단어 5개</h2>';
+    l.words.forEach(function(w){
+      h += '<div class="word"><div><span class="en">'+esc(w.en)+'</span> <span class="pron">['+esc(w.pron)+']</span><br>'
+         + '<span class="mean">'+esc(w.ko)+'</span> · <span class="zh">'+esc(w.zh)+'</span></div>'
+         + '<div>'+speakBtn(w.en)+'</div></div>';
+    });
+    h += '</div>';
+
+    h += '<div class="card"><h2>② 핵심 문장 (각 3번 소리 내어!)</h2>';
+    l.sentences.forEach(function(s){
+      h += '<div class="sent"><span class="en">'+esc(s.en)+'</span><span class="pron">'+esc(s.pron)+'</span><br>'
+         + '<span class="mean">'+esc(s.ko)+'</span><div class="row">'+speakBtn(s.en)+dots()+'</div></div>';
+    });
+    h += '<div class="sent challenge"><b>🔥 도전 문장</b><br><span class="en">'+esc(l.challenge.en)+'</span><span class="pron">'+esc(l.challenge.pron)+'</span><br>'
+       + '<span class="mean">'+esc(l.challenge.ko)+'</span><div class="row">'+speakBtn(l.challenge.en)+dots()+'</div></div>';
+    h += '</div>';
+
+    h += '<div class="card"><h2>③ 문법 한 줄</h2><div class="grammar">'+l.grammar+'</div></div>';
+
+    h += '<div class="card"><h2>④ 대화 연습 <span class="hint">(빈칸을 톡 누르면 정답)</span></h2>';
+    l.dialogue.forEach(function(d){
+      var line = esc(d.en);
+      if(d.answer){ line = line.replace("___", '<span class="blank hide" data-a="'+esc(d.answer)+'">'+esc(d.answer)+'</span>'); }
+      var full = d.answer ? d.en.replace("___", d.answer) : d.en;
+      h += '<div class="dl"><span class="who">'+esc(d.who)+'</span>'+line+' '+speakBtn(full)+'</div>';
+    });
+    h += '</div>';
+
+    h += '<div class="card"><h2>⑤ '+esc(l.quizLabel || "복습 퀴즈")+'</h2>';
+    l.quiz.forEach(function(q, i){
+      h += '<div class="quiz-item"><b>'+(i+1)+'.</b> '+esc(q.q)
+         + '<details><summary>정답 보기</summary><div class="ans">'+esc(q.a)+'</div></details></div>';
+    });
+    h += '</div>';
+
+    var isDone = !!state.done[l.day];
+    h += '<button class="donebtn'+(isDone?" is-done":"")+'" id="donebtn">'+(isDone?"✓ 완료했어요 (다시 누르면 취소)":"오늘 공부 완료 ✅")+'</button>';
+    h += '<div class="nav"><button id="prev" '+(byDay[l.day-1]?"":"disabled")+'>← Day '+(l.day-1)+'</button>'
+       + '<button id="next" '+(byDay[l.day+1]?"":"disabled")+'>Day '+(l.day+1)+' →</button></div>';
+
+    el.innerHTML = h;
+  }
+
+  function go(d){
+    if(!byDay[d]) return;
+    current = d; state.last = d; save();
+    renderDays(); renderLesson();
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  document.addEventListener("click", function(e){
+    var t = e.target;
+    if(t.dataset && t.dataset.say){ speak(t.dataset.say); return; }
+    if(t.dataset && t.dataset.day){ go(parseInt(t.dataset.day,10)); return; }
+    if(t.classList.contains("blank")){ t.classList.toggle("hide"); return; }
+    if(t.parentNode && t.parentNode.classList && t.parentNode.classList.contains("dots")){ t.classList.toggle("on"); return; }
+    if(t.id === "donebtn"){
+      state.done[current] = !state.done[current]; save();
+      renderDays(); renderLesson(); return;
+    }
+    if(t.id === "prev"){ go(current-1); return; }
+    if(t.id === "next"){ go(current+1); return; }
+  });
+
+  renderDays(); renderLesson();
+})();
+</script>
+</body>
+</html>
