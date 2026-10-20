@@ -69,6 +69,11 @@ p{margin:6px 0}
 .chip{border:2px solid var(--main);background:#fff;color:var(--main);border-radius:12px;padding:9px 14px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
 .line .chip{background:var(--main);color:#fff}
 .chip.used{visibility:hidden}
+.cps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.cp{border:2px dashed var(--line);border-radius:12px;padding:10px 4px;text-align:center;background:#faf8f3;color:var(--soft);font-family:inherit;font-size:12px;min-height:74px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.cp b{font-size:20px;color:var(--ink)}
+.cp.open{border:2px solid var(--gold);background:#fdf1dc;color:#9a6512;cursor:pointer;font-weight:700}
+.cp.done{border-style:solid;border-color:var(--ok);background:var(--ok-bg);color:var(--ok)}
 .vbtn{border:1px solid var(--line);background:#fff;color:var(--main);border-radius:99px;padding:5px 12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
 table{width:100%;border-collapse:collapse;font-size:15px}
 td,th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left}
@@ -174,6 +179,14 @@ const WRITE=[
  {id:"w7",ko:"내 여동생은 나보다 키가 작아요.",words:["My sister","is","shorter","than","me"],end:"."}
 ];
 
+/* ---- 🎟️ 소원 쿠폰판 — 엄마가 고치는 곳 ----
+   도장(하루 10분 끝낸 날) 개수가 STEPS에 닿으면 쿠폰이 열리고, 아이가 소원을 하나 골라요.
+   마라탕 같은 큰 소원은 BIG_STEPS(50·100번)에서만 고를 수 있어요 */
+const STEPS=[3,7,14,21,30,50,100];
+const BIG_STEPS=[50,100];
+const WISHES=["🎮 로블록스 30분 더 하기","🌙 하루 30분 늦게 자기","🧽 설거지·방 정리 면제권","🍽️ 저녁 메뉴 내가 고르기","☕ 엄마랑 둘만 산책·카페 데이트","🎬 엄마랑 캡컷 영상 같이 만들기","📺 애니 한 편 같이 보기"];
+const BIG_WISHES=["🌶️ 마라탕 먹으러 가기"];
+
 const ALL={};[...TEST,...BANK,...WRITE].forEach(x=>ALL[x.id]=x);
 
 /* =========================================================
@@ -212,6 +225,9 @@ function updateBox(id,ok){
   const nb=b.b+1;S.box[id]={b:nb,due:addDays(today(),GAP[nb])};
 }
 function dueList(){return Object.keys(S.box).filter(id=>ALL[id]&&S.box[id].due<=today()).sort((a,b)=>S.box[a].due<S.box[b].due?-1:1);}
+function stamps(){return S.days.length;}
+function nextStep(){return STEPS.find(n=>n>stamps())||null;}
+function openCoupons(){S.coupons=S.coupons||{};return STEPS.filter(n=>n<=stamps()&&!S.coupons[n]);}
 function streak(){
   let d=S.days.includes(today())?today():addDays(today(),-1),n=0;
   while(S.days.includes(d)){n++;d=addDays(d,-1);}
@@ -307,7 +323,7 @@ function home(){
      <div class="tag">영어 10분</div>
      <h1>${done?"오늘 10분 끝! 🎉":"오늘의 영어 10분"}</h1>
      <div class="stats">
-       <div><b>${streak()}</b><span>연속 일수</span></div>
+       <div><b>${stamps()}</b><span>모은 도장</span></div>
        <div><b>${due}</b><span>오늘 복습</span></div>
        <div><b>${S.grad}</b><span>졸업한 문제</span></div>
      </div>
@@ -317,6 +333,7 @@ function home(){
        <button class="btn" id="go">시작하기</button>`}
      <p class="muted" style="margin-top:12px">📦 복습 상자에 ${boxN}문제가 있어요. 틀린 문제는 다음 날, 3일 뒤, 1주 뒤에 다시 나오고, 세 번 맞히면 졸업해요.</p>
    </div>
+   ${couponBoard()}
    <div class="card">
      <h2>레벨 테스트</h2>
      <p class="muted">8주에 한 번 보면 실력이 얼마나 늘었는지 알 수 있어요.${lastT&&lastT.date.indexOf("-")>0?` 다음 추천일: <b>${pretty(addDays(lastT.date,56))}</b>`:""}</p>
@@ -329,6 +346,55 @@ function home(){
   const g=document.getElementById("go");if(g)g.onclick=startDaily;
   const r=document.getElementById("resend");if(r)r.onclick=()=>sendMom(S.lastReport||"오늘 영어 10분 끝냈어요!");
   document.getElementById("test").onclick=testIntro;
+  document.querySelectorAll("[data-cp]").forEach(b=>b.onclick=()=>pickWish(+b.dataset.cp));
+}
+
+/* =========================================================
+   🎟️ 소원 쿠폰판
+   ========================================================= */
+function couponBoard(){
+  S.coupons=S.coupons||{};
+  const n=stamps(),nx=nextStep();
+  const cells=STEPS.map(st=>{
+    const c=S.coupons[st];
+    if(c)return `<div class="cp done"><b>${st}</b><span>✅ ${c.wish.replace(/^\S+\s/,"")}</span></div>`;
+    if(st<=n)return `<button class="cp open" data-cp="${st}"><b>${st}</b><span>🎁 소원 고르기</span></button>`;
+    return `<div class="cp"><b>${st}</b><span>${BIG_STEPS.includes(st)?"🌟 큰 소원":"🔒"}</span></div>`;
+  }).join("");
+  return `<div class="card">
+     <h2>🎟️ 소원 쿠폰판</h2>
+     <p>하루 10분을 끝내면 도장이 1개씩 쌓여요. 하루 빠져도 도장은 그대로예요.</p>
+     ${nx?`<p class="muted">다음 쿠폰까지 도장 <b>${nx-n}</b>개 남았어요</p><div class="mini" style="margin:8px 0 4px"><i style="width:${Math.round(n/nx*100)}%;background:var(--gold)"></i></div>`:`<p class="muted">쿠폰을 모두 열었어요! 🎉</p>`}
+     <div class="cps">${cells}</div>
+   </div>`;
+}
+function pickWish(st){
+  const list=BIG_STEPS.includes(st)?[...BIG_WISHES,...WISHES]:WISHES;
+  let sel=null;
+  el(`<div class="card">
+     <div class="tag">도장 ${st}개 쿠폰</div>
+     <h2>소원을 하나 골라요 🎁</h2>
+     <div class="opts" id="wl">${list.map((w,i)=>`<button class="opt" data-w="${i}">${w}</button>`).join("")}</div>
+     <button class="btn" id="ok" disabled>이 소원으로 엄마에게 신청하기</button>
+     <button class="btn ghost" id="h">다음에 고를게요</button>
+   </div>`);
+  const bs=[...document.querySelectorAll("#wl .opt")];
+  bs.forEach(b=>b.onclick=()=>{sel=list[+b.dataset.w];bs.forEach(x=>x.classList.toggle("sel",x===b));document.getElementById("ok").disabled=false;});
+  document.getElementById("h").onclick=home;
+  document.getElementById("ok").onclick=()=>{
+    S.coupons[st]={wish:sel,date:today()};save();
+    const text=`[소원 쿠폰 🎟️] 영어 도장 ${st}개 모았어요!\n소원: ${sel}`;
+    el(`<div class="card" style="text-align:center">
+       <div class="big">🎟️</div>
+       <h2>쿠폰을 썼어요!</h2>
+       <p><b>${sel}</b></p>
+       <p class="muted">아래 버튼으로 엄마에게 신청을 보내 주세요.</p>
+       <button class="btn" id="send">📲 엄마에게 신청 보내기</button>
+       <button class="btn ghost" id="h">처음으로</button>
+     </div>`);
+    document.getElementById("send").onclick=()=>sendMom(text);
+    document.getElementById("h").onclick=home;
+  };
 }
 
 /* =========================================================
@@ -519,13 +585,14 @@ function dailyEnd(){
   if(nw.n)parts.push(`새 문제 ${nw.ok}/${nw.n}`);
   if(wr.n)parts.push(`문장 만들기 ${wr.ok?"성공":"다시 도전"}`);
   const wrongs=D.res.filter(x=>!x.ok).length;
-  S.lastReport=`[영어 10분] ${pretty(today())} 완료 ✅\n${parts.join(" · ")}\n연속 ${streak()}일째 · 졸업한 문제 ${S.grad}개`+(wrongs?`\n틀린 ${wrongs}문제는 복습 상자에 넣었어요`:"");
+  S.lastReport=`[영어 10분] ${pretty(today())} 완료 ✅\n${parts.join(" · ")}\n도장 ${stamps()}개 · 졸업한 문제 ${S.grad}개`+(wrongs?`\n틀린 ${wrongs}문제는 복습 상자에 넣었어요`:"");
   save();
   el(`<div class="card" style="text-align:center">
      <div class="tag">오늘 10분 끝</div>
      <div class="big">🎉</div>
      <p>${parts.join("<br>")}</p>
-     <div class="stats"><div><b>${streak()}</b><span>연속 일수</span></div><div><b>${wrongs}</b><span>복습 상자로</span></div><div><b>${S.grad}</b><span>졸업한 문제</span></div></div>
+     ${openCoupons().length?`<div class="card note" style="margin:10px 0"><b>🎁 소원 쿠폰이 열렸어요!</b><br>처음 화면 쿠폰판에서 소원을 골라요.</div>`:""}
+     <div class="stats"><div><b>${stamps()}</b><span>모은 도장</span></div><div><b>${wrongs}</b><span>복습 상자로</span></div><div><b>${S.grad}</b><span>졸업한 문제</span></div></div>
      <button class="btn" id="send">📲 엄마에게 보내기</button>
      <button class="btn ghost" id="h">처음으로</button>
    </div>`);
