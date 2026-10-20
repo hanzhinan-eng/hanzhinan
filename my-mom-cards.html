@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="엄마카드">
+<meta name="theme-color" content="#E46A5A">
+<title>엄마 연습 카드</title>
+<style>*{box-sizing:border-box}body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: one narrow column, a single big flip card in the middle, thumb-reach buttons below */
+:root{
+  --bg:#EEF3F7; --paper:#FFFFFF; --ink:#1F2A3A; --muted:#5D6B7E; --line:#D5DEE8;
+  --accent:#E46A5A; --accent-soft:#FBE3DF; --ok:#2F8F6B; --ok-soft:#DDF1E8;
+  --display:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141B24; --paper:#1E2733; --ink:#EAF0F6; --muted:#A3B0C0; --line:#324051;
+  --accent:#F08A7C; --accent-soft:#3A2522; --ok:#5CC49C; --ok-soft:#1C3229; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141B24; --paper:#1E2733; --ink:#EAF0F6; --muted:#A3B0C0; --line:#324051;
+  --accent:#F08A7C; --accent-soft:#3A2522; --ok:#5CC49C; --ok-soft:#1C3229; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:520px;margin:0 auto;padding-block:18px 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:16px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--display);font-weight:800;font-size:28px;margin:0;letter-spacing:-.01em}
+.progress{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-size:15px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);
+  border-radius:999px;padding:6px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.sos{font:inherit;font-family:var(--display);font-size:18px;border:0;border-radius:14px;padding:12px 16px;
+  background:var(--accent);color:#fff;cursor:pointer;text-align:left}
+.card{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;min-height:300px;padding:26px 22px;
+  display:flex;flex-direction:column;gap:14px;cursor:pointer;box-shadow:0 6px 18px rgba(31,42,58,.06)}
+.tag{align-self:flex-start;font-size:13px;letter-spacing:.04em;color:var(--accent);background:var(--accent-soft);
+  padding:3px 10px;border-radius:999px}
+.q{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.35;text-wrap:balance;margin:0}
+.a{border-top:1.5px dashed var(--line);padding-top:14px;white-space:pre-line}
+.hint{margin-top:auto;color:var(--muted);font-size:15px}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btns button{font:inherit;font-family:var(--display);font-size:20px;border:0;border-radius:16px;padding:16px 8px;cursor:pointer}
+.again{background:var(--accent-soft);color:var(--accent)}
+.good{background:var(--ok-soft);color:var(--ok)}
+.done{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;padding:30px 10px}
+.done p{margin:0}
+.more{font:inherit;font-size:16px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:999px;padding:8px 18px;cursor:pointer}
+.sheet{background:var(--paper);border:1.5px solid var(--accent);border-radius:18px;padding:18px 20px}
+.sheet h2{font-family:var(--display);font-weight:400;margin:0 0 8px;font-size:21px}
+.sheet ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.sheet .close{margin-top:12px}
+.howto{color:var(--muted);font-size:14px;line-height:1.5}
+button:focus-visible,.card:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .15s}.card:active{transform:scale(.99)}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>엄마 연습 카드</h1>
+    <span class="progress" id="progress"></span>
+  </header>
+
+  <button class="sos" id="sosBtn">급할 때 보는 응급 한 장 →</button>
+  <section class="sheet" id="sheet" hidden>
+    <h2>응급 한 장</h2>
+    <ol>
+      <li><b>코피</b> 고개 앞으로, 콧방울 10분 꾹. 뒤로 젖히지 않기.</li>
+      <li><b>화상</b> 흐르는 미지근한 물 20분. 얼음·치약·된장 금지.</li>
+      <li><b>머리</b> 구토 2번 이상·이상하게 졸림·두통 심해짐 → 응급실.</li>
+      <li><b>목 걸림</b> 기침하면 계속 기침. 말·숨 안 되면 119 + 하임리히.</li>
+      <li><b>건전지 삼킴</b> 안 아파 보여도 바로 응급실.</li>
+      <li><b>모르겠으면</b> 119에 전화해서 물어보기.</li>
+    </ol>
+    <button class="more close" id="sheetClose">닫기</button>
+  </section>
+
+  <div class="chips" id="chips" role="group" aria-label="주제 고르기"></div>
+
+  <div id="stage"></div>
+
+  <p class="howto">연습 기록은 이 폰에만 저장돼요.</p>
+</div>
+
+<script>
+const CARDS=[
+["응급","코피가 나면?","고개를 살짝 앞으로 숙이고, 코의 말랑한 부분을 10분 꾹.\n뒤로 젖히면 피가 목으로 넘어가요.\n20분 넘게 안 멈추면 병원."],
+["응급","아이가 \"코에서 왜 피가 나?\"","\"코 안에 아주 가느다란 피 길이 많아. 건조하거나 후비면 살짝 터져. 꾹 눌러주면 반창고처럼 다시 닫혀.\""],
+["응급","뜨거운 것에 데었을 때 첫 번째 할 일은?","흐르는 미지근한 수돗물에 20분.\n얼음·치약·된장·소주 금지, 물집은 터뜨리지 않기."],
+["응급","화상, 병원에 가야 할 때는?","물집이 생겼을 때, 손바닥보다 넓을 때, 얼굴·손·사타구니를 데었을 때."],
+["응급","넘어져서 피가 날 때 병원에 가는 경우는?","상처가 벌어져 있을 때, 10분 눌러도 안 멈출 때, 유리·녹슨 못에 다쳤을 때."],
+["응급","아이가 \"딱지는 왜 생겨?\"","\"몸이 스스로 만든 반창고야. 그래서 떼면 안 돼.\""],
+["응급","머리를 부딪혔을 때 바로 응급실 신호는?","구토 2번 이상, 이상하게 졸림·잘 안 깸, 심해지는 두통, 걸음·말 이상, 경련, 정신을 잃었을 때.\n24~48시간 지켜보기."],
+["응급","목에 뭔가 걸렸는데 기침은 할 수 있으면?","계속 기침하게 두기. 손가락 넣지 않기.\n말도 숨도 안 되면 119 + 복부 밀어내기(하임리히)."],
+["응급","아이에게 미리 가르칠 \"도와주세요\" 신호는?","숨이 안 쉬어지면 두 손으로 목을 잡는 것."],
+["응급","열이 날 때 집에서 할 일은?","옷 가볍게, 물 자주.\n해열제는 약 상자의 나이·몸무게표대로, 헷갈리면 약사에게."],
+["응급","열, 병원에 가야 할 때는?","축 처짐, 숨쉬기 힘듦, 물을 못 마시고 소변이 줄 때, 3일 넘게 갈 때.\n경련은 바로 119."],
+["응급","아이가 \"열은 왜 나?\"","\"나쁜 균이 들어오면 몸이 온도를 올려서 균과 싸우는 거야. 몸이 열심히 일하는 신호야.\""],
+["응급","발목을 삐었을 때?","쉬게 하고, 수건에 싼 얼음 찜질, 베개로 다리 높이기.\n모양이 휘었거나 못 디디면 병원."],
+["응급","영구치가 빠졌을 때?","윗부분만 잡고 뿌리는 만지지 않기.\n우유에 담가 30분~1시간 안에 치과.\n젖니는 다시 끼우지 않아요."],
+["응급","벌에 쏘였을 때?","카드 모서리로 침을 긁어서 빼기(집게로 짜지 않기), 씻고 차갑게.\n숨이 차거나 얼굴이 부으면 119."],
+["응급","눈에 세제가 들어갔을 때?","비비지 않고 흐르는 물로 15분 이상 헹군 뒤 바로 병원."],
+["응급","작은 동그란 건전지를 삼켰을 때?","아파 보이지 않아도 바로 응급실. 토하게 하지 않기."],
+["아이질문","\"하늘은 왜 파래?\"","\"햇빛 안에 무지개 색이 다 숨어 있어. 그중 파란 빛이 공기에 부딪혀 제일 많이 튕겨 나가서 어디를 봐도 파래.\""],
+["아이질문","\"노을은 왜 빨개?\"","\"저녁엔 햇빛이 아주 먼 길로 와. 오는 길에 파란 빛은 흩어지고 빨강·주황만 끝까지 남아.\""],
+["아이질문","\"비는 어디서 와?\"","\"바다 물이 데워지면 수증기가 돼서 올라가. 추운 하늘에서 물방울이 되고, 모인 게 구름. 무거워지면 비로 떨어져.\""],
+["아이질문","\"천둥은 왜 쳐?\"","\"번개 길의 공기가 순식간에 뜨거워져서 '펑' 부풀어. 빛이 소리보다 빨라서 번개가 먼저 보여.\""],
+["아이질문","\"달은 왜 모양이 바뀌어?\"","\"달은 햇빛을 받아서 빛나. 지구 주위를 돌면서 햇빛 받는 부분이 많이 보이기도, 조금 보이기도 해.\""],
+["아이질문","\"왜 꼭 자야 해?\"","\"자는 동안 몸은 키가 크고, 뇌는 오늘 배운 걸 서랍에 정리해.\""],
+["아이질문","\"왜 이를 닦아야 해?\"","\"입 안 세균이 남은 단 것을 먹고 이를 갉아먹는 물을 만들어. 이 닦기는 세균 밥 치우기야.\""],
+["아이질문","\"배에서 왜 꼬르륵 소리가 나?\"","\"배 속은 긴 터널이야. 비어 있을 때 공기랑 물이 밀려다니며 소리가 나. '밥 줘' 신호야.\""],
+["아이질문","\"공룡은 어디 갔어?\"","\"아주 오래전 큰 돌덩어리가 우주에서 떨어져 날씨가 확 바뀌었어. 그런데 새가 공룡의 후손이래.\""],
+["아이질문","\"나뭇잎은 왜 가을에 색이 바뀌어?\"","\"초록색은 햇빛으로 밥 만드는 재료야. 가을엔 쉬면서 초록이 빠지고 숨어 있던 노랑·빨강이 보여.\""],
+["아이질문","\"고양이 눈은 왜 밤에 빛나?\"","\"눈 뒤에 거울 같은 막이 있어서 빛을 한 번 더 써. 그 거울에 빛이 반사돼서 반짝여.\""],
+["아이질문","\"돈은 왜 있어?\"","\"물건끼리 바꾸기 어려워서, 모두가 '이걸로 바꿀 수 있다'고 약속한 게 돈이야.\""],
+["아이질문","모르는 질문을 받았을 때 한마디는?","\"우와, 엄마도 궁금하다. 같이 찾아볼까?\"\n\"너는 왜 그런 것 같아?\""],
+["예절","\"모르는 사람인데 왜 인사해?\"","\"인사는 '반가워요'라는 신호야. 같은 건물 이웃이니까. 부끄러우면 고개만 꾸벅해도 괜찮아.\""],
+["예절","\"싫은 선물인데 왜 고맙다고 해?\"","\"고마운 건 물건이 아니라 너를 생각해 준 마음이야. 싫은 마음은 집에 와서 엄마한테 말해줘.\""],
+["예절","친구 집에 가기 전 엄마가 해줄 말은?","\"들어갈 때 '실례하겠습니다', 냉장고·방은 허락받고, 갈 때 정리하고 '잘 놀다 갑니다'.\""],
+["예절","식당에서 뛰어다닐 때?","\"뜨거운 음식을 들고 다니는 곳이라 부딪히면 둘 다 다쳐. 뛰고 싶으면 다 먹고 놀이터 가자.\""],
+["예절","\"걔가 먼저 그랬는데 왜 나도 사과해?\"","\"누가 먼저인지는 같이 들어볼게. 네가 한 부분은 네가 책임지는 거야. 사과는 용감한 거야.\""],
+["예절","좋은 사과 3단계는?","① 잘못 말하기 \"밀어서 미안해\"\n② 상대 마음 \"아팠지?\"\n③ 다음 약속 \"다음엔 말로 할게.\""],
+["예절","어른 대화에 끼어들 때 약속은?","급하지 않으면 엄마 팔에 손 올리기 → 엄마가 손 얹으면 '곧 들을게'.\n위험한 일은 언제든 바로 말하기."],
+["예절","전화 받을 때 가르칠 말은?","\"여보세요, 누구세요?\" → 엄마 부르기.\n모르는 사람에게 주소나 '엄마 없어요'는 말하지 않기."],
+["예절","버스에서 큰 소리로 노래할 때?","\"버스는 모두의 방이야. 자는 사람, 아픈 사람도 있어. 노래는 마음속으로.\""],
+["식단","한 접시 원칙은?","밥 한 칸(연료) + 단백질 한 칸(벽돌) + 채소·과일 한 칸 이상(방패). 음료는 물·우유."],
+["식단","\"왜 채소를 먹어야 해?\"","\"채소는 몸의 방패야. 감기균과 싸울 힘을 주고 배 속 터널 청소도 해줘.\""],
+["식단","\"사탕은 왜 조금만 먹어?\"","\"단 건 세균이 제일 좋아하는 밥이야. 금방 힘났다가 금방 꺼져. 먹었으면 물로 헹구기!\""],
+["식단","\"우유 먹으면 키 커?\"","\"뼈 재료가 있어. 그런데 키는 골고루 먹고 푹 자고 뛰어놀아야 커.\""],
+["식단","편식할 때 강요 대신 쓰는 말은?","\"딱 한 입만 맛보고 맛 점수를 1부터 5까지 매겨줘.\"\n같이 만들기, 이름 붙이기도 효과적."],
+["식단","편식할 때 피할 말은?","\"이거 안 먹으면 디저트 없어.\" — 디저트가 상이 되면 채소는 벌이 돼요."]
+];
+const CATS=[["전체","전체"],["응급","다쳤을 때"],["아이질문","아이 질문"],["예절","예절"],["식단","식단"]];
+const PER_DAY=5, GAPS=[1,3,7,14,30];
+const KEY="momcards-v1";
+let state={};try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){state={}}
+state.cards=state.cards||{}; state.cat=state.cat||"전체";
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function today(){const d=new Date();return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()}
+function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate()}
+const T=today();
+if(state.day!==T){state.day=T;state.doneToday=0}
+let queue=[],cur=null,flipped=false;
+
+function buildQueue(extra){
+  const pool=CARDS.map((c,i)=>({c,i})).filter(o=>state.cat==="전체"||o.c[0]===state.cat);
+  const due=pool.filter(o=>state.cards[o.i]&&state.cards[o.i].due<=T).sort((a,b)=>state.cards[a.i].due-state.cards[b.i].due);
+  const fresh=pool.filter(o=>!state.cards[o.i]);
+  let list=[...due,...fresh];
+  const room=extra?PER_DAY:Math.max(0,PER_DAY-state.doneToday);
+  if(extra&&list.length===0){list=pool.slice().sort(()=>Math.random()-.5)}
+  queue=list.slice(0,room).map(o=>o.i);
+}
+function renderChips(){
+  const box=document.getElementById("chips");box.innerHTML="";
+  CATS.forEach(([k,label])=>{const b=document.createElement("button");b.className="chip";b.textContent=label;
+    b.setAttribute("aria-pressed",String(state.cat===k));
+    b.onclick=()=>{state.cat=k;save();buildQueue(false);renderChips();next()};box.appendChild(b)});
+}
+function renderProgress(){document.getElementById("progress").textContent=`오늘 ${state.doneToday}장 연습`}
+function next(){cur=queue.length?queue[0]:null;flipped=false;render()}
+function render(){
+  renderProgress();
+  const st=document.getElementById("stage");
+  if(cur===null){
+    st.innerHTML=`<div class="card done"><p class="q">오늘 연습 끝!</p><p>헷갈린 카드는 내일 다시 나와요.</p><button class="more" id="moreBtn">5장 더 하기</button></div>`;
+    document.getElementById("moreBtn").onclick=()=>{buildQueue(true);next()};return;
+  }
+  const c=CARDS[cur];const label=CATS.find(x=>x[0]===c[0])[1];
+  st.innerHTML=`<div class="card" id="card" tabindex="0" role="button" aria-label="카드 뒤집기">
+    <span class="tag">${label}</span><p class="q">${esc(c[1])}</p>
+    ${flipped?`<div class="a">${esc(c[2])}</div>`:`<p class="hint">먼저 소리 내서 답해보고, 카드를 눌러 확인하세요.</p>`}
+  </div>${flipped?`<div class="btns"><button class="again" id="againBtn">헷갈려요</button><button class="good" id="goodBtn">알았어요</button></div>`:""}`;
+  const card=document.getElementById("card");
+  const flip=()=>{if(!flipped){flipped=true;render()}};
+  card.onclick=flip;card.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();flip()}};
+  if(flipped){
+    document.getElementById("goodBtn").onclick=()=>grade(true);
+    document.getElementById("againBtn").onclick=()=>grade(false);
+  }
+}
+function grade(ok){
+  const rec=state.cards[cur]||{box:-1};
+  if(ok){rec.box=Math.min(rec.box+1,GAPS.length-1);rec.due=addDays(GAPS[rec.box]);queue.shift()}
+  else{rec.box=0;rec.due=addDays(1);queue.push(queue.shift());if(queue.filter(x=>x===cur).length>1)queue.pop()}
+  state.cards[cur]=rec;state.doneToday++;save();next();
+}
+function esc(s){return s.replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]))}
+document.getElementById("sosBtn").onclick=()=>{document.getElementById("sheet").hidden=false;document.getElementById("sosBtn").hidden=true};
+document.getElementById("sheetClose").onclick=()=>{document.getElementById("sheet").hidden=true;document.getElementById("sosBtn").hidden=false};
+renderChips();buildQueue(false);next();
+</script>
+
+</body>
+</html>
