@@ -220,33 +220,51 @@ function streak(){
 /* =========================================================
    소리 — 기기에 들어있는 영어 목소리
    ========================================================= */
-let voiceA=null,voiceB=null;
-const MALE=/(daniel|alex|fred|aaron|arthur|gordon|oliver|evan|nathan|rishi|tom|david|mark|guy|eric|male)/i;
-const FEMALE=/(samantha|karen|moira|tessa|victoria|susan|zira|ava|allison|jenny|aria|serena|nicky|martha|female)/i;
+/* 또렷한 목소리를 앞에 둔 순서표. 기계 같은 목소리(Fred 등)는 쓰지 않아요.
+   "목소리 설정"에서 고른 목소리가 있으면 그걸 먼저 써요 */
+let voiceA=null,voiceB=null,enVoices=[];
+const FEMALE_ORDER=["samantha","ava","allison","nicky","susan","karen","tessa","moira","serena","victoria","zira","jenny","aria"];
+const MALE_ORDER=["aaron","daniel","evan","nathan","arthur","alex","tom","oliver","david","guy","mark","eric"];
+const BAD=/(fred|albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|junior|organ|superstar|trinoids|whisper|wobble|zarvox|ralph|kathy|princess|rocko|grandpa|grandma|eddy|flo|reed|sandy|shelley)/i;
+function rankPick(order,list){
+  const good=v=>/(premium|enhanced|natural|neural)/i.test(v.name);
+  for(const n of order){
+    const hits=list.filter(v=>v.name.toLowerCase().includes(n));
+    if(hits.length)return hits.find(good)||hits[0];
+  }
+  return null;
+}
 function loadVoices(){
   if(!("speechSynthesis" in window))return;
-  const all=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang));
-  const us=all.filter(v=>/en[-_]US/i.test(v.lang));
-  const pool=us.length?us:all;
-  const pick=(re,list)=>list.find(v=>re.test(v.name)&&v.localService)||list.find(v=>re.test(v.name));
-  voiceA=pick(FEMALE,pool)||pick(FEMALE,all)||pool[0]||null;
-  voiceB=pick(MALE,pool)||pick(MALE,all)||null;
+  enVoices=speechSynthesis.getVoices().filter(v=>/^en[-_]/i.test(v.lang)&&!BAD.test(v.name));
+  const us=enVoices.filter(v=>/en[-_]US/i.test(v.lang));
+  const pool=us.length?us:enVoices;
+  const byName=n=>n&&enVoices.find(v=>v.name===n);
+  voiceA=byName(S.voiceA)||rankPick(FEMALE_ORDER,pool)||rankPick(FEMALE_ORDER,enVoices)||pool[0]||null;
+  if(S.voiceB==="same")voiceB=null;
+  else voiceB=byName(S.voiceB)||rankPick(MALE_ORDER,pool)||rankPick(MALE_ORDER,enVoices)||null;
 }
 if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+/* 한 줄씩 차례로 읽고, 사람이 바뀔 때 잠깐 쉬어요 */
+let speakToken=0;
 function speak(audio,done){
   if(!("speechSynthesis" in window)){alert("이 기기에서는 소리가 나오지 않아요. 다른 브라우저로 열어보세요.");done&&done();return;}
   speechSynthesis.cancel();
   const lines=Array.isArray(audio)?audio:[audio];
-  lines.forEach((t,i)=>{
-    const u=new SpeechSynthesisUtterance(t);
-    u.lang="en-US";u.rate=0.85;u.pitch=1;
+  const my=++speakToken;
+  const say=i=>{
+    if(my!==speakToken)return;
+    if(i>=lines.length){done&&done();return;}
+    const u=new SpeechSynthesisUtterance(lines[i]);
+    u.lang="en-US";u.rate=0.85;u.pitch=1;u.volume=1;
     const v=(Array.isArray(audio)&&i%2===1&&voiceB)?voiceB:voiceA;
     if(v)u.voice=v;
-    if(i===lines.length-1&&done)u.onend=done;
+    u.onend=()=>setTimeout(()=>say(i+1),Array.isArray(audio)?600:0);
     speechSynthesis.speak(u);
-  });
+  };
+  say(0);
 }
-function stopSound(){if("speechSynthesis" in window)speechSynthesis.cancel();}
+function stopSound(){speakToken++;if("speechSynthesis" in window)speechSynthesis.cancel();}
 function scriptOf(q){
   if(!q.audio)return "";
   return Array.isArray(q.audio)?q.audio.map((t,j)=>(j%2?"B: ":"A: ")+t).join("<br>"):q.audio;
@@ -298,10 +316,45 @@ function home(){
      ${hist}
      <button class="btn ghost" id="test">레벨 테스트 보기</button>
    </div>
-   <p class="muted" style="text-align:center">기록은 이 기기에만 저장돼요.</p>`);
+   <button class="btn ghost" id="voice">🔊 목소리 설정</button>
+   <p class="muted" style="text-align:center;margin-top:14px">기록은 이 기기에만 저장돼요.</p>`);
+  document.getElementById("voice").onclick=voiceSettings;
   const g=document.getElementById("go");if(g)g.onclick=startDaily;
   const r=document.getElementById("resend");if(r)r.onclick=()=>sendMom(S.lastReport||"오늘 영어 10분 끝냈어요!");
   document.getElementById("test").onclick=testIntro;
+}
+
+/* =========================================================
+   목소리 설정 — 들어보고 잘 들리는 목소리로 고르기
+   ========================================================= */
+function voiceSettings(){
+  loadVoices();
+  if(!enVoices.length){
+    el(`<div class="card"><h2>목소리 설정</h2><p>이 기기에서 영어 목소리를 찾지 못했어요. 잠시 뒤 다시 열어 보세요.</p><button class="btn ghost" id="h">처음으로</button></div>`);
+    document.getElementById("h").onclick=home;return;
+  }
+  const opt=(sel)=>enVoices.map(v=>`<option value="${v.name}" ${sel&&sel.name===v.name?"selected":""}>${v.name} (${v.lang.replace("_","-")})</option>`).join("");
+  el(`<div class="card">
+     <div class="tag">목소리 설정</div>
+     <h2>잘 들리는 목소리를 골라요</h2>
+     <p class="muted">대화 문제에서 첫 번째 사람은 A, 두 번째 사람은 B 목소리로 읽어요.</p>
+     <p style="margin-top:14px"><b>A 목소리</b></p>
+     <select id="va" style="width:100%;font-size:16px;padding:10px;border-radius:10px">${opt(voiceA)}</select>
+     <p style="margin-top:14px"><b>B 목소리</b></p>
+     <select id="vb" style="width:100%;font-size:16px;padding:10px;border-radius:10px">
+       <option value="same" ${!voiceB?"selected":""}>A와 같은 목소리</option>${opt(voiceB)}</select>
+     <button class="btn ghost" id="try">▶ 대화 들어보기</button>
+     <button class="btn" id="ok">저장하기</button>
+     <button class="btn ghost" id="reset">처음 설정으로</button>
+   </div>`);
+  const apply=()=>{
+    S.voiceA=document.getElementById("va").value;
+    S.voiceB=document.getElementById("vb").value;
+    loadVoices();
+  };
+  document.getElementById("try").onclick=()=>{apply();speak(["Hi! How are you today?","I'm great, thanks. Let's study English together."]);};
+  document.getElementById("ok").onclick=()=>{apply();save();stopSound();home();};
+  document.getElementById("reset").onclick=()=>{delete S.voiceA;delete S.voiceB;save();loadVoices();voiceSettings();};
 }
 
 /* =========================================================
@@ -336,7 +389,7 @@ function renderMC(q,{head,tag,feedback,btnLabel,onDone}){
     if(plays>=2)return;plays++;pb.disabled=true;
     speak(q.audio,()=>{if(plays<2)pb.disabled=false;});
     document.getElementById("pc").textContent=plays>=2?"(다 들었어요)":`(${2-plays}번 남음)`;
-    setTimeout(()=>{if(plays<2)pb.disabled=false;},6000);
+    setTimeout(()=>{if(plays<2)pb.disabled=false;},15000);
   };
   const nb=document.getElementById("next");
   nb.onclick=()=>{
