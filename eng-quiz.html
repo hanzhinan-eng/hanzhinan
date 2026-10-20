@@ -69,6 +69,7 @@ p{margin:6px 0}
 .chip{border:2px solid var(--main);background:#fff;color:var(--main);border-radius:12px;padding:9px 14px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
 .line .chip{background:var(--main);color:#fff}
 .chip.used{visibility:hidden}
+.vbtn{border:1px solid var(--line);background:#fff;color:var(--main);border-radius:99px;padding:5px 12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
 table{width:100%;border-collapse:collapse;font-size:15px}
 td,th{padding:8px 4px;border-bottom:1px solid var(--line);text-align:left}
 </style>
@@ -223,6 +224,7 @@ function streak(){
 /* 또렷한 목소리를 앞에 둔 순서표. 기계 같은 목소리(Fred 등)는 쓰지 않아요.
    "목소리 설정"에서 고른 목소리가 있으면 그걸 먼저 써요 */
 let voiceA=null,voiceB=null,enVoices=[];
+let returnTo=null;   // 목소리 설정 뒤 돌아갈 화면 (풀던 문제)
 const FEMALE_ORDER=["samantha","ava","allison","nicky","susan","karen","tessa","moira","serena","victoria","zira","jenny","aria"];
 const MALE_ORDER=["aaron","daniel","evan","nathan","arthur","alex","tom","oliver","david","guy","mark","eric"];
 const BAD=/(fred|albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|junior|organ|superstar|trinoids|whisper|wobble|zarvox|ralph|kathy|princess|rocko|grandpa|grandma|eddy|flo|reed|sandy|shelley)/i;
@@ -274,7 +276,12 @@ function scriptOf(q){
    화면 공통
    ========================================================= */
 const app=document.getElementById("app");
-function el(html){app.innerHTML=html;window.scrollTo(0,0);}
+function el(html){
+  app.innerHTML=html;window.scrollTo(0,0);
+  const vs=document.getElementById("vset");
+  if(vs){const here=currentScreen;vs.onclick=()=>{stopSound();returnTo=here;voiceSettings();};}
+}
+let currentScreen=null;   // 지금 풀고 있는 문제 화면 (다시 그리기용)
 function shuffled(arr){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
 /* 엄마에게 보내기: 카톡·문자 공유창을 열어요 (안 되면 복사) */
@@ -318,7 +325,7 @@ function home(){
    </div>
    <button class="btn ghost" id="voice">🔊 목소리 설정</button>
    <p class="muted" style="text-align:center;margin-top:14px">기록은 이 기기에만 저장돼요.</p>`);
-  document.getElementById("voice").onclick=voiceSettings;
+  document.getElementById("voice").onclick=()=>{returnTo=null;voiceSettings();};
   const g=document.getElementById("go");if(g)g.onclick=startDaily;
   const r=document.getElementById("resend");if(r)r.onclick=()=>sendMom(S.lastReport||"오늘 영어 10분 끝냈어요!");
   document.getElementById("test").onclick=testIntro;
@@ -329,6 +336,7 @@ function home(){
    ========================================================= */
 function voiceSettings(){
   loadVoices();
+  const origA=S.voiceA,origB=S.voiceB;   // 취소하면 원래대로
   if(!enVoices.length){
     el(`<div class="card"><h2>목소리 설정</h2><p>이 기기에서 영어 목소리를 찾지 못했어요. 잠시 뒤 다시 열어 보세요.</p><button class="btn ghost" id="h">처음으로</button></div>`);
     document.getElementById("h").onclick=home;return;
@@ -346,6 +354,7 @@ function voiceSettings(){
      <button class="btn ghost" id="try">▶ 대화 들어보기</button>
      <button class="btn" id="ok">저장하기</button>
      <button class="btn ghost" id="reset">처음 설정으로</button>
+     <button class="btn ghost" id="cancel">${returnTo?"◀ 풀던 문제로 돌아가기":"처음으로"}</button>
    </div>`);
   const apply=()=>{
     S.voiceA=document.getElementById("va").value;
@@ -353,15 +362,17 @@ function voiceSettings(){
     loadVoices();
   };
   document.getElementById("try").onclick=()=>{apply();speak(["Hi! How are you today?","I'm great, thanks. Let's study English together."]);};
-  document.getElementById("ok").onclick=()=>{apply();save();stopSound();home();};
+  const back=()=>{stopSound();const r=returnTo||home;returnTo=null;r();};
+  document.getElementById("ok").onclick=()=>{apply();save();back();};
   document.getElementById("reset").onclick=()=>{delete S.voiceA;delete S.voiceB;save();loadVoices();voiceSettings();};
+  document.getElementById("cancel").onclick=()=>{S.voiceA=origA;S.voiceB=origB;loadVoices();back();};
 }
 
 /* =========================================================
    객관식 문제 한 개 그리기 (테스트·연습 공용)
    opts.feedback=true 이면 확인 후 정답·대본을 바로 보여줘요
    ========================================================= */
-function renderMC(q,{head,tag,feedback,btnLabel,onDone}){
+function renderMC(q,{head,tag,feedback,btnLabel,onDone,pre=null,onBack=null}){
   const order=shuffled(q.opts.map((_,i)=>i));          // 보기 순서 섞기
   let chosen=null,plays=0,checked=false;
   el(`${head||""}
@@ -376,8 +387,15 @@ function renderMC(q,{head,tag,feedback,btnLabel,onDone}){
      </div>
      <div id="fb"></div>
      <button class="btn" id="next" disabled>${feedback?"확인":btnLabel}</button>
+     ${onBack?`<button class="btn ghost" id="back">◀ 이전 문제</button>`:""}
    </div>`);
   const btns=[...document.querySelectorAll("#opts .opt")];
+  if(onBack)document.getElementById("back").onclick=()=>{stopSound();onBack();};
+  if(pre!==null){   // 앞에서 골랐던 답을 표시해 둬요
+    chosen=pre;
+    btns.forEach(x=>x.classList.toggle("sel",+x.dataset.o===pre));
+    document.getElementById("next").disabled=false;
+  }
   btns.forEach(b=>b.onclick=()=>{
     if(checked)return;
     chosen=+b.dataset.o;
@@ -471,11 +489,12 @@ function startDaily(){
   dailyShow();
 }
 function dailyShow(){
+  currentScreen=dailyShow;
   const it=D.items[D.i],x=ALL[it.id],n=D.items.length;
   const pct=Math.round(D.i/n*100);
   const label={review:"📦 복습",new:"✨ 새 문제",write:"✏️ 문장 만들기"}[it.kind];
   const isW=it.id[0]==="w";
-  const head=`<div class="top"><span>${D.i+1} / ${n}</span><span>${label}</span></div><div class="bar"><i style="width:${pct}%"></i></div>`;
+  const head=`<div class="top"><span>${D.i+1} / ${n} · ${label}</span><button class="vbtn" id="vset">🔊 목소리</button></div><div class="bar"><i style="width:${pct}%"></i></div>`;
   const tag=`<div class="tag ${it.kind==="review"?"review":""}">${it.kind==="review"?"지난번에 어려웠던 문제":(isW?"문장 만들기":x.type)}</div>`;
   const btnLabel=D.i===n-1?"끝내기":"다음";
   const done=ok=>{
@@ -533,20 +552,40 @@ function testIntro(){
   document.getElementById("h").onclick=home;
 }
 function testShow(){
+  currentScreen=testShow;
   const q=TEST[T.i],prev=TEST[T.i-1];
-  let head=`<div class="top"><span>${q.sec} · ${T.i+1} / ${TEST.length}</span><span>${q.type}</span></div><div class="bar"><i style="width:${Math.round(T.i/TEST.length*100)}%"></i></div>`;
+  let head=`<div class="top"><span>${q.sec} · ${T.i+1} / ${TEST.length}</span><button class="vbtn" id="vset">🔊 목소리</button></div><div class="bar"><i style="width:${Math.round(T.i/TEST.length*100)}%"></i></div>`;
   if(prev&&prev.band!==q.band)head=`<div class="card note"><b>잘했어요! 🎉</b> 다음 단계로 올라가요. 조금 더 어려워져요.</div>`+head;
   else if(prev&&prev.sec!==q.sec)head=`<div class="card note"><b>듣기 끝! 👏</b> 이번엔 읽기 문제예요. 소리는 안 나와요.</div>`+head;
-  renderMC(q,{head,feedback:false,btnLabel:T.i===TEST.length-1?"결과 보기":"다음",onDone:(ok,chosen)=>{
-    T.res.push({ok,chosen});T.i++;
-    // 한 단계(8문제)가 끝났는데 6개 미만이면 여기서 끝내요
-    const bandEnd=T.i>=TEST.length||TEST[T.i].band!==q.band;
-    if(bandEnd){
-      let c=0;T.res.forEach((r,i)=>{if(TEST[i].band===q.band&&r.ok)c++;});
-      if(c<6){testEnd();return;}
-    }
-    if(T.i<TEST.length)testShow();else testEnd();
-  }});
+  const saved=T.res[T.i];
+  renderMC(q,{head,feedback:false,btnLabel:"다음",pre:saved?saved.chosen:null,
+    onBack:T.i>0?()=>{T.i--;testShow();}:null,
+    onDone:(ok,chosen)=>{
+      const cur=T.i;
+      T.res[cur]={ok,chosen};
+      // 한 단계(8문제)가 끝났는데 6개 미만이면 여기서 멈춰요 (돌아가서 고칠 수 있어요)
+      const bandEnd=cur===TEST.length-1||TEST[cur+1].band!==q.band;
+      if(bandEnd){
+        let c=0;for(let i=0;i<=cur;i++)if(TEST[i].band===q.band&&T.res[i]&&T.res[i].ok)c++;
+        if(c<6||cur===TEST.length-1){testStop(cur,cur===TEST.length-1&&c>=6);return;}
+      }
+      T.i=cur+1;testShow();
+    }});
+}
+/* 결과 보기 전 확인: 여기서 앞 문제로 돌아가 답을 고칠 수 있어요 */
+function testStop(e,allDone){
+  stopSound();
+  el(`<div class="card" style="text-align:center">
+     <div class="tag">레벨 테스트</div>
+     <div class="big">${allDone?"🏁":"👏"}</div>
+     <h2>${allDone?"모든 문제를 다 풀었어요!":"여기까지 풀었어요!"}</h2>
+     <p>${allDone?"":"다음 단계는 지금은 조금 어려워요. 연습하고 다음에 도전해요.<br>"}고치고 싶은 답이 있으면 앞 문제로 돌아가세요.</p>
+     <p class="muted">결과 보기를 누르면 답을 바꿀 수 없어요.</p>
+     <button class="btn" id="end">결과 보기</button>
+     <button class="btn ghost" id="back">◀ 앞 문제로 돌아가기</button>
+   </div>`);
+  document.getElementById("end").onclick=()=>testEnd(e);
+  document.getElementById("back").onclick=()=>{T.i=e;testShow();};
 }
 function estimate(b){
   if(b[1]<4)return "6급 준비 단계";
@@ -557,7 +596,8 @@ function estimate(b){
   if(b[3]<6)return "2급 수준";
   return "1급 수준";
 }
-function testEnd(){
+function testEnd(e){
+  T.res=T.res.slice(0,e+1);   // 멈춘 곳까지만 채점해요
   const asked=T.res.length,band={1:0,2:0,3:0},bandN={1:0,2:0,3:0},types={};
   let score=0;
   T.res.forEach((r,i)=>{
