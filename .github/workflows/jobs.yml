@@ -21,5 +21,5 @@ jobs:
           git config user.email "bot@hanzhinan.com"
           git add gongzuo.html sitemap.xml jobs_seen.json
           git diff --cached --quiet || git commit -m "招聘 자동 갱신 $(date +%Y-%m-%d)"
-          git pull --rebase
+          git pull --rebase --autostash
           git push

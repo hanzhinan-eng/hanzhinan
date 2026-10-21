@@ -22,8 +22,8 @@ jobs:
         run: |
           git config user.name "hanzhinan-bot"
           git config user.email "bot@hanzhinan.com"
-          git add jiaoyu.html lvyou.html zhufang.html sitemap.xml
+          git add butie.html mama.html jiaoyu.html lvyou.html zhufang.html sitemap.xml
           git diff --cached --quiet && exit 0
           git commit -m "公共数据 자동 갱신 $(date +%Y-%m-%d)"
-          git pull --rebase
+          git pull --rebase --autostash
           git push
