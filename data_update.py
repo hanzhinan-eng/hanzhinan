@@ -341,17 +341,29 @@ def _md(a, b=None):
 def exam_sample():
     return [{"implYy": str(TODAY.year), "implSeq": "1", "description": "국가전문자격 관광통역안내사", "docRegStartDt": f"{TODAY.year}0706", "docRegEndDt": f"{TODAY.year}0710", "docExamStartDt": f"{TODAY.year}0905", "docExamEndDt": f"{TODAY.year}0905", "docPassDt": f"{TODAY.year}1021", "pracRegStartDt": f"{TODAY.year}0706", "pracRegEndDt": f"{TODAY.year}0710", "pracExamStartDt": f"{TODAY.year}1114", "pracExamEndDt": f"{TODAY.year}1115", "pracPassDt": f"{TODAY.year}1216"}]
 def exam_render(items, prac_zh):
+    # 2026-10-21: 전문자격(관광통역안내사)은 1차 필기·2차 면접이 「같은 회차 2줄」로 오고 둘 다 doc* 칸에 날짜가 들어옴
+    #   → 회차별로 묶어서 시험일 순으로 1줄째 = 笔试, 2줄째 = 面试/实技 로 표시
+    groups = {}
+    for it in items:
+        groups.setdefault((str(it.get("implYy")), str(it.get("implSeq"))), []).append(it)
     rows = []
-    for it in sorted(items, key=lambda x: (str(x.get("implYy")), str(x.get("implSeq")))):
-        last = _d(it.get("pracPassDt")) or _d(it.get("docPassDt"))
+    for (yy, seq), its in sorted(groups.items()):
+        its.sort(key=lambda x: str(x.get("docExamStartDt") or ""))
+        first = its[0]
+        if len(its) >= 2:   # 단계별 2줄로 온 경우
+            second = its[1]
+            prac_s, prac_e, final = second.get("docExamStartDt"), second.get("docExamEndDt"), second.get("docPassDt")
+        else:               # 한 줄에 필기·실기가 다 들어온 경우
+            prac_s, prac_e, final = first.get("pracExamStartDt"), first.get("pracExamEndDt"), first.get("pracPassDt")
+        last = _d(final) or _d(first.get("docPassDt"))
         if last and last < TODAY - datetime.timedelta(days=30): continue   # 끝난 지 한 달 넘은 회차는 숨김
-        reg = _md(it.get("docRegStartDt"), it.get("docRegEndDt"))
+        reg = _md(first.get("docRegStartDt"), first.get("docRegEndDt"))
         parts = [f"报名 <strong>{reg}</strong>" if reg else "",
-                 f"笔试 {_md(it.get('docExamStartDt'), it.get('docExamEndDt'))}" if it.get("docExamStartDt") else "",
-                 f"笔试发榜 {_md(it.get('docPassDt'))}" if it.get("docPassDt") else "",
-                 f"{prac_zh} {_md(it.get('pracExamStartDt'), it.get('pracExamEndDt'))}" if it.get("pracExamStartDt") else "",
-                 f"最终发榜 {_md(it.get('pracPassDt'))}" if it.get("pracPassDt") else ""]
-        rows.append(f"<strong>{esc(it.get('implYy'))} 第 {esc(it.get('implSeq'))} 回</strong>：" + " · ".join(x for x in parts if x))
+                 f"笔试 {_md(first.get('docExamStartDt'), first.get('docExamEndDt'))}" if first.get("docExamStartDt") else "",
+                 f"笔试发榜 {_md(first.get('docPassDt'))}" if first.get("docPassDt") else "",
+                 f"{prac_zh} {_md(prac_s, prac_e)}" if prac_s else "",
+                 f"最终发榜 {_md(final)}" if final else ""]
+        rows.append(f"<strong>{esc(yy)} 年</strong>：" + " · ".join(x for x in parts if x))
     if not rows: return '<span class="zh">今年的考试已结束，明年日程公布后这里自动更新。</span>'
     return "<br>".join(rows)
 
