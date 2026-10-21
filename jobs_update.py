@@ -91,7 +91,7 @@ def cards(items):
         if d.get("출신국"): tags.append("出身国 " + esc(zh_list(d["출신국"], CN_ZH)))
         if d.get("모집언어"): tags.append("语言 " + esc(zh_list(d["모집언어"], LANG_ZH)))
         dd = dday(it["end"])
-        top = f'<span class="tag ok">{esc(dd)}</span> ' if dd.startswith("D-") and int(dd[2:]) <= 7 or dd == "今天截止" else ""
+        top = f'<span class="tag ok dd-tag">{esc(dd)}</span> ' if dd.startswith("D-") and int(dd[2:]) <= 7 or dd == "今天截止" else ""
         top += f'<span class="tag info">{" · ".join(tags) or "招聘"}</span>'
         when = " ".join(x for x in [days_zh(d.get("근무요일", "")), esc(d.get("근무시간", ""))] if x)
         kv = ""
@@ -100,8 +100,8 @@ def cards(items):
         if d.get("임금"): kv += f'        <dt>工资</dt><dd>{esc(d["임금"])}</dd>\n'
         wf = " · ".join(x for x in [when, esc(d.get("고용형태", ""))] if x)
         if wf: kv += f'        <dt>时间·形态</dt><dd>{wf}</dd>\n'
-        kv += f'        <dt>截止</dt><dd>{esc(it["end"] or d.get("마감일", ""))}{(" · " + dd) if dd else ""} · <a href="{BASE}/jobs/opening/{it["id"]}" target="_blank" rel="noopener">한울타리 原文</a></dd>\n'
-        cards.append(f'''    <article class="ntc">
+        kv += f'        <dt>截止</dt><dd>{esc(it["end"] or d.get("마감일", ""))}<span class="dd-txt">{(" · " + dd) if dd else ""}</span> · <a href="{BASE}/jobs/opening/{it["id"]}" target="_blank" rel="noopener">한울타리 原文</a></dd>\n'
+        cards.append(f'''    <article class="ntc" data-end="{esc(it["end"])}">
       <div class="ntc-top">{top}</div>
       <h3>{esc(it["title"])}</h3>
       <dl class="kv">
