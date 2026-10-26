@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 공공데이터 자동 갱신 3종 — 복지서비스(补助) · 관광행사(本月活动) · 아파트 실거래(房价)
-# 실행: APPLYHOME_KEY=키 python3 data_update.py [notice|welfare|tour|apt|all]   (--sample: 견본 데이터)
+# 실행: APPLYHOME_KEY=키 python3 data_update.py [notice|hangang|welfare|tour|apt|all]   (--sample: 견본 데이터)
 import os, sys, re, json, time, datetime, statistics, urllib.request, urllib.parse
 import xml.etree.ElementTree as ET
 
@@ -232,7 +232,7 @@ def tour_homepage(cid):
         row = (items.get("item") or [{}])[0] if isinstance(items, dict) else {}
         hp = str(row.get("homepage") or "")
         m = re.search(r'href=["\']?([^"\' >]+)', hp) or re.search(r"(https?://[^\s<\"']+)", hp)
-        return html.unescape(m.group(1)) if m else ""
+        return _html.unescape(m.group(1)) if m else ""
     except Exception as e:
         print("tour detail failed", cid, e); return ""
 def tour_ko(title):
@@ -252,6 +252,71 @@ def tour_render(items):
             link = f'<a href="https://search.naver.com/search.naver?query={urllib.parse.quote(ko)}" target="_blank" rel="noopener">查询 ↗</a>'
         sub = f'<small class="nt-sub" lang="ko">{esc(ko)}</small>' if ko and ko != zh else ""
         rows.append(f'        <tr class="evr" data-area="{it.get("_area", "")}" data-s="{esc(s)}" data-e="{esc(e)}"><td>{esc(zh)}{sub}</td><td class="nt-d">{md(s)}～{md(e)}</td><td class="nt-l">{link}</td></tr>\n')
+    return "".join(rows)
+
+# ---------------- 2-1. 한강공원 행사 (本月活动 › 汉江公园) — 2026-10-26 추가, 열쇠 불필요 ----------------
+# 출처: 미래한강본부 행사·공연 정보 (진행중 Y + 진행예정 B). 목록은 서버가 HTML로 바로 줌 (pageNo로 넘김)
+HG_LIST = "https://hangang.seoul.go.kr/www/eventMng/list.do"
+HG_DETAIL = "https://hangang.seoul.go.kr/www/eventMng/detail.do?mid=538&evntSn="
+HG_PARK = [("광나루", "广渡口"), ("잠실", "蚕室"), ("뚝섬", "纛岛"), ("잠원", "蚕院"), ("반포", "盘浦"), ("이촌", "二村"), ("여의도", "汝矣岛"),
+           ("양화", "杨花"), ("난지", "兰芝"), ("망원", "望远"), ("강서", "江西"), ("서울숲", "首尔林"), ("광진교", "广津桥"), ("잠수교", "潜水桥"), ("밤섬", "栗岛")]
+HG_CATE = {"축제": "节庆", "체육": "体育", "문화예술": "文艺", "수상": "水上"}
+def hg_get(page):
+    q = urllib.parse.urlencode({"mid": 538, "opt14": "Y,B", "pageNo": page})
+    req = urllib.request.Request(HG_LIST + "?" + q, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130 Safari/537.36", "Accept-Language": "ko-KR,ko;q=0.9"})
+    last = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=25) as r: return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last = e; print(f"  hangang retry {attempt + 1}/3:", e); time.sleep(3 * (attempt + 1))
+    raise last
+def hg_text(t): return _html.unescape(re.sub(r"<[^>]+>", "", t or "")).strip()
+def hangang_fetch():
+    """None = 접속 실패·구조 변경(기존 유지) / [] = 정말 0건"""
+    out, total = [], None
+    for pg in range(1, 6):
+        try: page = hg_get(pg)
+        except Exception as e: print("hangang failed", pg, e); return None
+        m = re.search(r"총\s*<?[^0-9]*?([0-9,]+)\s*</?[^>]*>?\s*개", page) or re.search(r"총\s*([0-9,]+)\s*개", hg_text(page))
+        if pg == 1: total = int(m.group(1).replace(",", "")) if m else None; print("hangang total:", total)
+        blocks = re.findall(r'<li class="list-item">(.*?)<div class="event-btns">', page, flags=re.S)
+        for b in blocks:
+            sn = re.search(r"goDetail\('(\d+)'\)", b); tit = re.search(r'class="event-tit"[^>]*>(.*?)</a>', b, flags=re.S)
+            if not sn or not tit: continue
+            dd = {hg_text(k): hg_text(v) for k, v in re.findall(r"<dt>(.*?)</dt>\s*<dd>(.*?)</dd>", b, flags=re.S)}
+            ds = re.findall(r"(\d{4})-(\d{2})-(\d{2})", dd.get("기간", ""))
+            if not ds: continue
+            cate = re.search(r'class="cate[^"]*">(.*?)<', b)
+            out.append({"sn": sn.group(1), "title": hg_text(tit.group(1)), "s": "".join(ds[0]), "e": "".join(ds[-1]),
+                        "cate": hg_text(cate.group(1)) if cate else "", "join": dd.get("참여", ""), "place": dd.get("장소", "")})
+        if len(blocks) < 6 or (total is not None and len(out) >= total): break   # 한 쪽에 6건 · 총 개수 다 받으면 멈춤
+    seen = set(); out = [x for x in out if not (x["sn"] in seen or seen.add(x["sn"]))]   # 같은 행사 중복 제거
+    print("hangang kept", len(out))
+    if total is None and not out: print("  hangang: 목록 구조를 못 읽음 → 기존 유지"); return None
+    if total and not out: print("  hangang: 총", total, "개인데 0건 파싱 → 구조 변경 의심, 기존 유지"); return None
+    return out
+def hangang_sample():
+    return [{"sn": "445", "title": "2026 한강불빛 공연 드론라이트쇼 (하반기)", "s": "20260912", "e": "20261031", "cate": "축제", "join": "현장참여", "place": "뚝섬한강공원"}]
+def hangang_zh(title):
+    # 제목 번역은 hangang_zh.json (한국어 → 中文, 연도 뺀 제목 기준). 없으면 한국어 그대로 + 로그에 「번역 필요」
+    try: table = json.load(open(os.path.join(HERE, "hangang_zh.json"), encoding="utf-8"))
+    except Exception: table = {}
+    y = re.match(r"(20\d\d)\s+", title); core = title[y.end():] if y else title
+    zh = table.get(core.strip())
+    if not zh: print("  hangang 번역 필요:", core); return ""
+    return (y.group(1) + " " if y else "") + zh
+def hangang_render(items):
+    def md(s): return f"{int(s[4:6])}.{int(s[6:8])}"
+    rows = []
+    for it in sorted(items, key=lambda x: (x["e"], x["s"])):
+        ko = it["title"]; zh = hangang_zh(ko)
+        park = next((z for k, z in HG_PARK if k in it["place"]), "")
+        bits = [("📍" + park) if park else "", HG_CATE.get(it["cate"], ""), "需预约" if re.search(r"예약|접수", it["join"]) else "现场参加"]
+        meta = " · ".join(x for x in bits if x)
+        name = f'{esc(zh)}<small class="nt-sub" lang="ko">{esc(ko)}</small>' if zh else f'<span lang="ko">{esc(ko)}</span>'
+        rows.append(f'        <tr class="evr" data-area="汉江" data-s="{it["s"]}" data-e="{it["e"]}"><td>{name}<small class="nt-sub">{esc(meta)}</small></td>'
+                    f'<td class="nt-d">{md(it["s"])}～{md(it["e"])}</td><td class="nt-l"><a href="{esc(HG_DETAIL)}{it["sn"]}" target="_blank" rel="noopener">详情 ↗</a></td></tr>\n')
     return "".join(rows)
 
 # ---------------- 3. 아파트 실거래 (房价) ----------------
@@ -385,6 +450,10 @@ def main():
             items = exam_sample() if SAMPLE else exam_fetch(qg, jm)
             if items: changed |= replace_block("mama.html", tag, exam_render(items, prac) + "\n", "exam-stamp")
             else: print(f"exam {name}: 0건 → 기존 내용 유지")
+    if what in ("hangang", "tour", "all"):   # 열쇠 불필요 → KEY 검사 앞에서 실행
+        items = hangang_sample() if SAMPLE else hangang_fetch()
+        if items is None: print("hangang: 접속 실패 → 기존 내용 유지")
+        else: changed |= replace_block("lvyou.html", "HANGANG", hangang_render(items), "hangang-stamp")
     if not SAMPLE and not KEY:
         print("APPLYHOME_KEY 없음 → 공공데이터 3종 건너뜀"); what = "none"
     if what == "welfare":   # 2026-10-02 정부지원 항목 폐지 → 자동 실행(all)에서 제외
