@@ -1,0 +1,21 @@
+name: probe 시험 실행
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 probe.py
+      - run: |
+          git config user.name "hanzhinan-bot"
+          git config user.email "bot@hanzhinan.com"
+          git add probe_result.txt
+          git commit -m "probe 시험 결과 $(date +%Y-%m-%d)"
+          git pull --rebase --autostash
+          git push
