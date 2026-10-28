@@ -1,54 +1,143 @@
-probe run 2026-10-27 16:51 KST
+probe-2 run 2026-10-28 14:36 KST
 ======================================================================
-1. 한울타리 https://mcfamily.or.kr
-home: 200 bytes 276938
-  menu: '가족센터 프로그램' -> /programs/family
-  menu: '공지사항' -> /posts/notice
-  menu: '서울의 정보' -> /posts/info
-  menu: '가족센터 소식' -> /posts/family
-  menu: '지역사회모임' -> /posts/community
-  menu: '카드 뉴스' -> /posts/media/card
-  menu: '가족센터 프로그램' -> /programs/family
-  menu: '공지사항' -> /posts/notice
-  menu: '서울의 정보' -> /posts/info
-  menu: '가족센터 소식' -> /posts/family
-  menu: '지역사회모임' -> /posts/community
-  menu: '카드 뉴스' -> /posts/media/card
-  menu: '공지사항' -> /ko/posts/notice
-  menu: '가족센터' -> /ko/guide/center/family
-posts boards: {'/posts/notice': '공지사항', '/posts/info': '서울의 정보', '/posts/family': '가족센터 소식', '/posts/community': '지역사회모임'}
+1. 서울시 seoul.go.kr 새소식
+start: 200 https://www.seoul.go.kr/realmnews/in/list.do bytes 77375
+  menu: '시민참여' -> https://www.seoul.go.kr/citizen/citizen.do
+  menu: '분야별정보' -> https://news.seoul.go.kr
+  menu: '분야별 새소식' -> https://www.seoul.go.kr/realmnews/in/list.do
+  menu: '문화참여 달력' -> https://www.seoul.go.kr/realmnews/culture/calendar.do
+  menu: '행사 및 축제' -> https://www.seoul.go.kr/thismteventfstvl/list.do
+  menu: '참여 신청' -> https://www.seoul.go.kr/eventreqst/list.do
 ------------------------------------------------------------
-board /posts/community '지역사회모임' status 200 items 10
-   item: "[노원구가족센터]다문화가족자조모임'늘솜BAN' 1 회기" | around: /posts/community/15015?page=1">[노원구가족센터]다문화가족자조모임'늘솜BAN' 1 회기 2026-10-22 23 1447 동대문구 [동대문구]다국적합창단 행복메아리 9월 4일 수업 2026-09-29<
-   item: '[동대문구]다국적합창단 행복메아리 9월 4일 수업' | around: /posts/community/14936?page=1">[동대문구]다국적합창단 행복메아리 9월 4일 수업 2026-09-29 77 1446 동대문구 [동대문구]2026.05.14. 다문화가족예술단 행복메아리 지역사회 공연 2026-08-11<
-   item: '[동대문구]2026.05.14. 다문화가족예술단 행복메아리 지역사회 공연' | around: /posts/community/14799?page=1">[동대문구]2026.05.14. 다문화가족예술단 행복메아리 지역사회 공연 2026-08-11 130 1445 동대문구 [동대문구]2026.05.11. 다문화가족예술단 행복메아리 문화체험
-   item: '[동대문구]2026.05.11. 다문화가족예술단 행복메아리 문화체험' | around: /posts/community/14798?page=1">[동대문구]2026.05.11. 다문화가족예술단 행복메아리 문화체험 2026-08-11 114 1444 동대문구 [동대문구]2026.05.08. 다문화가족예술단 행복메아리 2026-08-
+시민참여 https://www.seoul.go.kr/citizen/citizen.do -> https://www.seoul.go.kr/citizen/citizen.do status 200 bytes 55260
+   (글 링크 못 찾음) snippet: list.do" onclick="action_logging({tr_code:'gnb_news'});">서울소식 시민참여 분야별정보 분야정보 --> 분야별 정보 주택 경제 교통 <a target="_blank" href="https://news.seoul.go.kr/env/" onclick="action_logging({tr_code:'gnb_mor
+   page uses 'ajax' x3
+   page uses 'onclick' x49
 ------------------------------------------------------------
-board /posts/family '가족센터 소식' status 200 items 10
-   item: "[중랑구] 제18회 패밀리파티 '함께 놀자'" | around: /posts/family/15014?page=1">[중랑구] 제18회 패밀리파티 '함께 놀자' 2026-10-22 13 870 중랑구 [중랑구] [뉴스레터] 뉴스레터 10월 호 2026-10-08 50
-   item: '[중랑구] [뉴스레터] 뉴스레터 10월 호' | around: /posts/family/14971?page=1">[중랑구] [뉴스레터] 뉴스레터 10월 호 2026-10-08 50 869 관악구 [관악구] 가족이 함께, 문화로 하나 되는 하루｜2026 관악 가족문화축제 2026-10-01 88
-   item: '[관악구] 가족이 함께, 문화로 하나 되는 하루｜2026 관악 가족문화축제' | around: /posts/family/14947?page=1">[관악구] 가족이 함께, 문화로 하나 되는 하루｜2026 관악 가족문화축제 2026-10-01 88 868 중랑구 [중랑구] [뉴스레터] 2026년 9월 호 2026-09-08 94
-   item: '[중랑구] [뉴스레터] 2026년 9월 호' | around: /posts/family/14883?page=1">[중랑구] [뉴스레터] 2026년 9월 호 2026-09-08 94 867 강동구 [강동구가족센터] 결혼여성 상호 교류 네트워크 2026년 친친프로젝트 '마음이 통하는 요가, 소통을 여는 수다' 참여자 모집 2026-08-18 <span
+분야별정보 https://news.seoul.go.kr -> https://news.seoul.go.kr status 200 bytes 17750
+   (글 링크 못 찾음) snippet: list.do?tr_code=gnb_news">서울소식 시민참여 분야별정보 서울소개 부서안내 청사안내 --> 정보공개 --> 정보공개 응답소 로그인 회원가입 전자우편 --> 전자우편 --> 분야정보 분야별 정보 닫기 </
+   page uses 'onclick' x2
 ------------------------------------------------------------
-board /posts/info '서울의 정보' status 200 items 10
-   item: '2026 세계시민문화예술학교 한국문화탐방 아이와 함께하는 청소년 진로 탐색 <삼성화재 모빌리티뮤지엄 · 수원 화성> 참여 안내' | around: /posts/info/15010?page=1">2026 세계시민문화예술학교 한국문화탐방 아이와 함께하는 청소년 진로 탐색 <삼성화재 모빌리티뮤지엄 · 수원 화성> 참여 안내 2026-10-21 181 833 [서울특별시체육회] 2026 가족 파크골프 교실 안내 2026-10-15 195 <div class="h
-   item: '[서울특별시체육회] 2026 가족 파크골프 교실 안내' | around: /posts/info/14990?page=1">[서울특별시체육회] 2026 가족 파크골프 교실 안내 2026-10-15 195 832 [서울시] 2026 서울 외국인 취업·채용 박람회 개최 안내 2026-10-15 184 <div class="h8 lg:body2 grid grid-cols-1 lg:grid-cols-[1
-   item: '[서울시] 2026 서울 외국인 취업·채용 박람회 개최 안내' | around: /posts/info/14989?page=1">[서울시] 2026 서울 외국인 취업·채용 박람회 개최 안내 2026-10-15 184 831 [서울시] 2026 결혼이민여성 종합건강검진 안내 2026-10-15 164 <div class="h8 lg:body2 grid grid-cols-1 lg:grid-cols-[120
-   item: '[서울시] 2026 결혼이민여성 종합건강검진 안내' | around: /posts/info/14988?page=1">[서울시] 2026 결혼이민여성 종합건강검진 안내 2026-10-15 164 830 [서울시] 「2026 남산 나이트 페스티벌」(KOR/ENG) 2026-10-12 222 <div class="h8 lg:body2 grid grid-cols-1 lg:grid-cols-[120
+분야별 새소식 https://www.seoul.go.kr/realmnews/in/list.do -> https://www.seoul.go.kr/realmnews/in/list.do status 200 bytes 77375
+   item: '도시관리계획안 열람공고' -> https://urban.seoul.go.kr/view/html/PMNU4010000000
+        around: PMNU4010000000" target="_blank" title="새창열림">도시관리계획안 열람공고 석면해체ㆍ제거일정 --> 석면해체ㆍ제거일정 보도ㆍ해명자료 열림 보도자료 <
+   item: "(추천명단)(#화성)'화성 향남 롯데캐슬 시그니처' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 11:02:52 [복지] (추천명단)(#화성)'화성 " -> https://news.seoul.go.kr/welfare/archives/584210
+        around: 584210" target="_blank" title="새창열림"> (추천명단)(#화성)'화성 향남 롯데캐슬 시그니처' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 11:02:52 [복지] (추천명단)(#화성)'화성 향남 롯데캐슬 시그니처' 서울시 장애인 특별공급 기관추천 명단
+   item: "(추천명단)(#인천)'계양신도시 카이브 유보라 AC4BL' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 10:57:04 [복지] (추천명단)(#인천)" -> https://news.seoul.go.kr/welfare/archives/584206
+        around: 584206" target="_blank" title="새창열림"> (추천명단)(#인천)'계양신도시 카이브 유보라 AC4BL' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 10:57:04 [복지] (추천명단)(#인천)'계양신도시 카이브 유보라 AC4BL' 서울시 장애인 특별공급 기관추천 명단
+   item: "(추천명단)(#인천)'계양신도시 카이브 유보라 AC3BL' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 10:55:44 [복지] (추천명단)(#인천)" -> https://news.seoul.go.kr/welfare/archives/584202
+        around: 584202" target="_blank" title="새창열림"> (추천명단)(#인천)'계양신도시 카이브 유보라 AC3BL' 서울시 장애인 특별공급 기관추천 명단 2026-10-28 10:55:44 [복지] (추천명단)(#인천)'계양신도시 카이브 유보라 AC3BL' 서울시 장애인 특별공급 기관추천 명단
+   item: "'서울런 키즈영어' 학습 소개 2026-10-27 19:55:56 [복지] AI 요약 서비스는 2026년 9월 14일부터 서울시 평생학습포털과 ‘칸 아카데미 키즈" -> https://news.seoul.go.kr/welfare/archives/584190
+        around: 584190" target="_blank" title="새창열림"> '서울런 키즈영어' 학습 소개 2026-10-27 19:55:56 [복지] AI
+   item: '서울특별시장애인일자리센터 직원 채용 재공고(회계 업무 / 육아휴직 대체인력) 2026-10-27 19:07:40 [복지] AI 요약 서울특별시장애인일자리센터가 예' -> https://news.seoul.go.kr/welfare/archives/584184
+        around: 584184" target="_blank" title="새창열림"> 서울특별시장애인일자리센터 직원 채용 재공고(회계 업무 / 육아휴직 대체인력) 2026-10-27 19:07:40 [복지]
+   page uses 'ajax' x3
+   page uses 'onclick' x63
 ------------------------------------------------------------
-board /posts/notice '공지사항' status 200 items 16
-   item: '2026 취업중점기관 이용자 후기 공모전' | around: /posts/notice/14998?page=1">2026 취업중점기관 이용자 후기 공모전 2026-10-19 192 <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.
-   item: '2026 다문화가족 리크루팅 데이 [이중언어강사/ 이중문화강사] 사전 참여자 모집(10. 28.(수))' | around: /posts/notice/14952?page=1">2026 다문화가족 리크루팅 데이 [이중언어강사/ 이중문화강사] 사전 참여자 모집(10. 28.(수)) 2026-10-02 874 <path
-   item: '개인정보처리방침 개정 안내(2026. 8. 18.)' | around: /posts/notice/14745?page=1">개인정보처리방침 개정 안내(2026. 8. 18.) 2026-08-04 129 <path d="M9 10.76a2 2 0 0 1-1.11 1.
-   item: '[서울런] 무료 인강, 1:1 멘토링, 진로진학 프로그램까지! 동행 학습 플랫폼 서울런(Seoul Learn)🎓' | around: /posts/notice/14356?page=1">[서울런] 무료 인강, 1:1 멘토링, 진로진학 프로그램까지! 동행 학습 플랫폼 서울런(Seoul Learn)🎓 2026-04-15 837 <
+문화참여 달력 https://www.seoul.go.kr/realmnews/culture/calendar.do -> https://www.seoul.go.kr/realmnews/culture/calendar.do status 200 bytes 91292
+   item: '도시관리계획안 열람공고' -> https://urban.seoul.go.kr/view/html/PMNU4010000000
+        around: PMNU4010000000" target="_blank" title="새창열림">도시관리계획안 열람공고 석면해체ㆍ제거일정 --> 석면해체ㆍ제거일정 보도ㆍ해명자료 열림 보도자료 <
+   item: '참여 신청 서울핀테크위크 2026 개최 신청기간 2026-10-26 ~ 2026-10-28 경제 장소 서울 여의도 콘래드 호텔, IFC Two AI 요약 서울시는' -> https://news.seoul.go.kr/economy/archives/574926
+        around: 574926" target="_blank" title="새창열림"> 참여 신청 서울핀테크위크 2026 개최 신청기간 2026-10-26 ~ 2026-10-28 경제 장소 서울 여의도 콘래드 호텔, IFC Two
+   item: '참여 신청 (모집완료) 민선9기 서울특별시 시민공약평가단 모집 신청기간 2026-10-13 ~ 2026-11-01 행정 민선9기 서울특별시장 공약실천계획 심의를 ' -> https://news.seoul.go.kr/gov/archives/581449
+        around: 581449" target="_blank" title="새창열림"> 참여 신청 (모집완료) 민선9기 서울특별시 시민공약평가단 모집 신청기간 2026-10-13 ~ 2026-11-01 행정
+   item: "참여 신청 청년 가족 건강食 피크닉('26.10.18.) 사전참가자 모집! 신청기간 2026-10-18 ~ 2026-10-18 복지 청년 가족 건강食 피크닉 - " -> https://news.seoul.go.kr/welfare/archives/583856
+        around: 583856" target="_blank" title="새창열림"> 참여 신청 청년 가족 건강食 피크닉('26.10.18.) 사전참가자 모집! 신청기간 2026-10-18 ~ 2026-10-18 복지
+   item: '행사 및 축제 2026. 10월 문화달력 행사기간 2026-10-01 ~ 2026-10-31 문화 서울시에서 10월에 열리는 문화행사 뉴스레터 공연, 전시, 체험' -> https://news.seoul.go.kr/culture/archives/534601
+        around: 534601" target="_blank" title="새창열림"> 행사 및 축제 2026. 10월 문화달력 행사기간 2026-10-01 ~ 2026-10-31 문화
+   item: '참여 신청 제12회 서울 29초 영화제 공모 안내 신청기간 2026-10-01 ~ 2026-11-10 행정 AI 요약 ‘서울의 밤은 계속된다’ 29초 영화제입니다' -> https://news.seoul.go.kr/gov/archives/581152
+        around: 581152" target="_blank" title="새창열림"> 참여 신청 제12회 서울 29초 영화제 공모 안내 신청기간 2026-10-01 ~ 2026-11-10 행정
+   page uses 'ajax' x6
+   page uses 'onclick' x49
+------------------------------------------------------------
+행사 및 축제 https://www.seoul.go.kr/thismteventfstvl/list.do -> https://www.seoul.go.kr/thismteventfstvl/list.do status 200 bytes 80134
+   item: '도시관리계획안 열람공고' -> https://urban.seoul.go.kr/view/html/PMNU4010000000
+        around: PMNU4010000000" target="_blank" title="새창열림">도시관리계획안 열람공고 석면해체ㆍ제거일정 --> 석면해체ㆍ제거일정 보도ㆍ해명자료 열림 보도자료 <
+   item: '--> 2026년 서울대공원 가을 축제 "예술로 물드는 피노키오의 숲" 2026-10-26 14:37:00 [환경] 2026년 11월 7일부터 8일까지 서울대공원' -> https://news.seoul.go.kr/env/archives/571285
+        around: 571285" target="_blank" title="새창열림"> --> 2026년 서울대공원 가을 축제 "예술로 물드는 피노키오의 숲" 2026-10-26 14:37:00
+   item: '2026 서울마켓페어[10.24.(토)~10.25.(일)] 2026-10-14 14:10:04 [경제] AI 요약 "2026 서울마켓페어"가 10월 24일(토)부' -> https://news.seoul.go.kr/economy/archives/574867
+        around: 574867" target="_blank" title="새창열림"> 2026 서울마켓페어[10.24.(토)~10.25.(일)] 2026-10-14 14:10:04 [경제] <strong cl
+   item: '--> 2026. 10월 문화달력 2026-10-01 08:31:13 [문화] 서울시에서 10월에 열리는 문화행사 뉴스레터 공연, 전시, 체험 등 다양한 정보 포' -> https://news.seoul.go.kr/culture/archives/534601
+        around: 534601" target="_blank" title="새창열림"> --> 2026. 10월 문화달력 2026-10-01 08:31:13
+   item: '--> 2026년 10월 주요 시민안내사항 및 행사계획 2026-09-30 16:56:41 [행정] 2026년 10월 주요 시민안내사항 및 행사계획을 알려드립니다' -> https://news.seoul.go.kr/gov/archives/581185
+        around: 581185" target="_blank" title="새창열림"> --> 2026년 10월 주요 시민안내사항 및 행사계획 2026-09-30 16:56:41
+   item: '--> 2026 서울라이트 한강 빛섬축제(10.2.~10.11.) 2026-09-30 11:17:56 [문화] 빛을 매개로 예술과 자연, 도시를 연결하는 서울의 ' -> https://news.seoul.go.kr/culture/archives/534609
+        around: 534609" target="_blank" title="새창열림"> --> 2026 서울라이트 한강 빛섬축제(10.2.~10.11.) 2026-09-30 11:17:56
+   page uses 'ajax' x3
+   page uses 'onclick' x63
+------------------------------------------------------------
+참여 신청 https://www.seoul.go.kr/eventreqst/list.do -> https://www.seoul.go.kr/eventreqst/list.do status 200 bytes 80377
+   item: '도시관리계획안 열람공고' -> https://urban.seoul.go.kr/view/html/PMNU4010000000
+        around: PMNU4010000000" target="_blank" title="새창열림">도시관리계획안 열람공고 석면해체ㆍ제거일정 --> 석면해체ㆍ제거일정 보도ㆍ해명자료 열림 보도자료 <
+   item: '--> 서울시와 헤이딜러가 함께하는 조기폐차 응원 이벤트 2026-10-26 17:26:20 [환경] AI 요약 2026년 10월 26일부터 11월 30일까지 진' -> https://news.seoul.go.kr/env/archives/571296
+        around: 571296" target="_blank" title="새창열림"> --> 서울시와 헤이딜러가 함께하는 조기폐차 응원 이벤트 2026-10-26 17:26:20
+   item: '--> [서울배달+땡겨요] 이용 후기를 들려주세요! (가맹점 대상) 2026-10-26 14:49:07 [경제] 서울배달+땡겨요를 이용 중인 가맹점주 분들을 대상' -> https://news.seoul.go.kr/economy/archives/574968
+        around: 574968" target="_blank" title="새창열림"> --> [서울배달+땡겨요] 이용 후기를 들려주세요! (가맹점 대상) 2026-10-26 14:49:07
+   item: '서울핀테크위크 2026 개최 2026-10-19 17:49:10 [경제] AI 요약 서울시는 10월 26∼28일 ‘서울 핀테크 위크 2026’을 개최합니다. 주제' -> https://news.seoul.go.kr/economy/archives/574926
+        around: 574926" target="_blank" title="새창열림"> 서울핀테크위크 2026 개최 2026-10-19 17:49:10 [경제] AI 요약
+   item: '--> 미세먼지, 오존 예·경보 알림 신청하고, 기프티콘 받으세요! 2026-10-19 09:21:15 [환경] 대기질정보 알림서비스 신청 이벤트 미세먼지, 오존' -> https://news.seoul.go.kr/env/archives/571201
+        around: 571201" target="_blank" title="새창열림"> --> 미세먼지, 오존 예·경보 알림 신청하고, 기프티콘 받으세요! 2026-10-19 09:21:15
+   item: '--> 2026 서울 가드닝 크루 챌린지 모집 안내 2026-10-14 13:36:17 [환경] AI 요약 서울 월드컵공원에서 ‘오래가는 정원’을 조성할 19~3' -> https://news.seoul.go.kr/env/archives/571167
+        around: 571167" target="_blank" title="새창열림"> --> 2026 서울 가드닝 크루 챌린지 모집 안내 2026-10-14 13:36:17
+   page uses 'ajax' x3
+   page uses 'onclick' x54
 ======================================================================
-2. 다누리 https://www.liveinkorea.kr
-home: 200 https://www.liveinkorea.kr/intro.do bytes 21878
-======================================================================
-3. 서울시 뉴스 https://news.seoul.go.kr/welfare/archives/category/woman-news_c1/foreigner_multiculture_business_c1/news_foreigner_multiculture-news-n1
-status 200 bytes 136090 articles 19
-   title: 30일간의 서울일주 5기 외국인 유학생 모집('26.9.8.~9.21...
-   title: ‘30일간의 서울일주’는 외국인 유학생에게 문화체험과 취업·직무 교육을 제공해 서울 정착을 돕는 프로그램입니다. 5기는 2026년 10∼11월 약 2개월간 운영됩
-   title: 30일간의 서울일주 4기 외국인 유학생 모집('26.6.18.~7.1...
-   title: AI 요약 ‘30일간의 서울일주’는 외국인 유학생에게 문화체험과 취업·직무 교육을 제공해 서울 정착을 돕는 프로그램입니다. 4기는 2026년 7∼8월 약 2개월간
-   title: 30일간의 서울일주 3기 외국인 유학생 모집('26.4.1.~4.14...
+2. 다누리 liveinkorea.kr
+start: https://www.liveinkorea.kr/web/main/index.do -> https://www.liveinkorea.kr/web/main/index.do ERR HTTP Error 404:  bytes 0
+start: https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6/list.do 200 bytes 175786
+  board: '프로그램 안내' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4
+  board: '행사 안내' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5
+  board: '채용정보' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6
+  board: '인식개선 영상' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T12C36/H/11
+  board: '기관소식' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7
+  board: '타기관 소식' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8
+  board: '참고자료' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9
+  board: '국민의견함' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C33/C/10
+  board: '온라인 상담' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T13C39/C/12
+  board: '상담통계' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T13C42/A/13
+  board: 'FAQ' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T13C43/E/14
+  board: '교육취업 정보' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T17C22/I/1
+  board: '정보자료실' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C29/A/6/web/lay1/bbs/S1T18C25/H/2
+  board: '영상자료실' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T18C25/H/2
+  board: '그래픽자료실' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T18C26/B/3
+  board: '이벤트' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C95/A/25
+------------------------------------------------------------
+다누리 프로그램 안내 https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/list.do status 200 bytes 176873
+   item: "[광진구가족센터_자양동 공동육아나눔터] 2026년 11월 13일(금) '음악으로 오감톡톡!'" -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/view.do?article_seq=169946&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: "[광진구가족센터_구의동 공동육아나눔터] 2026년 11월 13일(금) '음악으로 오감톡톡!'" -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/view.do?article_seq=169944&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: "[광진구가족센터_자양동 공동육아나눔터] 2026년 11월 6일(금) '음악으로 오감톡톡!'" -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/view.do?article_seq=169943&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: "[광진구가족센터_구의동 공동육아나눔터] 2026년 11월 6일(금) '음악으로 오감톡톡!'" -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C27/A/4/view.do?article_seq=169942&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   page uses 'fn_' x2
+   page uses 'onclick' x19
+------------------------------------------------------------
+다누리 행사 안내 https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/list.do status 200 bytes 167098
+   item: '[가족관계]2026년 다문화엄마학교(1~16기) 졸업여행"배움에서 여행까지) 2026-10-28 조회수 13' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/view.do?article_seq=169947&cpage=1&rows=9&condition=&keyword=&area=&area_detail=&board_view_type=
+   item: '2026년 맞벌이가정 및 직장인 "일상에 쉼표, 가을을 담다" 6회기 2026-10-28 조회수 27' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/view.do?article_seq=169939&cpage=1&rows=9&condition=&keyword=&area=&area_detail=&board_view_type=
+   item: '[나눔터 이야기]육아정보 톡(Talk)! 톡(Talk)!-10월 4호 2026-10-28 조회수 31' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/view.do?article_seq=169934&cpage=1&rows=9&condition=&keyword=&area=&area_detail=&board_view_type=
+   item: '[기타] 2026년 10월 23일 제5회 전국이중언어말하기 대회 최하린 장려상 2026-10-27 조회수 135' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T10C28/B/5/view.do?article_seq=169931&cpage=1&rows=9&condition=&keyword=&area=&area_detail=&board_view_type=
+   page uses 'fn_' x2
+   page uses 'onclick' x18
+------------------------------------------------------------
+다누리 기관소식 https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/list.do status 200 bytes 166372
+   item: '2026 아이돌봄사 자격 안내(수정)' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/view.do?article_seq=169615&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '다누리포털과 한국생활안내 333챌린지 당첨자 결과발표' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/view.do?article_seq=169562&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '「2026년 가족다양성 인식개선 주간」3차 캠페인 이벤트 결과 발표' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/view.do?article_seq=169485&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '[이벤트] 2026년 다양한가족 인식개선 주간 3차 (모바일쿠폰 증정)' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C30/A/7/view.do?article_seq=169217&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   page uses 'fn_' x2
+   page uses 'onclick' x18
+------------------------------------------------------------
+다누리 타기관 소식 https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/list.do status 200 bytes 166662
+   item: '[서울에너지공사]2026년도 하반기 신규직원 채용 공고' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/view.do?article_seq=169901&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '[교육부] 외국인 유학생을 위한 성희롱 성폭력 SOS 가이드' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/view.do?article_seq=169898&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '[인클로버재단]다문화가정 가족사진 촬영' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/view.do?article_seq=169837&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   item: '[국민건강보험공단]임신·출산 건강보험 지원제도' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C31/A/8/view.do?article_seq=169797&cpage=1&rows=10&condition=&keyword=&area=&area_detail=&search_year=&search_month
+   page uses 'fn_' x2
+   page uses 'onclick' x18
+------------------------------------------------------------
+다누리 참고자료 https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/list.do -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/list.do status 200 bytes 170740
+   item: '2024 다문화가족지원센터 별도지원사업 연간결과보고서' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/view.do?article_seq=149545&cpage=1&rows=12&condition=&keyword=
+   item: '2023 다문화가족지원센터 별도지원사업 연간결과보고서' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/view.do?article_seq=149541&cpage=1&rows=12&condition=&keyword=
+   item: '외국인용 재난 안전 앱-Emergency Ready App' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/view.do?article_seq=149543&cpage=1&rows=12&condition=&keyword=
+   item: '2024 다문화가족지원센터 별도지원사업 연간결과보고서 2025-07-07 조회수 17,520' -> https://www.liveinkorea.kr/web/lay1/bbs/S1T11C32/B/9/view.do?article_seq=149545&cpage=1&rows=12&condition=&keyword=&area=&area_detail=&board_view_type=
+   page uses 'fn_' x2
+   page uses 'onclick' x17
