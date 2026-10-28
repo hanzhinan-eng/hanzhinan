@@ -163,7 +163,7 @@ def seoul_events_fetch():
                         "start": _d10(k.group(4)), "end": _d10(k.group(5)), "cat": k.group(6)})
         print(f"seoul cal {url}: matched {n}")
         time.sleep(0.5)
-    # ② 목록 두 개도 늘 함께 (달력 화면엔 오늘 것만 조금 나옴 — 10-28 실제 4개뿐) · 게시일만 있음 → 최근 45일
+    # ② 목록 두 개도 늘 함께 (달력 화면엔 오늘 것만 조금 나옴 — 10-28 실제 4개뿐) · 게시일만 있음 → 최근 30일, 끝난 것·업체 대상 빼기
     if True:
         have = {x["id"] for x in out}
         for b, url in SEOUL_LISTS:
@@ -174,7 +174,16 @@ def seoul_events_fetch():
                 k = re.match(r"^(.+?)\s+(20\d\d-\d\d-\d\d) \d\d:\d\d:\d\d\s+\[(\S+?)\]", t)
                 if not k: continue
                 d = _d10(k.group(2))
-                if (TODAY - d).days > 45 or m.group(1) in have: continue
+                if (TODAY - d).days > 30 or m.group(1) in have: continue
+                if re.search(r"모집완료|마감|종료|결과|당첨|가맹점|사업자", k.group(1)): continue   # 끝난 것·업체 대상은 뺌
+                # 제목에 날짜가 있고 그날이 지났으면 뺌 (예: 「2026.9.26(토) 행사」, 「[10.24.(토)~10.25.(일)]」)
+                ds = re.findall(r"(?:(20\d\d)[.\-]\s?)?(\d{1,2})[.월]\s?(\d{1,2})[.일]?", k.group(1))
+                if ds:
+                    y, mo, dd = ds[-1]
+                    try:
+                        last = datetime.date(int(y) if y else d.year, int(mo), int(dd))
+                        if last < TODAY: continue
+                    except ValueError: pass
                 have.add(m.group(1))
                 out.append({"id": m.group(1), "url": m.group(1), "title": k.group(1), "board": b, "start": d, "end": None, "cat": k.group(3)})
             print(f"seoul list {b}: {len([x for x in out if x['board'] == b])}")
