@@ -488,3 +488,14 @@ h2.sit-h::before{display:none}
 .hq-c strong{font-size:1.45rem;line-height:1.2;color:var(--ink)}
 .hq-c small{font-size:.78rem;line-height:1.45;color:var(--ink-2);word-break:keep-all}
 @media (max-width:640px){.hq{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- 휴대폰: 메뉴가 옆으로 숨지 않게 줄바꿈 (2026-11-05) ---- */
+@media (max-width:640px){
+  .nav{position:relative}
+  .nav-in{flex-wrap:wrap;row-gap:0;padding-top:8px}
+  .menu{order:3;flex:1 1 100%;overflow:visible;flex-wrap:wrap;justify-content:space-between;gap:0;margin:2px -6px 0}
+  .menu a{padding:8px 6px 7px;font-size:.93rem}
+  .about-li{margin-left:0}
+  .subnav .tabs{flex-wrap:wrap;overflow:visible;gap:6px;padding:10px 0}
+  .subnav .tabs button{padding:6px 12px;font-size:.88rem}
+}
