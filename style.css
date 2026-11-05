@@ -388,6 +388,10 @@ h2.sit-h::before{display:none}
 .sit a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 18px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
 .sit a::after{content:"→";color:var(--accent);font-weight:700;flex:none}
 .sit a:hover{background:var(--accent-soft)}
+/* 2026-11-05: 줄마다 작은 아이콘 */
+.sit-i{flex:none;width:38px;height:38px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-size:1.15rem;line-height:1}
+.sit a:hover .sit-i{background:var(--card)}
+.sit a .sit-t{flex:1;min-width:0}
 .sit-t b{display:block;font-size:1rem}
 .sit-t small{display:block;color:var(--ink-2);font-size:.85rem;margin-top:2px}
 
