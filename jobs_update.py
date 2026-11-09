@@ -4,6 +4,7 @@
 # 표준 라이브러리만. 본문은 베끼지 않고 제목·기관·조건 요약·원문 링크만.
 import os, sys, re, json, time, html, datetime, urllib.request, urllib.parse
 
+# ★ 원칙 (2026-11-09, 月亮妈妈): 매주 월요일 자동 업데이트 때 마감이 지난 내용은 지운다.
 KST = datetime.timezone(datetime.timedelta(hours=9))
 TODAY = datetime.datetime.now(KST).date()
 HERE = os.path.dirname(os.path.abspath(__file__))

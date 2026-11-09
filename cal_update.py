@@ -5,6 +5,7 @@ import os, sys, json, re, datetime, urllib.request, urllib.parse
 
 API = "https://api.odcloud.kr/api/ApplyhomeInfoDetailSvc/v1/getAPTLttotPblancDetail"
 REGIONS = {"서울": "首尔", "경기": "京畿", "인천": "仁川"}
+# ★ 원칙 (2026-11-09, 月亮妈妈): 매주 월요일 자동 업데이트 때 마감이 지난 내용은 지운다.
 KST = datetime.timezone(datetime.timedelta(hours=9))
 TODAY = datetime.datetime.now(KST).date()
 HTML = os.path.join(os.path.dirname(os.path.abspath(__file__)), "zhufang.html")
@@ -87,6 +88,8 @@ def build(rows):
         if r.get("SUBSCRPT_AREA_CODE_NM") not in REGIONS: continue
         win = d(r.get("PRZWNER_PRESNATN_DE"))
         if not win or win < TODAY: continue           # 발표 지난 것 제외
+        ge, sp_e = d(r.get("RCEPT_ENDDE")), d(r.get("SPSPLY_RCEPT_ENDDE"))
+        if (ge or sp_e) and (ge or sp_e) < TODAY: continue   # 2026-11-09: 접수가 다 끝난 것도 제외 (月亮妈妈 「지나간 정보 지우기」)
         sp_b = d(r.get("SPSPLY_RCEPT_BGNDE")) or d(r.get("RCEPT_BGNDE"))
         if sp_b and sp_b > TODAY + datetime.timedelta(days=21): continue  # 3주 이후 시작은 다음 주에
         keep.append(r)

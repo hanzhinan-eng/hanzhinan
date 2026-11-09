@@ -4,6 +4,8 @@
 import os, sys, re, json, time, datetime, statistics, urllib.request, urllib.parse
 import xml.etree.ElementTree as ET
 
+# ★ 원칙 (2026-11-09, 月亮妈妈): 매주 월요일 자동 업데이트 때 마감·기간이 지난 내용은 지운다 (신청 마감·행사 종료·시험 회차 종료·제목 속 날짜 경과).
+#   信息 목록은 추가로 최근 INFO_DAYS일 글만. 새 칸을 만들 때도 이 원칙을 같이 넣을 것.
 KST = datetime.timezone(datetime.timedelta(hours=9))
 TODAY = datetime.datetime.now(KST).date()
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -56,7 +58,8 @@ MC = "https://mcfamily.or.kr"
 # 2026-10-28: 한울타리 「서울시소식」 4곳 전부 (카드뉴스만 제외 — 月亮妈妈). 중국 관련만 거르던 것(10-06)은 폐지, 대신 「中文」 표시
 BOARDS = [("notice", "공지사항", "公告"), ("info", "서울의 정보", "首尔信息"), ("family", "가족센터 소식", "家庭中心消息"), ("community", "지역사회모임", "社区聚会")]
 BOARD_ZH = {b: zh for b, ko, zh in BOARDS}; BOARD_ZH.update({"edu": "教育消息", "culture": "文化消息", "apply": "可报名"}); BOARD_KO = {b: ko for b, ko, zh in BOARDS}
-NOTICE_DAYS = 180; NOTICE_MAX = 12   # 게시판마다 최대 12개 → 합쳐서 날짜순
+NOTICE_DAYS = 180; NOTICE_MAX = 12
+INFO_DAYS = 10   # 2026-11-09: 信息 목록은 최근 10일 글만 (11-09 기준 10.30부터)   # 게시판마다 최대 12개 → 합쳐서 날짜순
 CN_KEEP = re.compile(r"중국|중국어|중문|中文|화교|이중언어|통번역|통역|번역")
 SKIP = ["합격자", "당첨자", "개인정보처리방침", "선정 결과", "결과 발표", "입찰", "휴관", "점검"]
 TAG_ZH = [("무료", "免费"), ("모집", "招募中"), ("다문화", "多文化"), ("결혼이민", "结婚移民"), ("외국인", "外国人"), ("초등", "小学"), ("청소년", "青少年"), ("영유아", "婴幼儿"), ("돌봄", "托管"), ("방과후", "课后"),
@@ -419,6 +422,7 @@ def hangang_fetch():
                         "cate": hg_text(cate.group(1)) if cate else "", "join": dd.get("참여", ""), "place": dd.get("장소", "")})
         if len(blocks) < 6 or (total is not None and len(out) >= total): break   # 한 쪽에 6건 · 총 개수 다 받으면 멈춤
     seen = set(); out = [x for x in out if not (x["sn"] in seen or seen.add(x["sn"]))]   # 같은 행사 중복 제거
+    out = [x for x in out if x["e"] >= TODAY.strftime("%Y%m%d")]   # 2026-11-09 원칙: 끝난 행사는 지움
     print("hangang kept", len(out))
     if total is None and not out: print("  hangang: 목록 구조를 못 읽음 → 기존 유지"); return None
     if total and not out: print("  hangang: 총", total, "개인데 0건 파싱 → 구조 변경 의심, 기존 유지"); return None
@@ -555,7 +559,7 @@ def apt_recent_render(deals):
 def house_news_fetch():
     try: page = seoul_get(HOUSE_NEWS)
     except Exception as e: print("house news failed", e); return None
-    got = [x for x in seoul_list_parse(page, "citybuild") if not HOUSE_DROP.search(x["title"])]
+    got = [x for x in seoul_list_parse(page, "citybuild") if not HOUSE_DROP.search(x["title"]) and not title_past(x["title"], x["date"])]   # 11-09: 제목 속 날짜 지난 것도 뺌
     got.sort(key=lambda x: x["date"], reverse=True)
     print("house news:", len(got))
     for x in got[:6]: print("  ", x["date"], x["title"][:50])
@@ -615,7 +619,7 @@ def exam_render(items, prac_zh):
         else:               # 한 줄에 필기·실기가 다 들어온 경우
             prac_s, prac_e, final = first.get("pracExamStartDt"), first.get("pracExamEndDt"), first.get("pracPassDt")
         last = _d(final) or _d(first.get("docPassDt"))
-        if last and last < TODAY - datetime.timedelta(days=30): continue   # 끝난 지 한 달 넘은 회차는 숨김
+        if last and last < TODAY: continue   # 2026-11-09 원칙: 최종 발표까지 끝난 회차는 지움 (전에는 한 달 뒤)
         reg = _md(first.get("docRegStartDt"), first.get("docRegEndDt"))
         parts = [f"报名 <strong>{reg}</strong>" if reg else "",
                  f"笔试 {_md(first.get('docExamStartDt'), first.get('docExamEndDt'))}" if first.get("docExamStartDt") else "",
@@ -641,6 +645,9 @@ def main():
             try: keep += seoul_news_sample() if SAMPLE else seoul_news_fetch()
             except Exception as e: print("seoul news failed", e)
             keep.sort(key=lambda x: x["date"], reverse=True)
+            # 2026-11-09 (月亮妈妈 「지나간 정보는 지워 줘」): 최근 INFO_DAYS일 글만 + 제목 속 날짜가 지난 것은 뺌
+            keep = [x for x in keep if 0 <= (TODAY - x["date"]).days <= INFO_DAYS and not title_past(x["title"], x["date"])]
+            print("info after cutoff:", len(keep))
             changed |= replace_block("butie.html", "INFO", notice_render(keep), "info-stamp")
     if what in ("exam", "all") and (SAMPLE or KEY):
         for tag, qg, jm, name, prac in EXAMS:
