@@ -85,6 +85,9 @@
     <div class="today-head"><span class="eyebrow" data-ko="가족센터 · 서울시 소식">家庭中心 · 首尔市消息</span><span class="today-day" id="info-stamp">2026.11.9 更新</span></div>
     <p class="kicker zh"><strong>⭐ 推荐</strong>是还在报名的课程（日期 = 报名截止）；下面公告、首尔信息、各区家庭中心消息、<strong>家庭中心正在报名的课程</strong>（日期前的「~」= 报名截止），以及首尔市的<strong>教育消息</strong>和<strong>文化消息</strong>。标题保留韩文原文，点「原文」看详情。</p>
     <p class="kicker ko"><strong>⭐ 추천</strong>은 접수 중 프로그램(날짜 = 마감일), 그 아래는 공지사항·서울의 정보·가족센터 소식·<strong>접수 중인 가족센터 프로그램</strong>(「~날짜」 = 접수 마감)과 서울시 <strong>교육소식</strong>·<strong>문화소식</strong>이에요. 제목은 원문 그대로예요.</p>
+    <div class="nb-gu" id="nb-gu-wrap" hidden style="flex-wrap:wrap;align-items:center;gap:6px 10px;margin:4px 0 10px">
+      <select id="nb-gu" aria-label="地区" style="font:inherit;padding:6px 10px;border:1px solid currentColor;border-radius:8px;background:transparent;color:inherit;max-width:100%"><option value="">全部地区</option></select>
+    </div>
     <div class="tbl ntbl">
     <table>
       <thead><tr><th><span class="zh">内容</span><span class="ko">내용</span></th><th><span class="zh">日期</span><span class="ko">날짜</span></th><th><span class="zh">原文</span><span class="ko">원문</span></th></tr></thead>
@@ -152,9 +155,20 @@
   rows=rows.filter(function(r){ if(r.getAttribute('data-b')!=='pick') return true; var c=r.querySelector('.nt-d'), m=c&&c.textContent.match(/(\d{1,2})\.(\d{1,2})/); if(!m) return true; var d=new Date(T.getFullYear(),+m[1]-1,+m[2]); if(T.getMonth()-d.getMonth()>6) d.setFullYear(d.getFullYear()+1); if(d<T){ r.parentNode.removeChild(r); return false; } return true; });
   [].forEach.call(chips.querySelectorAll('button[data-b]'),function(c){ var b=c.getAttribute('data-b'); if(b&&!rows.some(function(r){return r.getAttribute('data-b')===b;})) c.hidden=true; });
   var MAP={prog:'pick', info:'', all:''};
+  // 2026-11-10: 구 선택 — 각 줄의 작은 글씨·제목에서 자치구 이름(中文/한국어)을 찾아 거름. 구 이름이 없는 줄 = 서울 전체 소식(항상 보임)
+  var GU=[['종로구','钟路区'],['중구','中区'],['용산구','龙山区'],['성동구','城东区'],['광진구','广津区'],['동대문구','东大门区'],['중랑구','中浪区'],['성북구','城北区'],['강북구','江北区'],['도봉구','道峰区'],['노원구','芦原区'],['은평구','恩平区'],['서대문구','西大门区'],['마포구','麻浦区'],['양천구','阳川区'],['강서구','江西区'],['구로구','九老区'],['금천구','衿川区'],['영등포구','永登浦区'],['동작구','铜雀区'],['관악구','冠岳区'],['서초구','瑞草区'],['강남구','江南区'],['송파구','松坡区'],['강동구','江东区']];
+  var gu='', sel=document.getElementById('nb-gu'), guWrap=document.getElementById('nb-gu-wrap'), guNote=document.getElementById('nb-gu-note'), cnt={};
+  rows.forEach(function(r){ var t=r.textContent, g=''; for(var i=0;i<GU.length&&!g;i++){ var k=GU[i][0]; if(t.indexOf(GU[i][1])>=0||(k==='중구'?/(^|[^가-힣])중구/.test(t):t.indexOf(k)>=0)) g=k; } r._gu=g; if(g&&r.getAttribute('data-b')!=='pick') cnt[g]=(cnt[g]||0)+1; });
+  if(sel&&guWrap){
+    GU.forEach(function(x){ if(cnt[x[0]]){ var o=document.createElement('option'); o.value=x[0]; o.textContent=document.documentElement.getAttribute('data-lang')==='ko'?x[0]:x[1]; sel.appendChild(o); } });
+    if(sel.options.length>2){ guWrap.hidden=false; guWrap.style.display='flex'; }
+    try{ var sv=localStorage.getItem('hzn-gu'); if(sv&&cnt[sv]){ gu=sv; sel.value=sv; } }catch(e){}
+    sel.addEventListener('change',function(){ gu=sel.value; try{ gu?localStorage.setItem('hzn-gu',gu):localStorage.removeItem('hzn-gu'); }catch(e){} open=false; draw(); });
+  }
   function draw(){
     var n=0;
-    rows.forEach(function(r){ var b=r.getAttribute('data-b'), hit=!cur||b===cur; if(hit&&b!=='pick') n++; r.hidden=!hit||(!open&&b!=='pick'&&n>SHOW); });
+    if(guNote) guNote.hidden=!gu;
+    rows.forEach(function(r){ var b=r.getAttribute('data-b'), hit=(!cur||b===cur)&&(!gu||!r._gu||r._gu===gu); if(hit&&b!=='pick') n++; r.hidden=!hit||(!open&&b!=='pick'&&n>SHOW); });
     more.hidden=open||n<=SHOW;
     [].forEach.call(chips.querySelectorAll('button'),function(c){var on=c.getAttribute('data-b')===cur; c.classList.toggle('on',on); c.setAttribute('aria-pressed',on?'true':'false');});
   }
