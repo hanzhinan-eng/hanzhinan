@@ -187,6 +187,72 @@ def nat_update():
     if not listed: print("danuri: 0건 → 기존 내용 유지"); return False
     return replace_block("gongzuo.html", "JOBS_NAT", nat_render(keep), "nat-stamp")
 
+# ---------- 서울시 외국인주민센터 채용공고 (MY SEOUL+, 2026-11-10) ----------
+# 月亮妈妈 요청: global.seoul.go.kr 채용공고 게시판(bbs_no=8)을 「招聘 › 外国人中心」 탭에.
+# 목록 = POST bordContListPgng.do (miv_pageNo, miv_pageSize). 합격자·결과 발표 글은 뺀다.
+# 마감 = 상세 본문에서 「접수」 근처 날짜 범위의 끝. 본문에 없으면(첨부파일에만 있음) 게시 21일 이내만 「截止见原文」로 둠.
+# 같은 센터의 합격자·결과 발표가 더 나중에 올라왔으면 이미 마감된 것으로 보고 뺀다.
+FRC = "https://global.seoul.go.kr/hmpg/finf/empl/recr"
+FRC_SKIP = re.compile(r"결과|합격|발표|면접전형|서류전형|취소|연기")
+FRC_RANGE = re.compile(r"(20\d\d)\s*\.\s*(\d{1,2})\s*\.\s*(\d{1,2})\s*\.?\s*(?:\([^)]{0,6}\))?\s*(?:\d{1,2}:\d\d)?\s*[~∼～\-]\s*(?:(20\d\d)\s*\.\s*)?(\d{1,2})\s*\.\s*(\d{1,2})")
+FRC_CENTER = re.compile(r"([가-힣A-Za-z0-9]{2,20}?(?:외국인주민센터|글로벌빌리지센터|글로벌센터|이주여성상담센터|글로벌청소년교육센터|센터))")
+def frc_req(path, data=None):
+    body = urllib.parse.urlencode(data).encode() if data else None
+    req = urllib.request.Request(FRC + path, data=body, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko",
+        **({"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"} if data else {})})
+    with urllib.request.urlopen(req, timeout=60) as r: return r.read().decode("utf-8", "replace")
+def frc_text(h): return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", h, flags=re.S))))
+def frc_end(txt):
+    js = [m.start() for m in re.finditer("접수", txt)]
+    for m in FRC_RANGE.finditer(txt):
+        if any(0 <= m.start() - j < 40 for j in js):
+            try: return datetime.date(int(m.group(4) or m.group(1)), int(m.group(5)), int(m.group(6))).isoformat()
+            except ValueError: return ""
+    return ""
+def frc_fetch():
+    page = frc_req("/bordContListPgng.do", {"bbs_no": "8", "miv_pageNo": "1", "miv_pageSize": "40"})
+    rows = []
+    for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", page, re.S):
+        m = re.search(r"contDetail\('([0-9A-Fa-f]+)'\)[^>]*>(.*?)</a>", tr, re.S)
+        d = re.search(r'class="date"[^>]*>\s*(20\d\d-\d\d-\d\d)', tr)
+        if m and d: rows.append({"id": m.group(1), "title": frc_text(m.group(2)).strip(), "date": d.group(1)})
+    print("frc listed", len(rows), "bytes", len(page))
+    keep = []
+    for i, it in enumerate(rows):
+        if FRC_SKIP.search(it["title"]): continue
+        posted = datetime.date.fromisoformat(it["date"])
+        if (TODAY - posted).days > 60: continue
+        cm = FRC_CENTER.search(it["title"]); it["center"] = cm.group(1) if cm else ""
+        # 같은 센터의 더 나중 합격자·결과 발표 → 마감
+        if it["center"] and any(FRC_SKIP.search(r["title"]) and it["center"] in r["title"] and r["date"] > it["date"] for r in rows): continue
+        try: it["end"] = frc_end(frc_text(frc_req(f"/bordContDetail.do?mode=W&bbs_no=8&pst_no={it['id']}"))); time.sleep(0.5)
+        except Exception as e: print("frc detail failed", it["id"], e); it["end"] = ""
+        if it["end"]:
+            if it["end"] < TODAY.isoformat(): continue
+        elif (TODAY - posted).days > 21: continue
+        keep.append(it)
+    keep.sort(key=lambda x: x["end"] or "9999")
+    print("frc kept", len(keep), [k["end"] for k in keep])
+    return len(rows), keep
+def frc_render(items):
+    if not items: return '        <tr><td colspan="3"><span class="zh">这周外国人中心没有正在招聘的岗位。每周一自动更新。</span><span class="ko">이번 주 접수 중인 외국인주민센터 채용 공고 없음.</span></td></tr>\n'
+    out = []
+    for it in items:
+        e = it["end"]
+        ds = f'<span class="zh">截止</span><span class="ko">마감</span> {int(e[5:7])}.{int(e[8:10])}' if e else '<span class="zh">截止见原文</span><span class="ko">마감 원문 확인</span>'
+        sub = f'<small class="nt-sub"><span class="zh">发布 {int(it["date"][5:7])}.{int(it["date"][8:10])}</span><span class="ko">게시 {int(it["date"][5:7])}.{int(it["date"][8:10])}</span></small>'
+        out.append(f'        <tr data-end="{esc(e)}"><td><span lang="ko">{esc(it["title"])}</span>{sub}</td><td class="nt-d">{ds}</td><td class="nt-l"><a href="{FRC}/bordContDetail.do?mode=W&amp;bbs_no=8&amp;pst_no={esc(it["id"])}" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>\n')
+    return "".join(out)
+def frc_update():
+    if SAMPLE:
+        listed, keep = 1, [{"id": "5F04B0B113290102E063C0A8A022E581", "title": "양천외국인주민센터 직원(정규직) 채용 공고", "date": "2026-11-02", "end": "2026-11-19"}]
+    else:
+        try: listed, keep = frc_fetch()
+        except Exception as e: print("frc failed → 기존 유지", e); return False
+    if not listed: print("frc: 0건 → 기존 유지"); return False
+    return replace_block("gongzuo.html", "JOBS_FRC", frc_render(keep), "frc-stamp")
+
+
 def main():
     if SAMPLE:
         items = sample()
@@ -220,6 +286,7 @@ def main():
         print("cn items", len(items))
     changed = replace_block("gongzuo.html", "JOBS", render(items), "jobs-stamp")
     changed = nat_update() or changed
+    changed = frc_update() or changed
     if changed:
         sm = os.path.join(HERE, "sitemap.xml")
         if os.path.exists(sm):

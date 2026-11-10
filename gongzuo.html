@@ -68,6 +68,7 @@
       <span class="sub-label" data-ko="채용">招聘</span>
       <button role="tab" class="on" data-tab="jobs" data-ko="서울">首尔</button>
       <button role="tab" data-tab="nat" data-ko="전국">全国</button>
+      <button role="tab" data-tab="frc" data-ko="외국인센터">外国人中心</button>
     </div>
   </div>
 </nav>
@@ -293,6 +294,24 @@
     </div>
     <p class="next">← <a href="/gongzuo#jobs" data-go="jobs">首尔</a> · <a href="/mama">资格证</a></p>
   </section>
+  <section class="panel" id="w-frc" hidden>
+    <div class="today-head"><span class="eyebrow" data-ko="서울시 외국인주민센터 채용">首尔外国人居民中心招聘</span><span class="today-day" id="frc-stamp">2026.11.10 更新</span></div>
+    <p class="kicker zh">首尔市各区<strong>外国人居民中心</strong>、全球村中心、移住女性咨询中心等机构自己招的<strong>工作人员</strong>（社会福利师、咨询、行政等，常写「会外语者优先」）。只列<strong>正在报名</strong>的，合格者公布不列。按截止日排，条件和报名方法看「原文」——很多公告的完整内容在附件里。</p>
+    <p class="kicker ko">서울시 외국인주민센터·글로벌빌리지센터·이주여성상담센터 등이 직접 뽑는 직원 공고예요(사회복지사·상담·행정 등, 외국어 가능자 우대가 많음). 접수 중인 공고만, 마감일 순이에요. 합격자 발표는 뺐어요. 자세한 조건은 원문(첨부파일)을 보세요.</p>
+    <div class="tbl ntbl">
+    <table>
+      <thead><tr><th><span class="zh">岗位（韩文原标题）</span><span class="ko">공고</span></th><th><span class="zh">日期</span><span class="ko">날짜</span></th><th><span class="zh">原文</span><span class="ko">원문</span></th></tr></thead>
+      <tbody>
+<!-- JOBS_FRC:START -->
+        <tr data-end="2026-11-19"><td><span lang="ko">양천외국인주민센터 직원(정규직) 채용 공고</span><small class="nt-sub"><span class="zh">发布 11.2</span><span class="ko">게시 11.2</span></small></td><td class="nt-d"><span class="zh">截止</span><span class="ko">마감</span> 11.19</td><td class="nt-l"><a href="https://global.seoul.go.kr/hmpg/finf/empl/recr/bordContDetail.do?mode=W&amp;bbs_no=8&amp;pst_no=5F04B0B113290102E063C0A8A022E581" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>
+<!-- JOBS_FRC:END -->
+      </tbody>
+    </table>
+    </div>
+    <p class="law zh">来源：首尔市外国人门户 MY SEOUL+「채용공고」。每周一自动更新；截止日写在附件里的，标「截止见原文」，发布超过 3 周的自动不显示。</p>
+    <p class="law ko">출처: 서울시 MY SEOUL+ 「채용공고」. 매주 월요일 자동 갱신. 마감일이 첨부파일에만 있는 공고는 「마감 원문 확인」으로 표시하고, 게시 3주가 지나면 자동으로 빠져요.</p>
+    <p class="next">← <a href="/gongzuo#jobs" data-go="jobs">首尔</a> · <a href="/gongzuo#nat" data-go="nat">全国</a></p>
+  </section>
   <footer class="foot"><span class="zh">工作·签证 · 招聘 每周一自动更新 · <a href="/guanyu#main">关于本站</a></span><span class="ko">취업·비자 · 채용 매주 월요일 자동 갱신 · <a href="/guanyu">이 사이트에 대해</a></span></footer>
 </div>
 <script>
@@ -307,6 +326,10 @@
     if(txt)txt.textContent=' · '+dd;
     if(n<=7){ if(!tag&&top){tag=document.createElement('span');tag.className='tag ok dd-tag';top.insertBefore(tag,top.firstChild);top.insertBefore(document.createTextNode(' '),tag.nextSibling);} if(tag)tag.textContent=dd; }
     else if(tag){tag.remove();}
+  });
+  document.querySelectorAll('tr[data-end]').forEach(function(r){
+    var p=(r.dataset.end||'').split('-'); if(p.length!==3)return;
+    if(Date.UTC(+p[0],p[1]-1,+p[2])<today)r.hidden=true;
   });
 })();
 </script>
