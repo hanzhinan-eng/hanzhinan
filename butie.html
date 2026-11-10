@@ -125,6 +125,7 @@
       </tbody>
     </table>
     </div>
+    <p class="note" id="nb-gu-empty" hidden><span class="zh">这个区现在没有正在报名的家庭中心课程。</span><span class="ko">이 구는 지금 접수 중인 가족센터 프로그램이 없어요.</span></p>
     <p class="law"><span class="zh">全部课程：</span><span class="ko">전체 프로그램: </span><a href="https://mcfamily.or.kr/programs/family" target="_blank" rel="noopener">mcfamily.or.kr/programs/family</a></p>
     <p class="nb-more" id="nb-more" hidden><button type="button" data-ko="더 보기">更多 ▼</button></p>
     <div class="svc" id="svc">
@@ -157,18 +158,19 @@
   var MAP={prog:'pick', info:'', all:''};
   // 2026-11-10: 구 선택 — 각 줄의 작은 글씨·제목에서 자치구 이름(中文/한국어)을 찾아 거름. 구 이름이 없는 줄 = 서울 전체 소식(항상 보임)
   var GU=[['종로구','钟路区'],['중구','中区'],['용산구','龙山区'],['성동구','城东区'],['광진구','广津区'],['동대문구','东大门区'],['중랑구','中浪区'],['성북구','城北区'],['강북구','江北区'],['도봉구','道峰区'],['노원구','芦原区'],['은평구','恩平区'],['서대문구','西大门区'],['마포구','麻浦区'],['양천구','阳川区'],['강서구','江西区'],['구로구','九老区'],['금천구','衿川区'],['영등포구','永登浦区'],['동작구','铜雀区'],['관악구','冠岳区'],['서초구','瑞草区'],['강남구','江南区'],['송파구','松坡区'],['강동구','江东区']];
-  var gu='', sel=document.getElementById('nb-gu'), guWrap=document.getElementById('nb-gu-wrap'), guNote=document.getElementById('nb-gu-note'), cnt={};
-  rows.forEach(function(r){ var t=r.textContent, g=''; for(var i=0;i<GU.length&&!g;i++){ var k=GU[i][0]; if(t.indexOf(GU[i][1])>=0||(k==='중구'?/(^|[^가-힣])중구/.test(t):t.indexOf(k)>=0)) g=k; } r._gu=g; if(g&&r.getAttribute('data-b')!=='pick') cnt[g]=(cnt[g]||0)+1; });
+  var empty=document.getElementById('nb-gu-empty'), gu='', sel=document.getElementById('nb-gu'), guWrap=document.getElementById('nb-gu-wrap'), guNote=document.getElementById('nb-gu-note'), cnt={};
+  rows.forEach(function(r){ r._gu=''; if(r.getAttribute('data-b')!=='program') return; var t=r.textContent, g=''; for(var i=0;i<GU.length&&!g;i++){ var k=GU[i][0]; if(t.indexOf(GU[i][1])>=0||(k==='중구'?/(^|[^가-힣])중구/.test(t):t.indexOf(k)>=0)) g=k; } r._gu=g; if(g) cnt[g]=(cnt[g]||0)+1; });
   if(sel&&guWrap){
-    GU.forEach(function(x){ if(cnt[x[0]]){ var o=document.createElement('option'); o.value=x[0]; o.textContent=document.documentElement.getAttribute('data-lang')==='ko'?x[0]:x[1]; sel.appendChild(o); } });
-    if(sel.options.length>2){ guWrap.hidden=false; guWrap.style.display='flex'; }
-    try{ var sv=localStorage.getItem('hzn-gu'); if(sv&&cnt[sv]){ gu=sv; sel.value=sv; } }catch(e){}
+    GU.forEach(function(x){ { var o=document.createElement('option'); o.value=x[0]; o.textContent=document.documentElement.getAttribute('data-lang')==='ko'?x[0]:x[1]; sel.appendChild(o); } });
+    guWrap.hidden=false; guWrap.style.display='flex';
+    try{ var sv=localStorage.getItem('hzn-gu'); if(sv&&GU.some(function(x){return x[0]===sv;})){ gu=sv; sel.value=sv; } }catch(e){}
     sel.addEventListener('change',function(){ gu=sel.value; try{ gu?localStorage.setItem('hzn-gu',gu):localStorage.removeItem('hzn-gu'); }catch(e){} open=false; draw(); });
   }
   function draw(){
     var n=0;
     if(guNote) guNote.hidden=!gu;
-    rows.forEach(function(r){ var b=r.getAttribute('data-b'), hit=(!cur||b===cur)&&(!gu||!r._gu||r._gu===gu); if(hit&&b!=='pick') n++; r.hidden=!hit||(!open&&b!=='pick'&&n>SHOW); });
+    rows.forEach(function(r){ var b=r.getAttribute('data-b'), hit=gu?(b==='program'&&r._gu===gu):(!cur||b===cur); if(hit&&b!=='pick') n++; r.hidden=!hit||(!open&&b!=='pick'&&n>SHOW); });
+    if(empty) empty.hidden=!(gu&&!n);
     more.hidden=open||n<=SHOW;
     [].forEach.call(chips.querySelectorAll('button'),function(c){var on=c.getAttribute('data-b')===cur; c.classList.toggle('on',on); c.setAttribute('aria-pressed',on?'true':'false');});
   }
