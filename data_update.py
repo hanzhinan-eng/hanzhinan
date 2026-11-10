@@ -56,8 +56,8 @@ def codes_to_zh(v, table):   # "010,020" 같은 코드면 中文으로, 이미 �
 import html as _html
 MC = "https://mcfamily.or.kr"
 # 2026-10-28: 한울타리 「서울시소식」 4곳 전부 (카드뉴스만 제외 — 月亮妈妈). 중국 관련만 거르던 것(10-06)은 폐지, 대신 「中文」 표시
-BOARDS = [("notice", "공지사항", "公告"), ("info", "서울의 정보", "首尔信息"), ("family", "가족센터 소식", "家庭中心消息"), ("community", "지역사회모임", "社区聚会")]
-BOARD_ZH = {b: zh for b, ko, zh in BOARDS}; BOARD_ZH.update({"edu": "教育消息", "culture": "文化消息", "apply": "可报名"}); BOARD_KO = {b: ko for b, ko, zh in BOARDS}
+BOARDS = [("notice", "공지사항", "公告"), ("info", "서울의 정보", "首尔信息"), ("family", "가족센터 소식", "家庭中心消息")]
+BOARD_ZH = {b: zh for b, ko, zh in BOARDS}; BOARD_ZH.update({"edu": "教育消息", "culture": "文化消息", "apply": "可报名", "program": "家庭中心课程"}); BOARD_KO = {b: ko for b, ko, zh in BOARDS}
 NOTICE_DAYS = 180; NOTICE_MAX = 12
 INFO_DAYS = 10   # 2026-11-09: 信息 목록은 최근 10일 글만 (11-09 기준 10.30부터)   # 게시판마다 최대 12개 → 합쳐서 날짜순
 CN_KEEP = re.compile(r"중국|중국어|중문|中文|화교|이중언어|통번역|통역|번역")
@@ -72,7 +72,7 @@ def mc_get(path):
 def notice_parse(page, board):
     # 실제 구조(09-21 로그): <a class=".." href="/posts/info/14918?page=1">제목</a><span class="body3 ..">2026-09-17</span><span ..>조회수</span>
     out = []
-    pat = r'<a\b[^>]*href="(/posts/(?:info|notice|family|community)/(\d+))[^"]*"[^>]*>(.*?)</a>\s*(?:<[^>]+>\s*){0,3}(20\d\d)[-.](\d{1,2})[-.](\d{1,2})'
+    pat = r'<a\b[^>]*href="(/posts/(?:info|notice|family)/(\d+))[^"]*"[^>]*>(.*?)</a>\s*(?:<[^>]+>\s*){0,3}(20\d\d)[-.](\d{1,2})[-.](\d{1,2})'
     for m in re.finditer(pat, page, re.S):
         title = _html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(3)))).strip()
         if len(title) < 4: continue
@@ -118,6 +118,8 @@ def notice_render(items):
         t = it["title"].strip()
         m = re.match(r"^\s*\[([^\]]{1,30})\]\s*(.+)$", t)
         org, main = (m.group(1), m.group(2)) if m else ("", t)
+        if it.get("board") == "program":   # 2026-11-10: 가족센터 프로그램은 자치구를 中文으로
+            g = it.get("gu") or ""; org = {ko: zh for _, zh, ko in GU}.get(g, "首尔市" if g == "서울시" else (g or org))
         tags = []
         for k, z in TAG_ZH:
             if k in t and z not in tags: tags.append(z)
@@ -135,6 +137,43 @@ def notice_render(items):
         rows.append(f'        <tr data-b="{it["board"]}"><td>{new}{cn}<span lang="ko">{esc(main)}</span>' + (f'<small class="nt-sub">{sub}</small>' if sub else "") +
                     f'</td><td class="nt-d">{dcell}</td><td class="nt-l"><a href="{href}" target="_blank" rel="noopener"><span class="zh">原文</span><span class="ko">원문</span> ↗</a></td></tr>\n')
     return "".join(rows)
+
+# ---------------- 0-0. 가족센터 프로그램 (모집중) — 2026-11-10 月亮妈妈: 「지역사회모임」 대신 가족센터 프로그램 정보로 ----------------
+# 출처: 한울타리 「가족센터 프로그램」 https://mcfamily.or.kr/programs/family?page=N (16건/쪽, 서버 렌더). 카드에 상태(모집중/마감)·자치구·제목·접수기간.
+# 모집중 + 접수 마감이 오늘 이후인 것만, 마감 빠른 순. 信息 표 맨 위(⭐推荐 아래)에 둔다. 게시일이 오래돼도 아직 접수 중이면 남김(INFO_DAYS 예외).
+PROG_PAGES = 4; PROG_MAX = 20
+PROG_RX = re.compile(r'href="/ko/programs/family/(\d+)[^"]*">.*?rounded-2xl"[^>]*>([^<]+)</span>.*?text-grey800 mb-2">([^<]*)</span><span[^>]*>(.*?)</span><span[^>]*>(20\d\d-\d\d-\d\d)<!-- --> ~<!-- --> <!-- -->(20\d\d-\d\d-\d\d)?', re.S)
+def prog_parse(page):
+    out = []
+    for m in PROG_RX.finditer(page):
+        pid, status, gu, title, s, e = m.groups()
+        title = _html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", title))).strip()
+        try: s = datetime.date.fromisoformat(s); e = datetime.date.fromisoformat(e) if e else None
+        except ValueError: continue
+        out.append({"id": pid, "path": f"/ko/programs/family/{pid}", "title": title, "status": status.strip(), "gu": gu.strip(),
+                    "start": s, "end": e, "date": s, "board": "program"})
+    return out
+def prog_keep(items):
+    seen, out = set(), []
+    for it in items:
+        if it["id"] in seen or it["status"] != "모집중" or not it["end"] or it["end"] < TODAY: continue
+        if any(x in it["title"] for x in SKIP): continue
+        seen.add(it["id"]); out.append(it)
+    out.sort(key=lambda x: (x["end"], -x["start"].toordinal()))
+    return out[:PROG_MAX]
+def prog_fetch():
+    items, ok = [], 0
+    for pg in range(1, PROG_PAGES + 1):
+        try:
+            page = mc_get(f"/programs/family?page={pg}"); got = prog_parse(page); ok += 1
+            print(f"program p{pg}: bytes={len(page)} parsed={len(got)} open={sum(1 for x in got if x['status'] == '모집중')}")
+            items += got; time.sleep(0.5)
+        except Exception as e: print("program failed", pg, e)
+    if not ok or not items: return None
+    return prog_keep(items)
+def prog_sample():
+    return prog_keep([{"id": "15075", "path": "/ko/programs/family/15075", "title": "2026 언어발달 부모교육 '다문화가정의 영·유아 자녀 언어촉진'", "status": "모집중", "gu": "강남구",
+                       "start": TODAY - datetime.timedelta(days=1), "end": TODAY + datetime.timedelta(days=4), "date": TODAY - datetime.timedelta(days=1), "board": "program"}])
 
 # ---------------- 0-1. 서울시 문화참여 달력 (행사 및 축제 · 참여 신청) — 2026-10-28 추가, 열쇠 불필요 ----------------
 # 月亮妈妈: 서울시 행사·축제와 참여 신청을 중국인 친구들에게 공유. 달력 화면(이번 달)에 「종류 제목 기간 분야」가 글로 들어 있음 (10-28 probe-2 확인)
@@ -648,6 +687,11 @@ def main():
             # 2026-11-09 (月亮妈妈 「지나간 정보는 지워 줘」): 최근 INFO_DAYS일 글만 + 제목 속 날짜가 지난 것은 뺌
             keep = [x for x in keep if 0 <= (TODAY - x["date"]).days <= INFO_DAYS and not title_past(x["title"], x["date"])]
             print("info after cutoff:", len(keep))
+            # 2026-11-10: 지역사회모임 → 가족센터 프로그램(모집중, 마감순)을 표 맨 위에
+            try: progs = prog_sample() if SAMPLE else prog_fetch()
+            except Exception as e: print("program failed", e); progs = None
+            if progs is None: print("program: 접속 실패 또는 0건 → 이번 주는 프로그램 행 없이"); progs = []
+            print("program kept:", len(progs)); keep = progs + keep
             changed |= replace_block("butie.html", "INFO", notice_render(keep), "info-stamp")
     if what in ("exam", "all") and (SAMPLE or KEY):
         for tag, qg, jm, name, prac in EXAMS:
