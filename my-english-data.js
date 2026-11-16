@@ -332,5 +332,337 @@ window.LESSONS = [
       { q: "(Day 5) '아이가 오늘 늦을 거예요'를 영어로?", a: "She will be late today." },
       { q: "(Day 6) '작은 걸로 주세요'를 영어로?", a: "A small one, please." }
     ]
+  },
+  {
+    day: 11,
+    title: "상태 말하기 ① 기분·몸 상태",
+    situation: "누가 '괜찮아요?' 하고 물을 때 지금 내 상태를 말해요.",
+    words: [
+      { en: "tired", pron: "타이어드", ko: "피곤한", zh: "累" },
+      { en: "hungry", pron: "헝그리", ko: "배고픈", zh: "饿" },
+      { en: "busy", pron: "비지", ko: "바쁜", zh: "忙" },
+      { en: "happy", pron: "해피", ko: "행복한, 기쁜", zh: "开心" },
+      { en: "a little", pron: "어 리틀", ko: "조금", zh: "一点儿" }
+    ],
+    sentences: [
+      { en: "I'm a little tired today.", pron: "아임 어 리틀 타이어드 투데이.", ko: "오늘 조금 피곤해요." },
+      { en: "She is very hungry now.", pron: "쉬 이즈 베리 헝그리 나우.", ko: "아이가 지금 아주 배고파요." },
+      { en: "We are busy this week.", pron: "위 아 비지 디스 위크.", ko: "우리는 이번 주에 바빠요." }
+    ],
+    challenge: { en: "I'm tired, but I'm happy.", pron: "아임 타이어드, 벗 아임 해피.", ko: "피곤하지만 행복해요." },
+    grammar: "영어로 말하기 전에 먼저 하나만 골라요: <b>상태</b>인가, <b>행동</b>인가? 상태는 <b>am / are / is</b>를 써요. <b>I am</b> · <b>You/We/They are</b> · <b>He/She is</b>. 그 뒤에 기분·상태 말을 붙이면 끝! 중국어 '我很累'에는 是가 없지만, 영어는 <b>am이 꼭 필요</b>해요 → I tired ❌ / I<b>'m</b> tired ⭕",
+    dialogue: [
+      { who: "A", en: "You look tired. Are you okay?", answer: "" },
+      { who: "B", en: "I'm a little ___ today.", answer: "tired" },
+      { who: "A", en: "Are you ___ this week?", answer: "busy" },
+      { who: "B", en: "Yes, we ___ very busy.", answer: "are" },
+      { who: "A", en: "Let's have lunch. Are you ___?", answer: "hungry" },
+      { who: "B", en: "Yes! I'm ___ now.", answer: "happy" }
+    ],
+    quizLabel: "Day 10 복습 퀴즈",
+    quiz: [
+      { q: "'저는 보통 집에서 요리해요'를 영어로?", a: "I usually cook at home." },
+      { q: "'주말에는 밖에 나가요'를 영어로?", a: "We go out on weekends." },
+      { q: "usually는 동사 앞에 넣을까요, 뒤에 넣을까요?", a: "앞 (I usually cook.)" }
+    ]
+  },
+  {
+    day: 12,
+    title: "상태 말하기 ② 누구인지 말하기",
+    situation: "나와 아이, 이웃이 어떤 사람인지 소개해요.",
+    words: [
+      { en: "mom", pron: "맘", ko: "엄마", zh: "妈妈" },
+      { en: "student", pron: "스튜던트", ko: "학생", zh: "学生" },
+      { en: "friend", pron: "프렌드", ko: "친구", zh: "朋友" },
+      { en: "neighbor", pron: "네이버", ko: "이웃", zh: "邻居" },
+      { en: "elementary", pron: "엘리멘터리", ko: "초등의", zh: "小学的" }
+    ],
+    sentences: [
+      { en: "I'm a mom of three.", pron: "아임 어 맘 오브 쓰리.", ko: "저는 세 아이의 엄마예요." },
+      { en: "She is an elementary school student.", pron: "쉬 이즈 언 엘리멘터리 스쿨 스튜던트.", ko: "아이는 초등학생이에요." },
+      { en: "We are good friends.", pron: "위 아 굿 프렌즈.", ko: "우리는 좋은 친구예요." }
+    ],
+    challenge: { en: "He is my neighbor and my friend.", pron: "히 이즈 마이 네이버 앤 마이 프렌드.", ko: "그분은 제 이웃이자 친구예요." },
+    grammar: "상태 두 번째 모양: <b>am / are / is + 사람·사물 이름</b>. 중국어 '我<b>是</b>妈妈'의 是와 같은 자리예요. 한 명일 때는 앞에 <b>a</b>를 붙여요 → <b>a</b> mom, <b>a</b> student. 아/에/이/오/우 소리로 시작하면 <b>an</b> → <b>an</b> elementary school student. 여러 명은 a 없이 끝에 s → friend<b>s</b>.",
+    dialogue: [
+      { who: "A", en: "Is she your daughter?", answer: "" },
+      { who: "B", en: "Yes. She is an elementary school ___.", answer: "student" },
+      { who: "A", en: "Who is he?", answer: "" },
+      { who: "B", en: "He is my ___, Mr. Kim.", answer: "neighbor" },
+      { who: "A", en: "Are you good ___?", answer: "friends" },
+      { who: "B", en: "Yes, we are. And I'm a ___ of three!", answer: "mom" }
+    ],
+    quizLabel: "Day 11 복습 퀴즈",
+    quiz: [
+      { q: "'오늘 조금 피곤해요'를 영어로?", a: "I'm a little tired today." },
+      { q: "'아이가 지금 아주 배고파요'를 영어로?", a: "She is very hungry now." },
+      { q: "She 뒤에는 am / are / is 중 무엇?", a: "is (She is ~)" }
+    ]
+  },
+  {
+    day: 13,
+    title: "상태 말하기 ③ 어디에 있는지 말하기",
+    situation: "전화로 '지금 어디예요?' 하고 물을 때 답해요.",
+    words: [
+      { en: "at", pron: "앳", ko: "~에 (그 곳에)", zh: "在" },
+      { en: "office", pron: "오피스", ko: "사무실", zh: "办公室" },
+      { en: "kitchen", pron: "키친", ko: "부엌", zh: "厨房" },
+      { en: "outside", pron: "아웃사이드", ko: "밖에", zh: "外面" },
+      { en: "front", pron: "프런트", ko: "앞", zh: "前面" }
+    ],
+    sentences: [
+      { en: "I'm at home right now.", pron: "아임 앳 홈 라잇 나우.", ko: "지금 집에 있어요." },
+      { en: "She is at school today.", pron: "쉬 이즈 앳 스쿨 투데이.", ko: "아이는 오늘 학교에 있어요." },
+      { en: "He is in the office.", pron: "히 이즈 인 디 오피스.", ko: "그는 사무실에 있어요." }
+    ],
+    challenge: { en: "I'm in front of the school.", pron: "아임 인 프런트 오브 더 스쿨.", ko: "학교 앞에 있어요." },
+    grammar: "상태 세 번째 모양: <b>am / are / is + 장소</b>. 중국어 '我<b>在</b>家'의 在 = 영어는 <b>am + at</b>. <b>at</b>은 지도 위의 점처럼 '그 곳에'(at home, at school), <b>in</b>은 상자처럼 '그 안에'(in the kitchen, in Seoul). <b>in front of</b> = ~ 앞에 (통째로 외우기!).",
+    dialogue: [
+      { who: "A", en: "Hi! Are you at ___?", answer: "home" },
+      { who: "B", en: "No, I'm ___ now.", answer: "outside" },
+      { who: "A", en: "Where is your husband?", answer: "" },
+      { who: "B", en: "He is in the ___.", answer: "office" },
+      { who: "A", en: "And the kids?", answer: "" },
+      { who: "B", en: "They are ___ school.", answer: "at" }
+    ],
+    quizLabel: "Day 12 복습 퀴즈",
+    quiz: [
+      { q: "'저는 세 아이의 엄마예요'를 영어로?", a: "I'm a mom of three." },
+      { q: "'우리는 좋은 친구예요'를 영어로?", a: "We are good friends." },
+      { q: "elementary school student 앞에는 a일까요, an일까요?", a: "an (an elementary school student)" }
+    ]
+  },
+  {
+    day: 14,
+    title: "상태 말하기 ④ 지금 하는 중",
+    situation: "'지금 뭐 해요?' 하고 물을 때 답해요.",
+    words: [
+      { en: "make", pron: "메이크", ko: "만들다", zh: "做" },
+      { en: "dinner", pron: "디너", ko: "저녁밥", zh: "晚饭" },
+      { en: "wait", pron: "웨이트", ko: "기다리다", zh: "等" },
+      { en: "clean", pron: "클린", ko: "청소하다", zh: "打扫" },
+      { en: "later", pron: "레이터", ko: "나중에", zh: "待会儿" }
+    ],
+    sentences: [
+      { en: "I'm making dinner right now.", pron: "아임 메이킹 디너 라잇 나우.", ko: "지금 저녁 만드는 중이에요." },
+      { en: "She is doing her homework.", pron: "쉬 이즈 두잉 허 홈워크.", ko: "아이는 숙제하는 중이에요." },
+      { en: "We are waiting for the bus.", pron: "위 아 웨이팅 포 더 버스.", ko: "우리는 버스를 기다리는 중이에요." }
+    ],
+    challenge: { en: "I'm cleaning now, I'll call you later.", pron: "아임 클리닝 나우, 아일 콜 유 레이터.", ko: "지금 청소 중이라 나중에 전화할게요." },
+    grammar: "상태 네 번째 모양: <b>am / are / is + 동사ing</b> = 지금 ~하는 중 (중국어 '<b>正在</b>'). 동사는 원래 모양 그대로는 am 뒤에 설 수 없어요 → I am make ❌ / I am mak<b>ing</b> ⭕. ing라는 옷을 입어야 같이 설 수 있어요. e로 끝나면 e를 빼고 ing → make → mak<b>ing</b>.",
+    dialogue: [
+      { who: "A", en: "Hi, what are you doing?", answer: "" },
+      { who: "B", en: "I'm ___ dinner right now.", answer: "making" },
+      { who: "A", en: "Where is your daughter?", answer: "" },
+      { who: "B", en: "She is ___ her homework.", answer: "doing" },
+      { who: "A", en: "Can you talk now?", answer: "" },
+      { who: "B", en: "Sorry, I'll call you ___.", answer: "later" }
+    ],
+    quizLabel: "Day 13 복습 퀴즈",
+    quiz: [
+      { q: "'지금 집에 있어요'를 영어로?", a: "I'm at home right now." },
+      { q: "'학교 앞에 있어요'를 영어로?", a: "I'm in front of the school." },
+      { q: "'부엌에'는 at일까요, in일까요?", a: "in (in the kitchen)" }
+    ]
+  },
+  {
+    day: 15,
+    title: "행동 말하기 (평소에 하는 일)",
+    situation: "나와 가족이 평소에 무엇을 하는지 말해요.",
+    words: [
+      { en: "study", pron: "스터디", ko: "공부하다", zh: "学习" },
+      { en: "work", pron: "워크", ko: "일하다", zh: "工作" },
+      { en: "read", pron: "리드", ko: "읽다", zh: "读" },
+      { en: "drink", pron: "드링크", ko: "마시다", zh: "喝" },
+      { en: "every day", pron: "에브리 데이", ko: "매일", zh: "每天" }
+    ],
+    sentences: [
+      { en: "I study English every day.", pron: "아이 스터디 잉글리시 에브리 데이.", ko: "저는 매일 영어를 공부해요." },
+      { en: "She reads books at night.", pron: "쉬 리즈 북스 앳 나잇.", ko: "아이는 밤에 책을 읽어요." },
+      { en: "My husband works in Seoul.", pron: "마이 허즈번드 웍스 인 서울.", ko: "남편은 서울에서 일해요." }
+    ],
+    challenge: { en: "I drink coffee and read every morning.", pron: "아이 드링크 커피 앤 리드 에브리 모닝.", ko: "저는 매일 아침 커피를 마시고 책을 읽어요." },
+    grammar: "<b>행동</b>을 말할 때는 am/are/is를 <b>빼고</b> 동사를 바로 써요 → I study ⭕ / I am study ❌. He·She·남편·아이처럼 '다른 한 사람'이면 동사 끝에 <b>s</b> → She read<b>s</b>, He work<b>s</b>. 고르는 법: 피곤해(상태) = I<b>'m</b> tired / 공부해(행동) = I <b>study</b>.",
+    dialogue: [
+      { who: "A", en: "What do you do every day?", answer: "" },
+      { who: "B", en: "I ___ English every day.", answer: "study" },
+      { who: "A", en: "Wow! And your daughter?", answer: "" },
+      { who: "B", en: "She ___ books at night.", answer: "reads" },
+      { who: "A", en: "Does your husband work in Seoul?", answer: "" },
+      { who: "B", en: "Yes, he ___ in Seoul.", answer: "works" }
+    ],
+    quizLabel: "Day 14 복습 퀴즈",
+    quiz: [
+      { q: "'지금 저녁 만드는 중이에요'를 영어로?", a: "I'm making dinner right now." },
+      { q: "'우리는 버스를 기다리는 중이에요'를 영어로?", a: "We are waiting for the bus." },
+      { q: "'I am make dinner'는 어디가 틀렸을까요?", a: "am 뒤에는 making (I am making dinner.)" }
+    ]
+  },
+  {
+    day: 16,
+    title: "상태 물어보기 (Are you? / Is she?)",
+    situation: "선생님께 전화해서 아이가 괜찮은지 물어봐요.",
+    words: [
+      { en: "okay", pron: "오케이", ko: "괜찮은", zh: "没事，还好" },
+      { en: "ready", pron: "레디", ko: "준비된", zh: "准备好" },
+      { en: "sleepy", pron: "슬리피", ko: "졸린", zh: "困" },
+      { en: "here", pron: "히어", ko: "여기", zh: "这里" },
+      { en: "still", pron: "스틸", ko: "아직", zh: "还" }
+    ],
+    sentences: [
+      { en: "Are you ready for school?", pron: "아 유 레디 포 스쿨?", ko: "학교 갈 준비 됐니?" },
+      { en: "Is she still at school?", pron: "이즈 쉬 스틸 앳 스쿨?", ko: "아이가 아직 학교에 있나요?" },
+      { en: "Is the teacher here today?", pron: "이즈 더 티처 히어 투데이?", ko: "선생님 오늘 계신가요?" }
+    ],
+    challenge: { en: "Is she doing well in class?", pron: "이즈 쉬 두잉 웰 인 클래스?", ko: "아이가 수업에서 잘하고 있나요?" },
+    grammar: "상태를 물을 때는 <b>am/are/is를 맨 앞으로</b> 보내요. She <b>is</b> at school. → <b>Is</b> she at school? 중국어는 끝에 吗를 붙이지만 영어는 자리를 바꿔요. 네 가지 모양 모두 똑같아요: <b>Are you</b> tired? / <b>Is he</b> your teacher? / <b>Is she</b> at school? / <b>Is she</b> doing well? 대답은 Yes, she is. / No, she isn't.",
+    dialogue: [
+      { who: "A", en: "Hello, this is Luna. Is she ___ at school?", answer: "still" },
+      { who: "B", en: "Yes, she is ___ with me.", answer: "here" },
+      { who: "A", en: "Is she ___?", answer: "okay" },
+      { who: "B", en: "Yes, she is. She is a little ___.", answer: "sleepy" },
+      { who: "A", en: "___ she doing well in class?", answer: "Is" },
+      { who: "B", en: "Yes, she is doing very well!", answer: "" }
+    ],
+    quizLabel: "Day 15 복습 퀴즈",
+    quiz: [
+      { q: "'저는 매일 영어를 공부해요'를 영어로?", a: "I study English every day." },
+      { q: "'남편은 서울에서 일해요'를 영어로?", a: "My husband works in Seoul." },
+      { q: "She 뒤에 read를 쓰면 어떻게 바뀔까요?", a: "reads (She reads books.)" }
+    ]
+  },
+  {
+    day: 17,
+    title: "행동 물어보기 (Do you? / Does she?)",
+    situation: "선생님께 아이의 학교생활과 준비물을 물어봐요.",
+    words: [
+      { en: "speak", pron: "스피크", ko: "말하다", zh: "说" },
+      { en: "eat", pron: "잇", ko: "먹다", zh: "吃" },
+      { en: "need", pron: "니드", ko: "필요하다", zh: "需要" },
+      { en: "bring", pron: "브링", ko: "가져오다", zh: "带来" },
+      { en: "anything", pron: "애니씽", ko: "무엇이든, 뭔가", zh: "什么东西" }
+    ],
+    sentences: [
+      { en: "Do you speak Korean?", pron: "두 유 스피크 코리안?", ko: "한국어 하세요?" },
+      { en: "Does she eat lunch well?", pron: "더즈 쉬 잇 런치 웰?", ko: "아이가 점심 잘 먹나요?" },
+      { en: "Do I need to bring anything?", pron: "두 아이 니드 투 브링 애니씽?", ko: "제가 뭐 가져가야 하나요?" }
+    ],
+    challenge: { en: "Does she get along with her friends?", pron: "더즈 쉬 겟 얼롱 위드 허 프렌즈?", ko: "아이가 친구들과 잘 지내나요?" },
+    grammar: "행동을 물을 때는 맨 앞에 <b>Do</b>를 놓아요. You speak Korean. → <b>Do</b> you speak Korean? He/She일 때는 <b>Does</b>. 이때 동사의 s는 Does가 가져가서 동사는 원래 모양이에요 → <b>Does</b> she <b>eat</b> ⭕ / Does she eats ❌. 상태 질문(Are/Is)과 섞지 않기 → Are you speak ❌. 대답은 Yes, I do. / No, she doesn't.",
+    dialogue: [
+      { who: "A", en: "Excuse me, do you ___ Korean?", answer: "speak" },
+      { who: "B", en: "Yes, a little.", answer: "" },
+      { who: "A", en: "___ she eat lunch well?", answer: "Does" },
+      { who: "B", en: "Yes, she does. She eats very well.", answer: "" },
+      { who: "A", en: "Do I ___ to bring anything tomorrow?", answer: "need" },
+      { who: "B", en: "Please ___ a water bottle.", answer: "bring" }
+    ],
+    quizLabel: "Day 16 복습 퀴즈",
+    quiz: [
+      { q: "'아이가 아직 학교에 있나요?'를 영어로?", a: "Is she still at school?" },
+      { q: "'학교 갈 준비 됐니?'를 영어로?", a: "Are you ready for school?" },
+      { q: "'She is okay.'를 질문으로 바꾸면?", a: "Is she okay?" }
+    ]
+  },
+  {
+    day: 18,
+    title: "지난 상태 말하기 (was / were)",
+    situation: "아이가 어제 결석한 이유를 선생님께 말해요.",
+    words: [
+      { en: "yesterday", pron: "예스터데이", ko: "어제", zh: "昨天" },
+      { en: "last night", pron: "래스트 나잇", ko: "어젯밤", zh: "昨晚" },
+      { en: "absent", pron: "앱슨트", ko: "결석한", zh: "缺席" },
+      { en: "better", pron: "베터", ko: "더 나은", zh: "好一些" },
+      { en: "all day", pron: "올 데이", ko: "하루 종일", zh: "一整天" }
+    ],
+    sentences: [
+      { en: "She was sick yesterday.", pron: "쉬 워즈 식 예스터데이.", ko: "아이가 어제 아팠어요." },
+      { en: "We were at home last night.", pron: "위 워 앳 홈 래스트 나잇.", ko: "어젯밤에 우리는 집에 있었어요." },
+      { en: "Were you busy last week?", pron: "워 유 비지 래스트 위크?", ko: "지난주에 바쁘셨어요?" }
+    ],
+    challenge: { en: "She was absent, but she is better now.", pron: "쉬 워즈 앱슨트, 벗 쉬 이즈 베터 나우.", ko: "결석했지만 지금은 나아졌어요." },
+    grammar: "지난 상태는 am/is → <b>was</b>, are → <b>were</b>로만 바꾸면 돼요. 뒤에 오는 네 가지 모양은 그대로! I <b>was</b> tired. / She <b>was</b> at school. / We <b>were</b> friends. 질문은 똑같이 앞으로 → <b>Was</b> she okay? / <b>Were</b> you busy? 중국어는 '昨天'만 붙이면 되지만, 영어는 동사도 꼭 바꿔야 해요.",
+    dialogue: [
+      { who: "A", en: "She was ___ yesterday. Is she okay?", answer: "absent" },
+      { who: "B", en: "She ___ sick yesterday.", answer: "was" },
+      { who: "A", en: "Oh no. Were you at home ___ day?", answer: "all" },
+      { who: "B", en: "Yes, we ___ at home.", answer: "were" },
+      { who: "A", en: "How is she today?", answer: "" },
+      { who: "B", en: "She is ___ now. Thank you.", answer: "better" }
+    ],
+    quizLabel: "Day 17 복습 퀴즈",
+    quiz: [
+      { q: "'한국어 하세요?'를 영어로?", a: "Do you speak Korean?" },
+      { q: "'아이가 점심 잘 먹나요?'를 영어로?", a: "Does she eat lunch well?" },
+      { q: "'Does she eats'는 어디가 틀렸을까요?", a: "Does 뒤에는 eat (Does she eat ~?)" }
+    ]
+  },
+  {
+    day: 19,
+    title: "지난 행동 말하기 (-ed / Did you?)",
+    situation: "어제 무엇을 했는지 말하고, 상대에게도 물어봐요.",
+    words: [
+      { en: "finish", pron: "피니시", ko: "끝내다", zh: "完成" },
+      { en: "watch", pron: "와치", ko: "보다", zh: "看" },
+      { en: "went", pron: "웬트", ko: "갔다 (go의 과거)", zh: "去了" },
+      { en: "had", pron: "해드", ko: "먹었다, 가졌다 (have의 과거)", zh: "吃了，有了" },
+      { en: "already", pron: "올레디", ko: "이미", zh: "已经" }
+    ],
+    sentences: [
+      { en: "She already finished her homework.", pron: "쉬 올레디 피니시트 허 홈워크.", ko: "아이는 이미 숙제를 끝냈어요." },
+      { en: "We went to the park yesterday.", pron: "위 웬트 투 더 파크 예스터데이.", ko: "우리는 어제 공원에 갔어요." },
+      { en: "Did you have lunch?", pron: "디 쥬 해브 런치?", ko: "점심 드셨어요?" }
+    ],
+    challenge: { en: "We watched a movie last night.", pron: "위 와치트 어 무비 래스트 나잇.", ko: "우리는 어젯밤에 영화를 봤어요." },
+    grammar: "지난 행동은 동사 끝에 <b>ed</b>를 붙여요 → finish<b>ed</b>, watch<b>ed</b>. 모양이 통째로 바뀌는 동사는 외워요 → go → <b>went</b>, have → <b>had</b>. 질문은 <b>Did</b> + 원래 모양 → <b>Did</b> you <b>have</b> lunch? ⭕ / Did you had ❌ (과거 표시는 Did가 이미 했어요). 대답은 Yes, I did. / No, I didn't.",
+    dialogue: [
+      { who: "A", en: "Did you ___ lunch?", answer: "have" },
+      { who: "B", en: "Yes, I did. We ___ to the park, too.", answer: "went" },
+      { who: "A", en: "Nice! Did she ___ her homework?", answer: "finish" },
+      { who: "B", en: "Yes, she ___ finished it.", answer: "already" },
+      { who: "A", en: "What did you do last night?", answer: "" },
+      { who: "B", en: "We ___ a movie.", answer: "watched" }
+    ],
+    quizLabel: "Day 18 복습 퀴즈",
+    quiz: [
+      { q: "'아이가 어제 아팠어요'를 영어로?", a: "She was sick yesterday." },
+      { q: "'어젯밤에 우리는 집에 있었어요'를 영어로?", a: "We were at home last night." },
+      { q: "are의 과거 모양은?", a: "were" }
+    ]
+  },
+  {
+    day: 20,
+    title: "앞으로의 일 말하기 (will) + Day 11~19 총정리",
+    situation: "내일과 다음 주 계획을 선생님이나 친구에게 말해요.",
+    words: [
+      { en: "tomorrow", pron: "투모로", ko: "내일", zh: "明天" },
+      { en: "soon", pron: "순", ko: "곧", zh: "很快" },
+      { en: "there", pron: "데어", ko: "거기", zh: "那里" },
+      { en: "visit", pron: "비짓", ko: "방문하다", zh: "拜访，看望" },
+      { en: "next week", pron: "넥스트 위크", ko: "다음 주", zh: "下周" }
+    ],
+    sentences: [
+      { en: "I will be there soon.", pron: "아이 윌 비 데어 순.", ko: "곧 도착할게요." },
+      { en: "I will pick her up tomorrow.", pron: "아이 윌 픽 허 업 투모로.", ko: "내일 제가 아이를 데리러 갈게요." },
+      { en: "Will you be at school tomorrow?", pron: "윌 유 비 앳 스쿨 투모로?", ko: "내일 학교에 계실 건가요?" }
+    ],
+    challenge: { en: "We will visit my parents next week.", pron: "위 윌 비짓 마이 페어런츠 넥스트 위크.", ko: "다음 주에 부모님을 뵈러 갈 거예요." },
+    grammar: "앞으로의 일은 <b>will</b>. 상태면 <b>will be</b> + 네 가지 모양(I will be busy / I will be there), 행동이면 <b>will + 동사</b>(I will pick her up). will 뒤는 항상 원래 모양이고, She여도 s를 안 붙여요. 질문은 <b>Will you ~?</b><br><b>한눈에 정리</b> — 상태: am/are/is → was/were → will be · 행동: work → worked → will work · 질문: Are you? / Do you? → Were you? / Did you? → Will you?",
+    dialogue: [
+      { who: "A", en: "Will you be at school ___?", answer: "tomorrow" },
+      { who: "B", en: "Yes. I will ___ her up at three.", answer: "pick" },
+      { who: "A", en: "Great. I will ___ there, too.", answer: "be" },
+      { who: "B", en: "See you ___!", answer: "soon" },
+      { who: "A", en: "Any plans next week?", answer: "" },
+      { who: "B", en: "We will ___ my parents next week.", answer: "visit" }
+    ],
+    quizLabel: "Day 11~19 총복습 퀴즈",
+    quiz: [
+      { q: "(Day 11 · 상태) '오늘 조금 피곤해요'를 영어로?", a: "I'm a little tired today." },
+      { q: "(Day 14 · 하는 중) '지금 저녁 만드는 중이에요'를 영어로?", a: "I'm making dinner right now." },
+      { q: "(Day 15 · 행동) '저는 매일 영어를 공부해요'를 영어로?", a: "I study English every day." },
+      { q: "(Day 17 · 행동 질문) '아이가 점심 잘 먹나요?'를 영어로?", a: "Does she eat lunch well?" },
+      { q: "(Day 19 · 지난 행동) '점심 드셨어요?'를 영어로?", a: "Did you have lunch?" }
+    ]
   }
 ];
