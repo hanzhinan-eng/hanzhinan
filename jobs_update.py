@@ -68,8 +68,38 @@ def region_zh(s):
     s = s.replace("서울특별시", "首尔").replace("경기도", "京畿").replace("인천광역시", "仁川")
     for ko, zh in GU_ZH.items(): s = s.replace(ko, zh)
     return s
+# 자주 나오는 한국어 표현 → 中文 (2026-11-16). 표에 없는 말은 한국어 그대로 둔다(틀린 번역보다 원문이 안전).
+KO_ZH = [
+    (r"기간의 정함이 없는 근로계약", "无固定期限合同"), (r"기간의 정함이 있는 근로계약", "固定期限合同"),
+    (r"계약만료 후 상용직 전환 검토", "合同期满后考虑转正"), (r"정규직 전환 가능", "可转正"),
+    (r"수습기간 (\d+)개월 이후 정규계약", r"试用期\1个月后转正"), (r"수습 (\d+)개월", r"试用期\1个月"),
+    (r"근무기간 (\d+)개월", r"工作期\1个月"), (r"(\d+)개월", r"\1个月"),
+    (r"(\d{4})년 ?(\d+)월부터", r"\1年\2月起"), (r"(\d{4})년부터", r"\1年起"), (r"(\d+)년", r"\1年"),
+    (r"(\d+)월 ?(\d+)일", r"\1月\2日"), (r"(\d+)월", r"\1月"), (r"적용", "适用"),
+    (r"파견근로", "派遣"), (r"정규직", "正式工"), (r"계약직", "合同工"), (r"상근직", "全职"),
+    (r"아르바이트", "兼职"), (r"파트타임", "兼职"), (r"프리랜서", "自由职业"), (r"인턴", "实习"), (r"시간강사", "课时讲师"),
+    (r"직무별 상이", "因岗位而异"), (r"스케쥴에 따라 상이", "按排班而定"), (r"스케쥴 근무", "排班制"), (r"탄력근무제", "弹性工作制"),
+    (r"격주 근무", "隔周上班"),
+    (r"면접 후 결정", "面试后决定"), (r"면접 후 협의", "面试后面议"), (r"협의 후 결정", "面议后决定"),
+    (r"협의 가능", "可面议"), (r"협의", "面议"),
+    (r"회사 내규에 따름", "按公司规定"), (r"회사 규정에 따라 책정", "按公司规定"),
+    (r"경력직의 경우 직전 연봉 우대", "有经验者参考上一份年薪"),
+    (r"식대 및 주휴수당 포함", "含餐费和周休补贴"), (r"휴게 (\d+)시간 포함", r"含休息\1小时"),
+    (r"하루 (\d+)시간", r"每天\1小时"), (r"주 ?(\d)일", r"每周\1天"), (r"(\d+)시간", r"\1小时"), (r"기준", "标准"),
+    (r"시급", "时薪"), (r"월급", "月薪"), (r"연봉", "年薪"), (r"일급", "日薪"), (r"월 ?(?=\d)", "月薪 "),
+    (r"(\d)천원", r"\1千韩元"), (r"(\d)만원", r"\1万韩元"), (r"(\d)원", r"\1韩元"), (r"韩元 ?이상", "韩元以上"),
+    (r" 또는 ", " 或 "),
+]
+def ko_zh(s):
+    for pat, rep in KO_ZH: s = re.sub(pat, rep, s)
+    return s
 def days_zh(s):
-    return re.sub(r"[월화수목금토일]", lambda m: DAY_ZH[m.group(0)], s).replace("~", "～") if s else ""
+    if not s: return ""
+    s = re.sub(r"([월화수목금토일])요일", lambda m: "周" + DAY_ZH[m.group(1)], s)   # 토요일 → 周六
+    s = ko_zh(s)
+    # 요일 글자만 따로 있을 때만 바꾼다 (다른 한글 단어 속 글자는 건드리지 않음)
+    s = re.sub(r"(?<![가-힣\d])[월화수목금토일]+(?![가-힣])", lambda m: "".join(DAY_ZH[c] for c in m.group(0)), s)
+    return esc(s.replace("~", "～"))
 def dday(end):
     try:
         e = datetime.date.fromisoformat(end); n = (e - TODAY).days
@@ -94,12 +124,12 @@ def cards(items):
         dd = dday(it["end"])
         top = f'<span class="tag ok dd-tag">{esc(dd)}</span> ' if dd.startswith("D-") and int(dd[2:]) <= 7 or dd == "今天截止" else ""
         top += f'<span class="tag info">{" · ".join(tags) or "招聘"}</span>'
-        when = " ".join(x for x in [days_zh(d.get("근무요일", "")), esc(d.get("근무시간", ""))] if x)
+        when = " ".join(x for x in [days_zh(d.get("근무요일", "")), esc(ko_zh(d.get("근무시간", "")))] if x)
         kv = ""
         if d.get("모집직종"): kv += f'        <dt>职种</dt><dd>{esc(d["모집직종"])}</dd>\n'
         kv += f'        <dt>地区</dt><dd>{esc(region_zh(d.get("근무지역") or it["region"]))}{(" · " + esc(d["인근전철역"])) if d.get("인근전철역") else ""}</dd>\n'
-        if d.get("임금"): kv += f'        <dt>工资</dt><dd>{esc(d["임금"])}</dd>\n'
-        wf = " · ".join(x for x in [when, esc(d.get("고용형태", ""))] if x)
+        if d.get("임금"): kv += f'        <dt>工资</dt><dd>{esc(ko_zh(d["임금"]))}</dd>\n'
+        wf = " · ".join(x for x in [when, esc(ko_zh(d.get("고용형태", "")))] if x)
         if wf: kv += f'        <dt>时间·形态</dt><dd>{wf}</dd>\n'
         kv += f'        <dt>截止</dt><dd>{esc(it["end"] or d.get("마감일", ""))}<span class="dd-txt">{(" · " + dd) if dd else ""}</span> · <a href="{BASE}/jobs/opening/{it["id"]}" target="_blank" rel="noopener">한울타리 原文</a></dd>\n'
         cards.append(f'''    <article class="ntc" data-end="{esc(it["end"])}">
