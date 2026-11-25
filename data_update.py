@@ -57,7 +57,7 @@ import html as _html
 MC = "https://mcfamily.or.kr"
 # 2026-10-28: 한울타리 「서울시소식」 4곳 전부 (카드뉴스만 제외 — 月亮妈妈). 중국 관련만 거르던 것(10-06)은 폐지, 대신 「中文」 표시
 BOARDS = [("notice", "공지사항", "公告"), ("info", "서울의 정보", "首尔信息"), ("family", "가족센터 소식", "家庭中心消息")]
-BOARD_ZH = {b: zh for b, ko, zh in BOARDS}; BOARD_ZH.update({"edu": "教育消息", "culture": "文化消息", "apply": "可报名", "program": "家庭中心课程"}); BOARD_KO = {b: ko for b, ko, zh in BOARDS}
+BOARD_ZH = {b: zh for b, ko, zh in BOARDS}; BOARD_ZH.update({"edu": "教育消息", "culture": "文化消息", "apply": "可报名", "program": "家庭中心课程", "fam": "家庭教育·文化", "gprog": "外国人中心课程"}); BOARD_KO = {b: ko for b, ko, zh in BOARDS}
 NOTICE_DAYS = 180; NOTICE_MAX = 12
 INFO_DAYS = 10   # 2026-11-09: 信息 목록은 최근 10일 글만 (11-09 기준 10.30부터)   # 게시판마다 최대 12개 → 합쳐서 날짜순
 CN_KEEP = re.compile(r"중국|중국어|중문|中文|화교|이중언어|통번역|통역|번역")
@@ -66,9 +66,16 @@ TAG_ZH = [("무료", "免费"), ("모집", "招募中"), ("다문화", "多文�
           ("한국어", "韩语"), ("교육", "教育"), ("멘토링", "辅导"), ("진로", "升学·职业"), ("장학", "奖学金"), ("취업", "就业"), ("창업", "创业"), ("자격증", "证书"), ("체험", "体验"), ("공모전", "征集比赛"),
           ("축제", "庆典"), ("한마당", "庆典"), ("상담", "咨询"), ("법률", "法律"), ("주거", "住房"), ("임대", "租赁住房"), ("의료", "医疗"), ("통번역", "翻译")]
 def mc_get(path):
+    # 2026-11-25: 한울타리는 2026-12-31 종료 예정. 잠깐 느린 것 때문에 숨겨지지 않게 2번까지 다시 시도, 그래도 안 되면 그 칸은 숨김(main 참고)
     req = urllib.request.Request(MC + path, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return r.read().decode("utf-8", "replace")
+    last = None
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last = e; print(f"  mc retry {attempt + 1}/3 {path}:", e); time.sleep(3 * (attempt + 1))
+    raise last
 def notice_parse(page, board):
     # 실제 구조(09-21 로그): <a class=".." href="/posts/info/14918?page=1">제목</a><span class="body3 ..">2026-09-17</span><span ..>조회수</span>
     out = []
@@ -118,7 +125,7 @@ def notice_render(items):
         t = it["title"].strip()
         m = re.match(r"^\s*\[([^\]]{1,30})\]\s*(.+)$", t)
         org, main = (m.group(1), m.group(2)) if m else ("", t)
-        if it.get("board") == "program":   # 2026-11-10: 가족센터 프로그램은 자치구를 中文으로
+        if it.get("board") in ("program", "fam"):   # 2026-11-10: 가족센터 프로그램은 자치구를 中文으로 (11-25: 패밀리서울도)
             g = it.get("gu") or ""; org = {ko: zh for _, zh, ko in GU}.get(g, "首尔市" if g == "서울시" else (g or org))
         tags = []
         for k, z in TAG_ZH:
@@ -129,6 +136,10 @@ def notice_render(items):
         if it.get("cat"):   # 서울시 행사·참여 신청: 분야 + 기간
             per = f'{it["start"].month}.{it["start"].day}–{it["end"].month}.{it["end"].day}' if it.get("end") else ""
             sub = " · ".join(x for x in [bz, CAT_ZH.get(it["cat"], esc(it["cat"])), per] if x)
+        elif it.get("board") == "gprog":   # 마이서울플러스 프로그램 신청: 분류 · 센터(원문) · 구분
+            sub = " · ".join(x for x in [bz, f'<span lang="ko">{esc(it.get("center", ""))}</span>' if it.get("center") else "", GP_CAT.get(it.get("cate", ""), esc(it.get("cate", "")))] if x)
+        elif it.get("board") == "fam":   # 패밀리서울: 분류 · 자치구 · 종류(首尔家庭学校 교실 / 教育 / 文化) · 온라인이면 표시
+            sub = " · ".join(x for x in [bz, esc(org), it.get("kind", ""), "线上" if "온라인" in it.get("mode", "") else ""] if x)
         else:
             sub = " · ".join(x for x in [bz, esc(org), " · ".join(tags[:2])] if x)
         d = it["date"]
@@ -174,6 +185,134 @@ def prog_fetch():
 def prog_sample():
     return prog_keep([{"id": "15075", "path": "/ko/programs/family/15075", "title": "2026 언어발달 부모교육 '다문화가정의 영·유아 자녀 언어촉진'", "status": "모집중", "gu": "강남구",
                        "start": TODAY - datetime.timedelta(days=1), "end": TODAY + datetime.timedelta(days=4), "date": TODAY - datetime.timedelta(days=1), "board": "program"}])
+
+# ---------------- 0-0b. 패밀리서울 「가족교육·문화」 (서울가족학교 · 교육프로그램 · 문화프로그램) — 2026-11-25 ----------------
+# 月亮妈妈: 한울타리가 2026-12-31 종료 → 패밀리서울 가족교육·문화를 信息에 따로 추가. 분류 버튼 「家庭教育·文化」(data-b="fam").
+# 출처(서버가 바로 그려 줌, probe-3 11-25 확인): /all-class(교육) · /family-service/culture-class(문화) — 한 쪽 11~12건, 글 = /node/번호.
+#   링크 글자 = 「마포구 모집중 오프라인 [마포구] 제목 행사일시 | 2026-12-05 10:00 ~ 15:00 접수기간 | 2026-11-18 09:00 ~ 2026-12-02 18:00」
+# 서울가족학교 = 교육프로그램 중 5개 교실에 속한 것 → 교실 페이지에서 글 번호만 모아 종류 이름을 붙임(같은 글을 두 번 싣지 않음).
+# 모집중 + 접수 마감이 오늘 이후인 것만, 마감 빠른 순. 접수가 1년 내내인 상시 글(120일 넘게 열려 있는 것)은 뒤로.
+FS = "https://familyseoul.or.kr"
+FS_SCHOOL = [("familyschool-wedding-program", "准·新婚夫妇教室"), ("familyschool-children-program", "小学生父母教室"), ("familyschool-teenage-program", "青少年父母教室"),
+             ("familyschool-father-program", "爸爸教室"), ("familyschool-familychef-program", "Family Chef 亲子烹饪")]
+FS_PAGES = 4; FS_MAX = 20
+FS_A = re.compile(r'<a\b[^>]*href="(?:https://familyseoul\.or\.kr)?/node/(\d+)"[^>]*>(.*?)</a>', re.S)
+FS_TXT = re.compile(r"^(\S+)\s+(모집중|모집완료|모집마감|모집예정|접수중|접수마감|마감)\s+(온・오프통합|온·오프통합|오프라인|온라인)?\s*(.+?)\s*행사일시\s*\|\s*(.*?)\s*접수기간\s*\|\s*(.*)$")
+def fs_get(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko"})
+    last = None
+    for attempt in range(2):
+        try:
+            with urllib.request.urlopen(req, timeout=40) as r:
+                return r.geturl(), r.read().decode("utf-8", "replace")
+        except Exception as e:
+            last = e; print(f"  fs retry {attempt + 1}/2:", e); time.sleep(3)
+    raise last
+def fs_text(h): return _html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", h or ""))).strip()
+def fs_parse(page, kind):
+    out = []
+    for m in FS_A.finditer(page):
+        t = fs_text(m.group(2)); g = FS_TXT.match(t)
+        if not g: continue
+        gu, status, mode, title, ev, ap = g.groups()
+        ds = re.findall(r"(20\d\d)-(\d\d)-(\d\d)", ap)
+        try: start = datetime.date(*map(int, ds[0])); end = datetime.date(*map(int, ds[-1]))
+        except (IndexError, ValueError): continue
+        out.append({"id": "fs" + m.group(1), "url": f"{FS}/node/{m.group(1)}", "title": title.strip(), "status": status, "gu": gu, "mode": mode or "",
+                    "start": start, "end": end, "date": start, "board": "fam", "kind": kind})
+    return out
+def fs_keep(items, school):
+    seen, out = set(), []
+    for it in items:
+        if it["id"] in seen or it["status"] not in ("모집중", "접수중") or it["end"] < TODAY: continue
+        if any(x in it["title"] for x in SKIP): continue
+        if it["id"] in school: it["kind"] = "首尔家庭学校 · " + school[it["id"]]
+        seen.add(it["id"]); out.append(it)
+    out.sort(key=lambda x: ((x["end"] - x["start"]).days > 120, x["end"], -x["start"].toordinal()))
+    return out[:FS_MAX]
+def fs_fetch():
+    items, ok = [], 0
+    for path, kind in (("/all-class", "教育"), ("/family-service/culture-class", "文化")):
+        base, ids = FS + path, set()
+        for pg in range(FS_PAGES):
+            try:
+                url = base if pg == 0 else base + ("&" if "?" in base else "?") + f"page={pg}"
+                final, page = fs_get(url); got = fs_parse(page, kind); ok += 1
+                if pg == 0: base = final.split("#")[0]   # 문화는 분류 조건이 붙은 주소로 넘어감 → 2쪽부터 그 주소에 page= 를 붙임
+                new = [x for x in got if x["id"] not in ids]
+                print(f"fam {kind} p{pg}: bytes={len(page)} nodes={len(FS_A.findall(page))} parsed={len(got)} new={len(new)} open={sum(1 for x in new if x['status'] in ('모집중', '접수중'))}")
+                if not got:   # 구조가 바뀌었을 때 원인 찾기용
+                    a = [fs_text(m.group(2))[:160] for m in FS_A.finditer(page)][:3]; print("  sample anchors:", a)
+                if not new: break   # 쪽 번호가 안 먹히면 같은 글이 다시 옴 → 멈춤
+                ids |= {x["id"] for x in new}; items += new; time.sleep(0.5)
+            except Exception as e: print("fam failed", kind, pg, e); break
+    if not ok or not items: return None
+    school = {}
+    for slug, zh in FS_SCHOOL:   # 서울가족학교 5개 교실: 글 번호만 모음
+        try:
+            _, page = fs_get(f"{FS}/family-service/{slug}"); ids = {"fs" + m.group(1) for m in FS_A.finditer(page)}
+            hit = len(ids & {x["id"] for x in items}); print(f"fam school {slug}: nodes={len(ids)} matched={hit}")
+            for i in ids: school.setdefault(i, zh)
+            time.sleep(0.5)
+        except Exception as e: print("fam school failed", slug, e)
+    return fs_keep(items, school)
+def fs_sample():
+    d = datetime.timedelta
+    return fs_keep(fs_parse(
+        f'<a href="/node/32077">마포구 모집중 오프라인 [마포구] 2026년 생애주기별 부모교육 \'부지런\' - 초등전환기 부모편 행사일시 | {TODAY + d(10)} 10:00 ~ 15:00 접수기간 | {TODAY - d(7)} 09:00 ~ {TODAY + d(7)} 18:00</a>'
+        f'<a href="https://familyseoul.or.kr/node/32091">서대문구 모집중 온라인 [서대문구] 1인가구 멤버십데이 행사일시 | {TODAY + d(5)} 11:00 ~ 21:00 접수기간 | {TODAY - d(5)} 00:00 ~ {TODAY} 23:59</a>'
+        f'<a href="/node/29490">동대문구 모집중 오프라인 [동대문구] 2026 동대문구 다문화엄빠학교 \'동행스쿨\' 참여자 모집 행사일시 | 2026-04-07 10:00 ~ 2026-11-30 10:00 접수기간 | {TODAY - d(260)} 09:00 ~ {TODAY + d(5)} 18:00</a>'
+        f'<a href="/node/32082">금천구 모집완료 오프라인 [금천구] 1인가구 청년의 혼자 잘 지내는 법 찾기! 행사일시 | {TODAY + d(5)} 19:00 ~ 21:00 접수기간 | {TODAY - d(6)} 19:38 ~ {TODAY} 19:38</a>'
+        f'<a href="/node/29069">2026 예비신혼부부교실 연간 일정 안내</a>', "教育"), {"fs32077": "小学生父母教室"})
+
+# ---------------- 0-0c. 마이서울플러스 「교육문화 프로그램 › 프로그램 신청」 — 2026-11-25 ----------------
+# 月亮妈妈: 마이서울플러스(구 서울외국인포털) 교육문화 프로그램 중 「프로그램 신청」을 信息에. 분류 버튼 「外国人中心课程」(data-b="gprog").
+# 목록 주소(11-25 月亮妈妈 Chrome에서 확인): POST /hmpg/ecpr/prgm/prgmListPgng.do (miv_pageNo, miv_pageSize + 빈 검색 칸). 채용공고(bbs 8)와 같은 방식.
+#   카드 = <a onclick="goPrgmDetail('프로그램번호', '센터번호')" class="item"> … 센터 · 구분 · <strong>제목</strong> · 신청기간 · 교육기간 · 정원 · <span class="program-state">신청중|신청마감</span>
+#   상세 = /hmpg/ecpr/prgm/prgmDetail.do?prgrm_no=…&cntr_no=…
+# 신청중 + 신청 마감이 오늘 이후인 것만, 마감 빠른 순. (11-25 기준 최근 50건 중 신청중은 1건 — 글이 적은 게시판)
+GP = "https://global.seoul.go.kr/hmpg/ecpr/prgm"; GP_MAX = 15
+GP_CAT = {"취업": "就业", "인권": "人权", "정보": "信息", "안전": "安全", "생활": "生活", "한국어": "韩语", "종사자": "从业人员", "자원봉사": "志愿服务", "교류": "交流", "체험": "体验", "기타": "其他"}
+GP_A = re.compile(r"<a\b[^>]*goPrgmDetail\('([0-9A-Za-z]+)'\s*,\s*'([0-9A-Za-z]+)'\)[^>]*>(.*?)</a>", re.S)
+def gp_parse(page):
+    out = []
+    for m in GP_A.finditer(page):
+        pno, cno, body = m.groups()
+        cates = [fs_text(x) for x in re.findall(r'class="cate-st1[^"]*"[^>]*>(.*?)</span>', body, re.S)]
+        t = re.search(r"<strong[^>]*>(.*?)</strong>", body, re.S)
+        ap = re.search(r"신청기간\s*</span>\s*<p[^>]*>\s*(20\d\d-\d\d-\d\d)\s*~\s*(20\d\d-\d\d-\d\d)", body)
+        st = re.search(r'class="program-state[^"]*"[^>]*>(.*?)</span>', body, re.S)
+        if not (t and ap): continue
+        try: start = datetime.date.fromisoformat(ap.group(1)); end = datetime.date.fromisoformat(ap.group(2))
+        except ValueError: continue
+        out.append({"id": "gp" + pno, "url": f"{GP}/prgmDetail.do?prgrm_no={pno}&amp;cntr_no={cno}", "title": fs_text(t.group(1)), "status": fs_text(st.group(1)) if st else "",
+                    "center": cates[0] if cates else "", "cate": cates[1] if len(cates) > 1 else "", "start": start, "end": end, "date": start, "board": "gprog"})
+    return out
+def gp_keep(items):
+    seen, out = set(), []
+    for it in items:
+        if it["id"] in seen or it["status"] != "신청중" or it["end"] < TODAY: continue
+        if any(x in it["title"] for x in SKIP): continue
+        seen.add(it["id"]); out.append(it)
+    out.sort(key=lambda x: (x["end"], -x["start"].toordinal()))
+    return out[:GP_MAX]
+def gp_fetch():
+    data = urllib.parse.urlencode({"miv_pageNo": "1", "miv_pageSize": "50", "prgrm_se_cd": "", "cntr_no": "", "prgrm_nm": "", "rcpt_stadt": "", "rcpt_enddt": ""}).encode()
+    req = urllib.request.Request(GP + "/prgmListPgng.do", data=data, headers={"User-Agent": "Mozilla/5.0 (hanzhinan-bot; +https://hanzhinan.com)", "Accept-Language": "ko",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", "X-Requested-With": "XMLHttpRequest"})
+    with urllib.request.urlopen(req, timeout=60) as r: page = r.read().decode("utf-8", "replace")
+    got = gp_parse(page)
+    print(f"gprog: bytes={len(page)} cards={page.count('goPrgmDetail(')} parsed={len(got)} open={sum(1 for x in got if x['status'] == '신청중')} states={sorted({x['status'] for x in got})}")
+    if not got:   # 구조가 바뀌었을 때 원인 찾기용
+        i = page.find("goPrgmDetail("); print("  snippet:", page[max(0, i - 200):i + 900].replace("\n", " ") if i >= 0 else fs_text(page)[:400]); return None
+    return gp_keep(got)
+def gp_sample():
+    e = TODAY + datetime.timedelta(days=9); b = TODAY - datetime.timedelta(days=2)
+    card = lambda pno, center, cate, title, s, e2, state: (f'<a href="javascript:;" onclick="goPrgmDetail(\'{pno}\', \'557143B8FC94\'); return false;" title="x" class="item"> <ul class="program-cate"> <li><span class="cate-st1 cate2">{center}</span></li> '
+        f'<li><span class="cate-st1 cate1">{cate}</span></li> </ul> <div><i></i> <strong class="txt-22">{title}</strong> </div> <ul class="program-list"> <li> <span class="fc-txt fw-500">신청기간</span> <p>{s} ~ {e2}</p> </li> '
+        f'<li> <span class="fc-txt fw-500">교육기간</span> <p>{e2} ~ {e2}</p> </li> </ul> <span class="program-state cate-st4 cate2">{state}</span> </a>')
+    return gp_keep(gp_parse(card("6100448CD767", "서울글로벌센터", "교류", "나를 위한 크리스마스 힐링 워크숍 참여자 모집", b, e, "신청중") +
+                            card("6100448CD768", "양천외국인주민센터", "인권", "현직 노무사와 함께하는 산업재해 대응 교육", b, TODAY, "신청마감")))
 
 # ---------------- 0-1. 서울시 문화참여 달력 (행사 및 축제 · 참여 신청) — 2026-10-28 추가, 열쇠 불필요 ----------------
 # 月亮妈妈: 서울시 행사·축제와 참여 신청을 중국인 친구들에게 공유. 달력 화면(이번 달)에 「종류 제목 기간 분야」가 글로 들어 있음 (10-28 probe-2 확인)
@@ -673,26 +812,45 @@ def main():
     what = next((a for a in sys.argv[1:] if not a.startswith("--")), "all")
     changed = False
     if what in ("notice", "all"):
-        items = notice_sample() if SAMPLE else notice_fetch()
-        if items is None: print("notice: 접속 실패 또는 0건 → 기존 내용 유지")
+        # 2026-11-25 (月亮妈妈): 한울타리는 2026-12-31 종료. 「기존 한울타리 내용은 업데이트가 안 되면 숨김」
+        #   → 한울타리가 안 열리거나 새 글이 없으면 그 칸(公告·首尔信息·家庭中心消息·家庭中心课程)은 줄을 만들지 않음 = 화면에서 분류 버튼까지 사라짐.
+        #   예전에는 한울타리가 실패하면 표 전체를 그대로 뒀지만, 이제는 다른 출처(서울시 소식·패밀리서울)가 살아 있으면 표를 새로 씀.
+        alive = 0; keep = []
+        try: items = notice_sample() if SAMPLE else notice_fetch()
+        except Exception as e: print("notice failed", e); items = None
+        if items is None: print("notice: 한울타리 접속 실패 또는 0건 → 한울타리 소식 칸 숨김")
         else:   # 2026-10-28: 4개 게시판 → 首尔市消息 표 하나 (날짜순, 게시판 이름은 작은 글씨 + 위 버튼으로 거르기)
-            keep = []
+            alive += 1
             for b, ko, zh in BOARDS:
                 got = [x for x in items if x["board"] == b][:NOTICE_MAX]
                 print(f"notice {b}: {len(got)}"); keep += got
-            # 2026-10-28 15:52: 서울시 「참여 신청」도 뺌(月亮妈妈 「可报名 안 해도 돼요」) — seoul_events_fetch는 남겨 두고 부르지 않음
-            try: keep += seoul_news_sample() if SAMPLE else seoul_news_fetch()
-            except Exception as e: print("seoul news failed", e)
-            keep.sort(key=lambda x: x["date"], reverse=True)
-            # 2026-11-09 (月亮妈妈 「지나간 정보는 지워 줘」): 최근 INFO_DAYS일 글만 + 제목 속 날짜가 지난 것은 뺌
-            keep = [x for x in keep if 0 <= (TODAY - x["date"]).days <= INFO_DAYS and not title_past(x["title"], x["date"])]
-            print("info after cutoff:", len(keep))
-            # 2026-11-10: 지역사회모임 → 가족센터 프로그램(모집중, 마감순)을 표 맨 위에
-            try: progs = prog_sample() if SAMPLE else prog_fetch()
-            except Exception as e: print("program failed", e); progs = None
-            if progs is None: print("program: 접속 실패 또는 0건 → 이번 주는 프로그램 행 없이"); progs = []
-            print("program kept:", len(progs)); keep = progs + keep
-            changed |= replace_block("butie.html", "INFO", notice_render(keep), "info-stamp")
+        # 2026-10-28 15:52: 서울시 「참여 신청」도 뺌(月亮妈妈 「可报名 안 해도 돼요」) — seoul_events_fetch는 남겨 두고 부르지 않음
+        try: news = seoul_news_sample() if SAMPLE else seoul_news_fetch(); keep += news; alive += bool(news)
+        except Exception as e: print("seoul news failed", e)
+        keep.sort(key=lambda x: x["date"], reverse=True)
+        # 2026-11-09 (月亮妈妈 「지나간 정보는 지워 줘」): 최근 INFO_DAYS일 글만 + 제목 속 날짜가 지난 것은 뺌
+        keep = [x for x in keep if 0 <= (TODAY - x["date"]).days <= INFO_DAYS and not title_past(x["title"], x["date"])]
+        print("info after cutoff:", len(keep))
+        # 2026-11-10: 지역사회모임 → 가족센터 프로그램(모집중, 마감순)을 표 맨 위에
+        try: progs = prog_sample() if SAMPLE else prog_fetch()
+        except Exception as e: print("program failed", e); progs = None
+        if progs is None: print("program: 한울타리 접속 실패 또는 0건 → 가족센터 프로그램 칸 숨김"); progs = []
+        else: alive += 1
+        # 2026-11-25: 패밀리서울 가족교육·문화 (따로 분류). 한울타리 프로그램과 제목이 같은 글은 한울타리 쪽을 남기고 여기서는 뺌
+        try: fam = fs_sample() if SAMPLE else fs_fetch()
+        except Exception as e: print("fam failed", e); fam = None
+        if fam is None: print("fam: 패밀리서울 접속 실패 또는 0건 → 이번 주는 가족교육·문화 줄 없이"); fam = []
+        else: alive += 1
+        # 2026-11-25: 마이서울플러스 「프로그램 신청」 (따로 분류)
+        try: gps = gp_sample() if SAMPLE else gp_fetch()
+        except Exception as e: print("gprog failed", e); gps = None
+        if gps is None: print("gprog: 마이서울플러스 접속 실패 또는 0건 → 이번 주는 外国人中心课程 줄 없이"); gps = []
+        else: alive += 1
+        tkey = lambda t: re.sub(r"\W+", "", re.sub(r"^\s*\[[^\]]*\]\s*", "", t))[:30]
+        dup = {tkey(x["title"]) for x in progs}; fam = [x for x in fam if tkey(x["title"]) not in dup]
+        print("program kept:", len(progs), "| fam kept:", len(fam), "| gprog kept:", len(gps)); keep = progs + fam + gps + keep
+        if not alive: print("info: 모든 출처 접속 실패 → 기존 내용 유지")
+        else: changed |= replace_block("butie.html", "INFO", notice_render(keep), "info-stamp")
     if what in ("exam", "all") and (SAMPLE or KEY):
         for tag, qg, jm, name, prac in EXAMS:
             items = exam_sample() if SAMPLE else exam_fetch(qg, jm)
