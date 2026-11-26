@@ -664,5 +664,338 @@ window.LESSONS = [
       { q: "(Day 17 · 행동 질문) '아이가 점심 잘 먹나요?'를 영어로?", a: "Does she eat lunch well?" },
       { q: "(Day 19 · 지난 행동) '점심 드셨어요?'를 영어로?", a: "Did you have lunch?" }
     ]
+  },
+  {
+    day: 21,
+    title: "아니라고 말하기 ① 상태 (am not / isn't / aren't)",
+    situation: "\"아파요?\" \"바빠요?\" 하고 물을 때 '아니에요'라고 대답해요.",
+    words: [
+      { en: "sure", pron: "슈어", ko: "확실한", zh: "确定" },
+      { en: "worried", pron: "워리드", ko: "걱정하는", zh: "担心" },
+      { en: "cold", pron: "콜드", ko: "추운, 차가운", zh: "冷" },
+      { en: "angry", pron: "앵그리", ko: "화난", zh: "生气" },
+      { en: "just", pron: "저스트", ko: "그냥, 단지", zh: "只是" }
+    ],
+    sentences: [
+      { en: "I'm not sure about that.", pron: "아임 낫 슈어 어바웃 댓.", ko: "그건 잘 모르겠어요. (확실하지 않아요)" },
+      { en: "She isn't sick today.", pron: "쉬 이즌트 씩 투데이.", ko: "아이는 오늘 안 아파요." },
+      { en: "We aren't busy this weekend.", pron: "위 안트 비지 디스 위켄드.", ko: "우리는 이번 주말에 안 바빠요." }
+    ],
+    challenge: { en: "I'm not angry, I'm just tired.", pron: "아임 낫 앵그리, 아임 저스트 타이어드.", ko: "화난 게 아니라 그냥 피곤해요." },
+    grammar: "'아니에요'도 먼저 골라요: <b>상태</b>인가, <b>행동</b>인가? 상태면 am / are / is <b>바로 뒤에 not</b>만 넣어요. is not = <b>isn't</b>(이즌트), are not = <b>aren't</b>(안트). am not은 줄인 모양이 없어서 <b>I'm not</b>이라고 해요. 중국어 '我不累'처럼 not 하나만 넣으면 끝! 단, 상태에는 don't를 쓰지 않아요 → I don't tired ❌ / I<b>'m not</b> tired ⭕",
+    dialogue: [
+      { who: "A", en: "Is she sick today?", answer: "" },
+      { who: "B", en: "No, she ___ sick. She's okay.", answer: "isn't" },
+      { who: "A", en: "Are you ___ this weekend?", answer: "busy" },
+      { who: "B", en: "No, we ___ busy.", answer: "aren't" },
+      { who: "A", en: "It's cold outside. I'm a little ___.", answer: "worried" },
+      { who: "B", en: "Is it very cold? I'm not ___.", answer: "sure" }
+    ],
+    quizLabel: "Day 20 복습 퀴즈",
+    quiz: [
+      { q: "'곧 도착할게요'를 영어로?", a: "I will be there soon." },
+      { q: "'내일 제가 아이를 데리러 갈게요'를 영어로?", a: "I will pick her up tomorrow." },
+      { q: "She will 뒤의 동사에 s를 붙일까요?", a: "안 붙여요 (She will go.)" }
+    ]
+  },
+  {
+    day: 22,
+    title: "아니라고 말하기 ② 행동 (don't / doesn't)",
+    situation: "안 하는 일, 안 먹는 음식을 선생님이나 친구에게 말해요.",
+    words: [
+      { en: "know", pron: "노", ko: "알다", zh: "知道" },
+      { en: "understand", pron: "언더스탠드", ko: "이해하다", zh: "明白" },
+      { en: "meat", pron: "밋", ko: "고기", zh: "肉" },
+      { en: "milk", pron: "밀크", ko: "우유", zh: "牛奶" },
+      { en: "word", pron: "워드", ko: "단어", zh: "单词" }
+    ],
+    sentences: [
+      { en: "I don't know her name.", pron: "아이 돈트 노 허 네임.", ko: "저는 그분 이름을 몰라요." },
+      { en: "She doesn't drink milk.", pron: "쉬 더즌트 드링크 밀크.", ko: "아이는 우유를 안 마셔요." },
+      { en: "We don't work on weekends.", pron: "위 돈트 워크 온 위켄즈.", ko: "우리는 주말에 일하지 않아요." }
+    ],
+    challenge: { en: "Sorry, I don't understand that word.", pron: "쏘리, 아이 돈트 언더스탠드 댓 워드.", ko: "죄송해요, 그 단어를 모르겠어요." },
+    grammar: "행동이 아니라고 할 때는 동사 <b>앞에 don't</b>(돈트)를 넣어요. He / She면 <b>doesn't</b>(더즌트). doesn't 뒤의 동사는 <b>원래 모양</b>이에요 → She doesn't <b>drink</b> ⭕ / She doesn't drinks ❌ (s는 does가 이미 가져갔어요. Day 17과 같은 규칙!) 중국어는 상태도 행동도 '不' 하나지만, 영어는 나눠요 → 상태: I<b>'m not</b> tired. / 행동: I <b>don't</b> know.",
+    dialogue: [
+      { who: "A", en: "Does she drink milk?", answer: "" },
+      { who: "B", en: "No, she ___ drink milk.", answer: "doesn't" },
+      { who: "A", en: "Okay. Does she eat ___?", answer: "meat" },
+      { who: "B", en: "Yes, but she doesn't ___ spicy food.", answer: "eat" },
+      { who: "A", en: "Do you ___ the new teacher?", answer: "know" },
+      { who: "B", en: "No, I ___ know her name.", answer: "don't" }
+    ],
+    quizLabel: "Day 21 복습 퀴즈",
+    quiz: [
+      { q: "'그건 잘 모르겠어요(확실하지 않아요)'를 영어로?", a: "I'm not sure about that." },
+      { q: "'아이는 오늘 안 아파요'를 영어로?", a: "She isn't sick today." },
+      { q: "'I am not'을 줄이면?", a: "I'm not (amn't 라는 말은 없어요)" }
+    ]
+  },
+  {
+    day: 23,
+    title: "지난 일 아니라고 말하기 (wasn't / didn't)",
+    situation: "어제 못 한 일, 없었던 일을 말하고 사과해요.",
+    words: [
+      { en: "sleep", pron: "슬립", ko: "자다", zh: "睡觉" },
+      { en: "call", pron: "콜", ko: "전화하다", zh: "打电话" },
+      { en: "see", pron: "씨", ko: "보다 (눈에 들어오다)", zh: "看见" },
+      { en: "message", pron: "메시지", ko: "메시지", zh: "消息" },
+      { en: "sorry", pron: "쏘리", ko: "미안한", zh: "对不起" }
+    ],
+    sentences: [
+      { en: "I wasn't at home yesterday.", pron: "아이 워즌트 앳 홈 예스터데이.", ko: "어제 집에 없었어요." },
+      { en: "She didn't sleep well last night.", pron: "쉬 디든트 슬립 웰 래스트 나잇.", ko: "아이가 어젯밤에 잘 못 잤어요." },
+      { en: "I didn't see your message.", pron: "아이 디든트 씨 유어 메시지.", ko: "메시지를 못 봤어요." }
+    ],
+    challenge: { en: "Sorry, I didn't call you yesterday.", pron: "쏘리, 아이 디든트 콜 유 예스터데이.", ko: "미안해요, 어제 전화를 못 했어요." },
+    grammar: "지난 일도 똑같이 골라요. 지난 <b>상태</b>가 아니면 <b>wasn't</b>(워즌트) / <b>weren't</b>(원트). 지난 <b>행동</b>이 아니면 <b>didn't</b>(디든트) + 원래 모양 → I didn't <b>see</b> ⭕ / I didn't saw ❌ (과거 표시는 did가 이미 했어요. Day 19의 Did you ~? 와 같아요.) didn't는 I든 She든 <b>모두 똑같이</b> 써서 편해요.",
+    dialogue: [
+      { who: "A", en: "I ___ you yesterday.", answer: "called" },
+      { who: "B", en: "Sorry, I ___ at home.", answer: "wasn't" },
+      { who: "A", en: "Did you see my ___?", answer: "message" },
+      { who: "B", en: "No, I didn't ___ it. Sorry.", answer: "see" },
+      { who: "A", en: "It's okay. You look tired.", answer: "" },
+      { who: "B", en: "Yes. She didn't ___ well last night.", answer: "sleep" }
+    ],
+    quizLabel: "Day 22 복습 퀴즈",
+    quiz: [
+      { q: "'저는 그분 이름을 몰라요'를 영어로?", a: "I don't know her name." },
+      { q: "'아이는 우유를 안 마셔요'를 영어로?", a: "She doesn't drink milk." },
+      { q: "She doesn't 뒤에는 eat일까요, eats일까요?", a: "eat (She doesn't eat meat.)" }
+    ]
+  },
+  {
+    day: 24,
+    title: "할 수 있어요 (can / can't)",
+    situation: "내가 할 수 있는 것과 못 하는 것을 소개해요.",
+    words: [
+      { en: "can", pron: "캔", ko: "~할 수 있다", zh: "会，能" },
+      { en: "swim", pron: "스윔", ko: "수영하다", zh: "游泳" },
+      { en: "drive", pron: "드라이브", ko: "운전하다", zh: "开车" },
+      { en: "ride", pron: "라이드", ko: "타다", zh: "骑" },
+      { en: "bike", pron: "바이크", ko: "자전거", zh: "自行车" }
+    ],
+    sentences: [
+      { en: "I can speak Chinese and Korean.", pron: "아이 캔 스픽 차이니즈 앤 코리언.", ko: "저는 중국어와 한국어를 할 수 있어요." },
+      { en: "She can ride a bike now.", pron: "쉬 캔 라이드 어 바이크 나우.", ko: "아이는 이제 자전거를 탈 수 있어요." },
+      { en: "We can't go out today.", pron: "위 캔트 고 아웃 투데이.", ko: "우리는 오늘 못 나가요." }
+    ],
+    challenge: { en: "I can drive, but I can't swim.", pron: "아이 캔 드라이브, 벗 아이 캔트 스윔.", ko: "운전은 할 수 있지만 수영은 못 해요." },
+    grammar: "<b>can</b>은 행동 앞에 붙이는 '도우미'예요. Day 20의 will과 규칙이 똑같아요: 뒤에는 항상 <b>원래 모양</b>, She여도 s를 안 붙여요 → She can <b>ride</b> ⭕ / She can rides ❌. 못 하면 <b>can't</b>(캔트). 중국어 '会'(배워서 할 줄 안다)와 '能'(할 수 있다)을 영어는 <b>둘 다 can</b>으로 말해요. 듣기 팁: can은 짧고 약하게, can't는 길고 세게 들려요.",
+    dialogue: [
+      { who: "A", en: "Can you speak Korean?", answer: "" },
+      { who: "B", en: "Yes, I ___ speak Chinese and Korean.", answer: "can" },
+      { who: "A", en: "Wow! Can your daughter ___ a bike?", answer: "ride" },
+      { who: "B", en: "Yes, she can. But she ___ swim.", answer: "can't" },
+      { who: "A", en: "Can you ___?", answer: "drive" },
+      { who: "B", en: "Yes, I can. But we can't ___ out today.", answer: "go" }
+    ],
+    quizLabel: "Day 23 복습 퀴즈",
+    quiz: [
+      { q: "'어제 집에 없었어요'를 영어로?", a: "I wasn't at home yesterday." },
+      { q: "'메시지를 못 봤어요'를 영어로?", a: "I didn't see your message." },
+      { q: "I didn't 뒤에는 see일까요, saw일까요?", a: "see (I didn't see it.)" }
+    ]
+  },
+  {
+    day: 25,
+    title: "부탁하기 (Can you ~? / Can I ~?)",
+    situation: "선생님 말이 빨라서 못 알아들었을 때 다시 말해 달라고 부탁해요.",
+    words: [
+      { en: "say", pron: "쎄이", ko: "말하다", zh: "说" },
+      { en: "again", pron: "어겐", ko: "다시", zh: "再" },
+      { en: "ask", pron: "애스크", ko: "묻다", zh: "问" },
+      { en: "question", pron: "퀘스천", ko: "질문", zh: "问题" },
+      { en: "slowly", pron: "슬로울리", ko: "천천히", zh: "慢慢地" }
+    ],
+    sentences: [
+      { en: "Can you say that again?", pron: "캔 유 쎄이 댓 어겐?", ko: "다시 말해 주실 수 있나요?" },
+      { en: "Can I ask a question?", pron: "캔 아이 애스크 어 퀘스천?", ko: "질문해도 될까요?" },
+      { en: "Can you speak slowly, please?", pron: "캔 유 스픽 슬로울리, 플리즈?", ko: "천천히 말해 주시겠어요?" }
+    ],
+    challenge: { en: "Could you say that again, please?", pron: "쿠 쥬 쎄이 댓 어겐, 플리즈?", ko: "다시 한 번 말씀해 주시겠어요? (더 공손하게)" },
+    grammar: "질문은 can을 <b>맨 앞으로</b> 보내요 (Will you ~? 와 같은 방법). <b>Can you ~?</b> = 해 줄 수 있어요? (부탁) / <b>Can I ~?</b> = 제가 해도 돼요? (허락). 끝에 <b>please</b>를 붙이면 부드러워져요. 더 공손하게는 <b>Could you ~?</b>(쿠 쥬). 대답은 <b>Sure.</b>(그럼요) / <b>Sorry, I can't.</b>(미안해요, 안 돼요). 못 알아들었을 때 웃고 넘기지 말고 이 문장을 쓰는 것이 실력이 느는 지름길이에요.",
+    dialogue: [
+      { who: "A", en: "She was very good in class today.", answer: "" },
+      { who: "B", en: "Sorry, can you ___ that again?", answer: "say" },
+      { who: "A", en: "Sure. She was very good today.", answer: "" },
+      { who: "B", en: "Thank you. Can you speak ___, please?", answer: "slowly" },
+      { who: "A", en: "Of course. Do you have a ___?", answer: "question" },
+      { who: "B", en: "Yes. Can I ___ about her homework?", answer: "ask" }
+    ],
+    quizLabel: "Day 24 복습 퀴즈",
+    quiz: [
+      { q: "'저는 중국어와 한국어를 할 수 있어요'를 영어로?", a: "I can speak Chinese and Korean." },
+      { q: "'우리는 오늘 못 나가요'를 영어로?", a: "We can't go out today." },
+      { q: "She can 뒤에는 swim일까요, swims일까요?", a: "swim (She can swim.)" }
+    ]
+  },
+  {
+    day: 26,
+    title: "해야 해요 (have to / don't have to)",
+    situation: "아이를 데리러 가야 해서 먼저 일어나야 할 때 말해요.",
+    words: [
+      { en: "have to", pron: "해프 투", ko: "~해야 하다", zh: "得，必须" },
+      { en: "leave", pron: "리브", ko: "떠나다, 나가다", zh: "离开" },
+      { en: "hurry", pron: "허리", ko: "서두르다", zh: "赶快" },
+      { en: "wake up", pron: "웨이크 업", ko: "(잠에서) 일어나다", zh: "起床" },
+      { en: "pay", pron: "페이", ko: "돈을 내다", zh: "付钱" }
+    ],
+    sentences: [
+      { en: "I have to leave now.", pron: "아이 해프 투 리브 나우.", ko: "지금 가야 해요." },
+      { en: "She has to wake up early.", pron: "쉬 해스 투 웨이크 업 얼리.", ko: "아이는 일찍 일어나야 해요." },
+      { en: "You don't have to pay.", pron: "유 돈트 해프 투 페이.", ko: "돈 안 내셔도 돼요." }
+    ],
+    challenge: { en: "We have to hurry, we're late.", pron: "위 해프 투 허리, 위어 레이트.", ko: "서둘러야 해요, 우리 늦었어요." },
+    grammar: "꼭 해야 하는 일은 <b>have to + 원래 모양</b>. She / He면 <b>has to</b>(해스 투). 빨리 말하면 '해프터'처럼 들려요. <b>조심!</b> <b>don't have to</b>는 '하면 안 돼요(不可以)'가 아니라 <b>'안 해도 돼요(不用)'</b>예요 → You don't have to pay. = 不用付钱。 지난 일은 <b>had to</b> → I had to leave early. (일찍 가야 했어요.)",
+    dialogue: [
+      { who: "A", en: "Can you have coffee with me?", answer: "" },
+      { who: "B", en: "Sorry, I ___ to leave now.", answer: "have" },
+      { who: "A", en: "Oh, do you have to ___?", answer: "hurry" },
+      { who: "B", en: "Yes. I have to ___ up my daughter.", answer: "pick" },
+      { who: "A", en: "Okay. Do we have to ___ here?", answer: "pay" },
+      { who: "B", en: "No, you ___ have to pay. It's free.", answer: "don't" }
+    ],
+    quizLabel: "Day 25 복습 퀴즈",
+    quiz: [
+      { q: "'다시 말해 주실 수 있나요?'를 영어로?", a: "Can you say that again?" },
+      { q: "'질문해도 될까요?'를 영어로?", a: "Can I ask a question?" },
+      { q: "Can you ~? 를 더 공손하게 바꾸면?", a: "Could you ~?" }
+    ]
+  },
+  {
+    day: 27,
+    title: "하고 싶어요 (want to)",
+    situation: "먹고 싶은 것, 배우고 싶은 것, 하기 싫은 것을 말해요.",
+    words: [
+      { en: "want", pron: "원트", ko: "원하다", zh: "想要" },
+      { en: "learn", pron: "런", ko: "배우다", zh: "学" },
+      { en: "buy", pron: "바이", ko: "사다", zh: "买" },
+      { en: "try", pron: "트라이", ko: "해 보다, 먹어 보다", zh: "试" },
+      { en: "something", pron: "썸띵", ko: "무언가", zh: "什么东西" }
+    ],
+    sentences: [
+      { en: "I want to learn English.", pron: "아이 원 투 런 잉글리시.", ko: "영어를 배우고 싶어요." },
+      { en: "She wants to buy a book.", pron: "쉬 원츠 투 바이 어 북.", ko: "아이가 책을 사고 싶어 해요." },
+      { en: "I don't want to go out.", pron: "아이 돈트 원 투 고 아웃.", ko: "나가고 싶지 않아요." }
+    ],
+    challenge: { en: "I want to eat something spicy.", pron: "아이 원 투 잇 썸띵 스파이시.", ko: "뭔가 매운 걸 먹고 싶어요." },
+    grammar: "<b>want to + 원래 모양</b> = ~하고 싶다 (중국어 '想'). 빨리 말하면 '워너'처럼 들려요. want는 <b>행동</b> 동사라서 지금까지 배운 규칙이 그대로예요 → She면 <b>wants</b> to, 아니면 <b>don't</b> want to, 질문은 <b>Do you</b> want to ~? 물건을 원할 때는 to 없이 → I want water. / 행동을 원할 때는 to를 넣어요 → I want <b>to</b> drink water.",
+    dialogue: [
+      { who: "A", en: "What do you want to eat?", answer: "" },
+      { who: "B", en: "I want to eat ___ spicy.", answer: "something" },
+      { who: "A", en: "Okay! Do you want to ___ this?", answer: "try" },
+      { who: "B", en: "Yes! And she ___ to buy a book later.", answer: "wants" },
+      { who: "A", en: "Do you ___ to go out now?", answer: "want" },
+      { who: "B", en: "No, I ___ want to go out. I'm tired.", answer: "don't" }
+    ],
+    quizLabel: "Day 26 복습 퀴즈",
+    quiz: [
+      { q: "'지금 가야 해요'를 영어로?", a: "I have to leave now." },
+      { q: "'돈 안 내셔도 돼요'를 영어로?", a: "You don't have to pay." },
+      { q: "She 뒤에는 have to일까요, has to일까요?", a: "has to (She has to wake up early.)" }
+    ]
+  },
+  {
+    day: 28,
+    title: "미리 정한 계획 말하기 (be going to)",
+    situation: "주말 계획, 다음 달 계획을 친구에게 말해요.",
+    words: [
+      { en: "plan", pron: "플랜", ko: "계획", zh: "计划" },
+      { en: "travel", pron: "트래블", ko: "여행하다", zh: "旅行" },
+      { en: "stay", pron: "스테이", ko: "머물다", zh: "待" },
+      { en: "birthday", pron: "버스데이", ko: "생일", zh: "生日" },
+      { en: "party", pron: "파티", ko: "파티", zh: "派对" }
+    ],
+    sentences: [
+      { en: "I'm going to stay home today.", pron: "아임 고잉 투 스테이 홈 투데이.", ko: "오늘은 집에 있을 거예요." },
+      { en: "We're going to travel next month.", pron: "위어 고잉 투 트래블 넥스트 먼스.", ko: "우리는 다음 달에 여행 갈 거예요." },
+      { en: "Are you going to come?", pron: "아 유 고잉 투 컴?", ko: "오실 거예요?" }
+    ],
+    challenge: { en: "We're going to have a birthday party.", pron: "위어 고잉 투 해브 어 버스데이 파티.", ko: "우리는 생일 파티를 할 거예요." },
+    grammar: "미리 마음먹은 계획은 <b>am / are / is + going to + 원래 모양</b>. <b>상태</b> 틀(am/are/is) 안에 행동을 넣은 모양이라서 Day 14의 ing와 한 가족이에요. 그래서 아니면 <b>I'm not</b> going to, 질문은 <b>Are you</b> going to ~? (상태 규칙 그대로!) 빨리 말하면 '거너'처럼 들려요. <b>will</b>은 지금 막 정한 일·약속(I will be there soon), <b>going to</b>는 미리 정해 둔 계획. 지금 단계에서는 둘 중 아무거나 써도 다 통해요.",
+    dialogue: [
+      { who: "A", en: "Do you have any ___ this weekend?", answer: "plans" },
+      { who: "B", en: "Yes. We're going to have a birthday ___.", answer: "party" },
+      { who: "A", en: "Nice! Are you ___ to cook?", answer: "going" },
+      { who: "B", en: "No, I'm ___ going to cook.", answer: "not" },
+      { who: "A", en: "And next month?", answer: "" },
+      { who: "B", en: "We're going to ___ to China.", answer: "travel" }
+    ],
+    quizLabel: "Day 27 복습 퀴즈",
+    quiz: [
+      { q: "'영어를 배우고 싶어요'를 영어로?", a: "I want to learn English." },
+      { q: "'나가고 싶지 않아요'를 영어로?", a: "I don't want to go out." },
+      { q: "want 뒤에 행동(동사)이 오면 사이에 무엇을 넣을까요?", a: "to (I want to eat.)" }
+    ]
+  },
+  {
+    day: 29,
+    title: "궁금한 것 묻기 (What / When / Why / How)",
+    situation: "수업 시간, 주말에 한 일 등 궁금한 것을 자세히 물어봐요.",
+    words: [
+      { en: "what", pron: "왓", ko: "무엇", zh: "什么" },
+      { en: "when", pron: "웬", ko: "언제", zh: "什么时候" },
+      { en: "why", pron: "와이", ko: "왜", zh: "为什么" },
+      { en: "how", pron: "하우", ko: "어떻게, 어땠는지", zh: "怎么，怎么样" },
+      { en: "start", pron: "스타트", ko: "시작하다", zh: "开始" }
+    ],
+    sentences: [
+      { en: "When does the class start?", pron: "웬 더즈 더 클래스 스타트?", ko: "수업은 언제 시작해요?" },
+      { en: "What did you do yesterday?", pron: "왓 디 쥬 두 예스터데이?", ko: "어제 뭐 하셨어요?" },
+      { en: "How was your weekend?", pron: "하우 워즈 유어 위켄드?", ko: "주말 어떠셨어요?" }
+    ],
+    challenge: { en: "Why are you learning English?", pron: "와이 아 유 러닝 잉글리시?", ko: "왜 영어를 배우고 있어요?" },
+    grammar: "궁금한 말(<b>What / When / Where / Why / How</b>)을 <b>맨 앞</b>에 놓고, 그 뒤는 지금까지 배운 질문을 그대로 붙여요. 상태 질문 → <b>How</b> + was your weekend? / 행동 질문 → <b>When</b> + does the class start? 중국어는 '你昨天做了<b>什么</b>?'처럼 궁금한 말이 제자리에 있지만, 영어는 <b>무조건 맨 앞</b>으로 나와요 → <b>What</b> did you do yesterday?",
+    dialogue: [
+      { who: "A", en: "___ was your weekend?", answer: "How" },
+      { who: "B", en: "It was good. We went to the park.", answer: "" },
+      { who: "A", en: "Nice. ___ did you do there?", answer: "What" },
+      { who: "B", en: "We had lunch there.", answer: "" },
+      { who: "A", en: "___ does the class start tomorrow?", answer: "When" },
+      { who: "B", en: "It ___ at nine.", answer: "starts" }
+    ],
+    quizLabel: "Day 28 복습 퀴즈",
+    quiz: [
+      { q: "'오늘은 집에 있을 거예요'를 영어로?", a: "I'm going to stay home today." },
+      { q: "'오실 거예요?'를 영어로?", a: "Are you going to come?" },
+      { q: "going to 뒤의 동사는 어떤 모양일까요?", a: "원래 모양 (She is going to travel.)" }
+    ]
+  },
+  {
+    day: 30,
+    title: "이유 말하기 (because / so) + Day 21~29 총정리",
+    situation: "\"왜요?\" 하고 물을 때 이유를 붙여서 길게 대답해요. (말하기 시험 맛보기)",
+    words: [
+      { en: "because", pron: "비코즈", ko: "왜냐하면, ~라서", zh: "因为" },
+      { en: "so", pron: "쏘", ko: "그래서", zh: "所以" },
+      { en: "together", pron: "투게더", ko: "함께", zh: "一起" },
+      { en: "important", pron: "임포턴트", ko: "중요한", zh: "重要" },
+      { en: "reason", pron: "리즌", ko: "이유", zh: "理由" }
+    ],
+    sentences: [
+      { en: "I'm happy because we're together.", pron: "아임 해피 비코즈 위어 투게더.", ko: "우리가 함께 있어서 행복해요." },
+      { en: "I can't go because I'm busy.", pron: "아이 캔트 고 비코즈 아임 비지.", ko: "바빠서 못 가요." },
+      { en: "She was sick, so she was absent.", pron: "쉬 워즈 씩, 쏘 쉬 워즈 앱선트.", ko: "아이가 아파서 결석했어요." }
+    ],
+    challenge: { en: "I'm learning English because I want to travel.", pron: "아임 러닝 잉글리시 비코즈 아이 원 투 트래블.", ko: "여행하고 싶어서 영어를 배우고 있어요." },
+    grammar: "이유는 <b>because + 문장</b>, 결과는 <b>so + 문장</b>. 뒤에 오는 문장은 상태든 행동이든 배운 그대로 붙여요. <b>조심!</b> 중국어는 '因为…所以…'를 짝으로 쓰지만, 영어는 <b>둘 중 하나만</b> 써요 → Because she was sick, so she was absent ❌ / She was sick, <b>so</b> she was absent ⭕<br><b>한눈에 정리 (Day 21~29)</b> — 아니에요: 상태 am not / isn't / aren't → wasn't / weren't · 행동 don't / doesn't → didn't · 도우미(뒤는 항상 원래 모양): can · have to · want to · be going to · 궁금한 말(What / When / Why / How)은 맨 앞",
+    dialogue: [
+      { who: "A", en: "Why are you learning English?", answer: "" },
+      { who: "B", en: "___ I want to travel.", answer: "Because" },
+      { who: "A", en: "Good ___! Can you come to the party tomorrow?", answer: "reason" },
+      { who: "B", en: "Sorry, I can't go ___ I have to work.", answer: "because" },
+      { who: "A", en: "That's okay. Family is ___.", answer: "important" },
+      { who: "B", en: "Yes. She was sick, ___ we have to stay home.", answer: "so" }
+    ],
+    quizLabel: "Day 21~29 총복습 퀴즈",
+    quiz: [
+      { q: "(Day 21 · 상태 아니에요) '그건 잘 모르겠어요'를 영어로?", a: "I'm not sure about that." },
+      { q: "(Day 22 · 행동 아니에요) '아이는 우유를 안 마셔요'를 영어로?", a: "She doesn't drink milk." },
+      { q: "(Day 23 · 지난 일) '메시지를 못 봤어요'를 영어로?", a: "I didn't see your message." },
+      { q: "(Day 25 · 부탁) '다시 말해 주실 수 있나요?'를 영어로?", a: "Can you say that again?" },
+      { q: "(Day 26 · 해야 해요) '지금 가야 해요'를 영어로?", a: "I have to leave now." },
+      { q: "(Day 29 · 궁금한 말) '수업은 언제 시작해요?'를 영어로?", a: "When does the class start?" }
+    ]
   }
 ];
