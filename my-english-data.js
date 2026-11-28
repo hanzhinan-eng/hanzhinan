@@ -997,5 +997,338 @@ window.LESSONS = [
       { q: "(Day 26 · 해야 해요) '지금 가야 해요'를 영어로?", a: "I have to leave now." },
       { q: "(Day 29 · 궁금한 말) '수업은 언제 시작해요?'를 영어로?", a: "When does the class start?" }
     ]
+  },
+  {
+    day: 31,
+    title: "~이 있어요 (There is / There are)",
+    situation: "근처에 마트나 놀이터가 있는지 묻고, 있다고 알려줘요.",
+    words: [
+      { en: "there is", pron: "데어 리즈", ko: "~이 있다", zh: "有" },
+      { en: "playground", pron: "플레이그라운드", ko: "놀이터", zh: "游乐场" },
+      { en: "supermarket", pron: "수퍼마킷", ko: "마트, 슈퍼마켓", zh: "超市" },
+      { en: "many", pron: "메니", ko: "많은 (셀 수 있는 것)", zh: "很多" },
+      { en: "people", pron: "피플", ko: "사람들", zh: "人们" }
+    ],
+    sentences: [
+      { en: "There is a playground near here.", pron: "데어 리즈 어 플레이그라운드 니어 히어.", ko: "이 근처에 놀이터가 있어요." },
+      { en: "There are many people today.", pron: "데어 라 메니 피플 투데이.", ko: "오늘은 사람이 많아요." },
+      { en: "Is there a supermarket near here?", pron: "이즈 데어 러 수퍼마킷 니어 히어?", ko: "이 근처에 마트가 있나요?" }
+    ],
+    challenge: { en: "There aren't many people in the park.", pron: "데어 란트 메니 피플 인 더 파크.", ko: "공원에 사람이 많지 않아요." },
+    grammar: "어떤 곳에 무엇이 '있다'고 할 때는 <b>There is</b> + 하나 / <b>There are</b> + 여럿. 여기서 there는 '거기'라는 뜻이 아니라 자리만 채우는 말이에요. <b>상태</b> 틀(is / are)이라서 배운 규칙이 그대로예요 → 아니면 There <b>isn't</b> / <b>aren't</b>, 질문은 <b>Is there</b> ~? / <b>Are there</b> ~? 중국어는 '我有'도 '附近有'도 모두 '有'지만, 영어는 나눠요 → 사람이 가진 것: I <b>have</b> a bike. / 장소에 있는 것: <b>There is</b> a park near here.",
+    dialogue: [
+      { who: "A", en: "Excuse me. Is ___ a supermarket near here?", answer: "there" },
+      { who: "B", en: "Yes, there ___. It's near the station.", answer: "is" },
+      { who: "A", en: "Thank you. Is there a ___, too?", answer: "playground" },
+      { who: "B", en: "Yes. But there ___ many people today.", answer: "are" },
+      { who: "A", en: "Oh, really?", answer: "" },
+      { who: "B", en: "Yes. It's the weekend, so there are ___ kids.", answer: "many" }
+    ],
+    quizLabel: "Day 30 복습 퀴즈",
+    quiz: [
+      { q: "'바빠서 못 가요'를 영어로?", a: "I can't go because I'm busy." },
+      { q: "'아이가 아파서 결석했어요'를 영어로?", a: "She was sick, so she was absent." },
+      { q: "한 문장 안에 because와 so를 같이 쓸 수 있을까요?", a: "아니요, 둘 중 하나만 써요" }
+    ]
+  },
+  {
+    day: 32,
+    title: "얼마예요? 몇 개예요? (How much / How many)",
+    situation: "매표소나 가게에서 가격을 묻고, 표를 몇 장 살지 말해요.",
+    words: [
+      { en: "how much", pron: "하우 머치", ko: "얼마 (가격·양)", zh: "多少（钱）" },
+      { en: "how many", pron: "하우 메니", ko: "몇 개, 몇 명", zh: "几个，多少个" },
+      { en: "ticket", pron: "티킷", ko: "표", zh: "票" },
+      { en: "adult", pron: "어덜트", ko: "어른", zh: "大人" },
+      { en: "children", pron: "칠드런", ko: "아이들 (child의 여럿 모양)", zh: "孩子们" }
+    ],
+    sentences: [
+      { en: "How much is this?", pron: "하우 머치 이즈 디스?", ko: "이거 얼마예요?" },
+      { en: "How many tickets do you need?", pron: "하우 메니 티킷츠 두 유 니드?", ko: "표 몇 장 필요하세요?" },
+      { en: "Two adults and three children, please.", pron: "투 어덜츠 앤 쓰리 칠드런, 플리즈.", ko: "어른 둘, 아이 셋이요." }
+    ],
+    challenge: { en: "How much is it for children?", pron: "하우 머치 이즈 잇 포 칠드런?", ko: "어린이는 얼마예요?" },
+    grammar: "하나, 둘 <b>셀 수 있는 것</b>(표, 사람, 사과)은 <b>How many</b> + 여럿 모양(s) → How many ticket<b>s</b>? 가격이나 <b>셀 수 없는 것</b>(돈, 물, 시간)은 <b>How much</b>. 그 뒤는 배운 질문 그대로 붙여요 → How much + <b>is this</b>? (상태) / How many tickets + <b>do you need</b>? (행동). 중국어 '几个 / 多少'는 숫자가 작은지 큰지로 고르지만, 영어는 <b>셀 수 있는지</b>로 골라요. child의 여럿 모양은 <b>children</b>이에요 (childs ❌).",
+    dialogue: [
+      { who: "A", en: "Hello. How ___ is a ticket?", answer: "much" },
+      { who: "B", en: "It's ten dollars for an adult.", answer: "" },
+      { who: "A", en: "How much is it for ___?", answer: "children" },
+      { who: "B", en: "Five dollars. How ___ tickets do you need?", answer: "many" },
+      { who: "A", en: "Two ___ and three children, please.", answer: "adults" },
+      { who: "B", en: "Okay. Here are your ___.", answer: "tickets" }
+    ],
+    quizLabel: "Day 31 복습 퀴즈",
+    quiz: [
+      { q: "'이 근처에 마트가 있나요?'를 영어로?", a: "Is there a supermarket near here?" },
+      { q: "'오늘은 사람이 많아요'를 영어로?", a: "There are many people today." },
+      { q: "여럿일 때는 There is일까요, There are일까요?", a: "There are" }
+    ]
+  },
+  {
+    day: 33,
+    title: "그때 하는 중이었어요 (was / were + ing)",
+    situation: "전화를 못 받은 이유를 '그때 ~하고 있었어요'라고 설명해요.",
+    words: [
+      { en: "then", pron: "덴", ko: "그때", zh: "那时候" },
+      { en: "shower", pron: "샤워", ko: "샤워", zh: "淋浴" },
+      { en: "phone", pron: "폰", ko: "전화기", zh: "手机" },
+      { en: "answer", pron: "앤서", ko: "(전화를) 받다, 대답하다", zh: "接（电话），回答" },
+      { en: "laundry", pron: "론드리", ko: "빨래", zh: "洗衣服" }
+    ],
+    sentences: [
+      { en: "I was cooking dinner then.", pron: "아이 워즈 쿠킹 디너 덴.", ko: "그때 저녁을 만들고 있었어요." },
+      { en: "She was sleeping at nine.", pron: "쉬 워즈 슬리핑 앳 나인.", ko: "아이는 9시에 자고 있었어요." },
+      { en: "What were you doing last night?", pron: "왓 워 유 두잉 래스트 나잇?", ko: "어젯밤에 뭐 하고 있었어요?" }
+    ],
+    challenge: { en: "Sorry, I was taking a shower.", pron: "쏘리, 아이 워즈 테이킹 어 샤워.", ko: "미안해요, 샤워하고 있었어요." },
+    grammar: "지난 어느 순간에 '하고 있던 중'은 <b>was / were + 동사ing</b>. Day 14(am / are / is + ing)를 과거로 옮긴 모양이에요. 지난 <b>상태</b> 틀이라서 아니면 <b>wasn't</b> ~ing, 질문은 <b>Were you</b> ~ing? 두 문장을 비교해 보세요 → I <b>cooked</b> dinner. (저녁을 했어요 — 끝난 일) / I <b>was cooking</b> dinner. (그때 하는 중이었어요) 중국어 '那时候我<b>正在</b>做饭'의 '正在'와 같은 느낌이에요.",
+    dialogue: [
+      { who: "A", en: "I called you last night. You didn't ___.", answer: "answer" },
+      { who: "B", en: "Sorry, I ___ taking a shower.", answer: "was" },
+      { who: "A", en: "Oh, I see. What ___ your kids doing?", answer: "were" },
+      { who: "B", en: "They were sleeping ___.", answer: "then" },
+      { who: "A", en: "At eight? So early!", answer: "" },
+      { who: "B", en: "Yes. And I was doing the ___, too.", answer: "laundry" }
+    ],
+    quizLabel: "Day 32 복습 퀴즈",
+    quiz: [
+      { q: "'이거 얼마예요?'를 영어로?", a: "How much is this?" },
+      { q: "'표 몇 장 필요하세요?'를 영어로?", a: "How many tickets do you need?" },
+      { q: "child(아이)의 여럿 모양은?", a: "children" }
+    ]
+  },
+  {
+    day: 34,
+    title: "비교하기 (-er / more ~ than)",
+    situation: "가게에서 두 물건을 비교하면서 골라요.",
+    words: [
+      { en: "than", pron: "댄", ko: "~보다", zh: "比" },
+      { en: "big", pron: "빅", ko: "큰", zh: "大" },
+      { en: "cheap", pron: "칩", ko: "싼", zh: "便宜" },
+      { en: "expensive", pron: "익스펜시브", ko: "비싼", zh: "贵" },
+      { en: "easy", pron: "이지", ko: "쉬운", zh: "容易" }
+    ],
+    sentences: [
+      { en: "This is cheaper than that one.", pron: "디스 이즈 치퍼 댄 댓 원.", ko: "이게 저것보다 싸요." },
+      { en: "Korean is easier than English.", pron: "코리언 이즈 이지어 댄 잉글리시.", ko: "한국어가 영어보다 쉬워요." },
+      { en: "Is this more expensive?", pron: "이즈 디스 모어 익스펜시브?", ko: "이게 더 비싼가요?" }
+    ],
+    challenge: { en: "I feel much better than yesterday.", pron: "아이 필 머치 베터 댄 예스터데이.", ko: "어제보다 훨씬 나아졌어요." },
+    grammar: "둘을 비교할 때, 짧은 말은 끝에 <b>er</b> → cheap<b>er</b>, bigg<b>er</b>, easi<b>er</b>. 긴 말은 앞에 <b>more</b> → <b>more</b> expensive. 둘을 같이 쓰지 않아요 (more cheaper ❌). 비교 대상 앞에는 <b>than</b>. 중국어는 'A <b>比</b> B 便宜'처럼 比가 가운데 오지만, 영어는 A is cheaper <b>than</b> B — '싸다'를 먼저 말하고 than을 붙여요. 모양이 통째로 바뀌는 말: good → <b>better</b>.",
+    dialogue: [
+      { who: "A", en: "How much is this bag?", answer: "" },
+      { who: "B", en: "Fifty dollars. But that one is ___.", answer: "cheaper" },
+      { who: "A", en: "Is that one ___ than this?", answer: "bigger" },
+      { who: "B", en: "No. This one is bigger, so it's more ___.", answer: "expensive" },
+      { who: "A", en: "I see. Is the small one ___ to use?", answer: "easier" },
+      { who: "B", en: "Yes, it's easier ___ the big one.", answer: "than" }
+    ],
+    quizLabel: "Day 33 복습 퀴즈",
+    quiz: [
+      { q: "'그때 저녁을 만들고 있었어요'를 영어로?", a: "I was cooking dinner then." },
+      { q: "'어젯밤에 뭐 하고 있었어요?'를 영어로?", a: "What were you doing last night?" },
+      { q: "'그때 하는 중이었다'는 I cooked일까요, I was cooking일까요?", a: "I was cooking" }
+    ]
+  },
+  {
+    day: 35,
+    title: "가장 ~해요 (the -est / the most)",
+    situation: "외국인 손님에게 가장 좋은 식당, 가장 좋은 계절을 알려줘요.",
+    words: [
+      { en: "best", pron: "베스트", ko: "가장 좋은", zh: "最好" },
+      { en: "favorite", pron: "페이버릿", ko: "가장 좋아하는", zh: "最喜欢的" },
+      { en: "food", pron: "푸드", ko: "음식", zh: "食物" },
+      { en: "season", pron: "시즌", ko: "계절", zh: "季节" },
+      { en: "beautiful", pron: "뷰티풀", ko: "아름다운", zh: "美丽" }
+    ],
+    sentences: [
+      { en: "This is the cheapest one here.", pron: "디스 이즈 더 치피스트 원 히어.", ko: "이게 여기서 제일 싼 거예요." },
+      { en: "What is your favorite Korean food?", pron: "왓 이즈 유어 페이버릿 코리언 푸드?", ko: "가장 좋아하는 한국 음식이 뭐예요?" },
+      { en: "Fall is the most beautiful season.", pron: "폴 이즈 더 모스트 뷰티풀 시즌.", ko: "가을이 가장 아름다운 계절이에요." }
+    ],
+    challenge: { en: "This is the best restaurant near here.", pron: "디스 이즈 더 베스트 레스토랑 니어 히어.", ko: "여기가 이 근처에서 제일 좋은 식당이에요." },
+    grammar: "셋 이상 중에서 '가장'은 <b>the</b> + 짧은 말 <b>est</b> → the cheap<b>est</b>, the bigg<b>est</b>. 긴 말은 <b>the most</b> → the most beautiful. 앞에 <b>the</b>를 꼭 붙여요. 중국어 '<b>最</b>'와 같아요 (最便宜 = the cheapest). 한 줄로 외우기: good → better → <b>the best</b>. <b>favorite</b>에는 이미 '가장'이라는 뜻이 들어 있어서 most를 붙이지 않아요 (most favorite ❌).",
+    dialogue: [
+      { who: "A", en: "What is your ___ Korean food?", answer: "favorite" },
+      { who: "B", en: "Bibimbap! It's the ___ food for me.", answer: "best" },
+      { who: "A", en: "Where can I eat it?", answer: "" },
+      { who: "B", en: "There is a good restaurant near here. It's the ___ one, too.", answer: "cheapest" },
+      { who: "A", en: "Great. When is the best ___ to visit Korea?", answer: "season" },
+      { who: "B", en: "Fall. It's the most ___ season.", answer: "beautiful" }
+    ],
+    quizLabel: "Day 34 복습 퀴즈",
+    quiz: [
+      { q: "'이게 저것보다 싸요'를 영어로?", a: "This is cheaper than that one." },
+      { q: "'한국어가 영어보다 쉬워요'를 영어로?", a: "Korean is easier than English." },
+      { q: "expensive를 '더 비싼'으로 바꾸면?", a: "more expensive" }
+    ]
+  },
+  {
+    day: 36,
+    title: "~하는 게 좋겠어요 (should / shouldn't)",
+    situation: "아픈 친구에게 쉬라고 부드럽게 권해요.",
+    words: [
+      { en: "should", pron: "슈드", ko: "~하는 게 좋다", zh: "应该，最好" },
+      { en: "rest", pron: "레스트", ko: "쉬다", zh: "休息" },
+      { en: "medicine", pron: "메디슨", ko: "약", zh: "药" },
+      { en: "doctor", pron: "닥터", ko: "의사", zh: "医生" },
+      { en: "wear", pron: "웨어", ko: "입다", zh: "穿" }
+    ],
+    sentences: [
+      { en: "You should rest at home.", pron: "유 슈드 레스트 앳 홈.", ko: "집에서 쉬는 게 좋겠어요." },
+      { en: "She should see a doctor.", pron: "쉬 슈드 씨 어 닥터.", ko: "아이는 병원에 가 보는 게 좋겠어요." },
+      { en: "You shouldn't go out today.", pron: "유 슈든트 고 아웃 투데이.", ko: "오늘은 나가지 않는 게 좋겠어요." }
+    ],
+    challenge: { en: "Should I take this medicine after lunch?", pron: "슈드 아이 테이크 디스 메디슨 애프터 런치?", ko: "이 약은 점심 먹고 먹을까요?" },
+    grammar: "<b>should</b>는 will, can과 같은 '도우미'예요 → 뒤에는 <b>원래 모양</b>, She여도 s를 안 붙여요 (She should <b>see</b> ⭕ / She should sees ❌). 뜻은 부드러운 조언 '~하는 게 좋겠어요'. 꼭 해야 하는 <b>have to</b>보다 약해요. 아니면 <b>shouldn't</b>(슈든트), 질문은 <b>Should I</b> ~? (제가 ~할까요?) '병원에 가다'는 영어로 <b>see a doctor</b>(의사를 만나다)라고 말해요.",
+    dialogue: [
+      { who: "A", en: "You look sick. You ___ see a doctor.", answer: "should" },
+      { who: "B", en: "I know. But I have to work today.", answer: "" },
+      { who: "A", en: "No, you ___ go to work.", answer: "shouldn't" },
+      { who: "B", en: "Okay. Should I take some ___?", answer: "medicine" },
+      { who: "A", en: "Yes. And you should ___ at home.", answer: "rest" },
+      { who: "B", en: "Thank you. I will ___ a warm jacket, too.", answer: "wear" }
+    ],
+    quizLabel: "Day 35 복습 퀴즈",
+    quiz: [
+      { q: "'이게 여기서 제일 싼 거예요'를 영어로?", a: "This is the cheapest one here." },
+      { q: "'가장 좋아하는 한국 음식이 뭐예요?'를 영어로?", a: "What is your favorite Korean food?" },
+      { q: "good의 '가장' 모양은?", a: "the best (good → better → the best)" }
+    ]
+  },
+  {
+    day: 37,
+    title: "같이 해요 (Let's / How about ~?)",
+    situation: "친구에게 점심을 같이 먹자고 하고, 어떻게 갈지 정해요.",
+    words: [
+      { en: "let's", pron: "렛츠", ko: "~합시다, ~해요", zh: "我们…吧" },
+      { en: "idea", pron: "아이디어", ko: "생각, 아이디어", zh: "主意" },
+      { en: "walk", pron: "워크", ko: "걷다", zh: "走路" },
+      { en: "bus", pron: "버스", ko: "버스", zh: "公交车" },
+      { en: "instead", pron: "인스테드", ko: "대신에", zh: "代替，改为" }
+    ],
+    sentences: [
+      { en: "Let's take the bus today.", pron: "렛츠 테이크 더 버스 투데이.", ko: "오늘은 버스 타요." },
+      { en: "How about walking in the park?", pron: "하우 어바웃 워킹 인 더 파크?", ko: "공원에서 걷는 거 어때요?" },
+      { en: "That's a good idea.", pron: "댓츠 어 굿 아이디어.", ko: "좋은 생각이에요." }
+    ],
+    challenge: { en: "It's far. Let's take the bus instead.", pron: "잇츠 파. 렛츠 테이크 더 버스 인스테드.", ko: "멀어요. 대신 버스 타요." },
+    grammar: "같이 하자고 할 때는 <b>Let's + 원래 모양</b> (중국어 '我们…<b>吧</b>'). 하지 말자는 <b>Let's not</b> → Let's not walk. '어때요?' 하고 물을 때는 <b>How about</b> + 물건 / 동사<b>ing</b> → How about lunch? / How about walk<b>ing</b>? 대답은 <b>That's a good idea.</b> / <b>Sounds good.</b>(좋아요) / <b>Sorry, I can't.</b> Let's는 상태·행동을 고를 필요 없이 바로 동사를 붙이면 돼서 쉬워요.",
+    dialogue: [
+      { who: "A", en: "How ___ lunch together?", answer: "about" },
+      { who: "B", en: "That's a good ___.", answer: "idea" },
+      { who: "A", en: "The restaurant is near the park. Let's ___.", answer: "walk" },
+      { who: "B", en: "Hmm, it's a little far. Let's take the ___ instead.", answer: "bus" },
+      { who: "A", en: "Okay. And how about ___ in the park after lunch?", answer: "walking" },
+      { who: "B", en: "Sounds good. ___ go!", answer: "Let's" }
+    ],
+    quizLabel: "Day 36 복습 퀴즈",
+    quiz: [
+      { q: "'집에서 쉬는 게 좋겠어요'를 영어로?", a: "You should rest at home." },
+      { q: "'오늘은 나가지 않는 게 좋겠어요'를 영어로?", a: "You shouldn't go out today." },
+      { q: "She should 뒤에는 see일까요, sees일까요?", a: "see (She should see a doctor.)" }
+    ]
+  },
+  {
+    day: 38,
+    title: "~할 때, ~하면 (when / if)",
+    situation: "내일 약속을 정하면서 '도착하면', '비가 오면'을 말해요.",
+    words: [
+      { en: "if", pron: "이프", ko: "만약 ~하면", zh: "如果" },
+      { en: "rain", pron: "레인", ko: "비가 오다", zh: "下雨" },
+      { en: "free", pron: "프리", ko: "한가한, 무료의", zh: "有空，免费" },
+      { en: "arrive", pron: "어라이브", ko: "도착하다", zh: "到达" },
+      { en: "text", pron: "텍스트", ko: "문자를 보내다", zh: "发短信" }
+    ],
+    sentences: [
+      { en: "Call me when you arrive.", pron: "콜 미 웬 유 어라이브.", ko: "도착하면 전화 주세요." },
+      { en: "If it rains, we will stay home.", pron: "이프 잇 레인즈, 위 윌 스테이 홈.", ko: "비가 오면 집에 있을 거예요." },
+      { en: "Text me if you are free.", pron: "텍스트 미 이프 유 아 프리.", ko: "시간 되면 문자 주세요." }
+    ],
+    challenge: { en: "When I was young, I lived in China.", pron: "웬 아이 워즈 영, 아이 리브드 인 차이나.", ko: "어렸을 때 저는 중국에 살았어요." },
+    grammar: "<b>when + 문장</b> = ~할 때 / <b>if + 문장</b> = ~하면. because처럼 뒤에 배운 문장을 그대로 붙여요. <b>조심!</b> when / if 안에서는 앞으로의 일이어도 <b>will을 쓰지 않아요</b> → If it <b>rains</b> ⭕ / If it will rain ❌. will은 다른 쪽 문장에만 써요 → If it rains, we <b>will</b> stay home. 중국어 '…<b>的时候</b>'는 문장 뒤에 붙지만, 영어 <b>when</b>은 문장 <b>앞</b>에 와요.",
+    dialogue: [
+      { who: "A", en: "Are you coming to the park tomorrow?", answer: "" },
+      { who: "B", en: "Yes, ___ it doesn't rain.", answer: "if" },
+      { who: "A", en: "Good. Text me ___ you arrive.", answer: "when" },
+      { who: "B", en: "Okay. If it ___, let's meet at the cafe.", answer: "rains" },
+      { who: "A", en: "Good idea. Are you ___ after that?", answer: "free" },
+      { who: "B", en: "Yes. I will ___ you tomorrow morning.", answer: "text" }
+    ],
+    quizLabel: "Day 37 복습 퀴즈",
+    quiz: [
+      { q: "'오늘은 버스 타요'를 영어로?", a: "Let's take the bus today." },
+      { q: "'공원에서 걷는 거 어때요?'를 영어로?", a: "How about walking in the park?" },
+      { q: "How about 뒤에 동사가 오면 어떤 모양일까요?", a: "ing 모양 (How about walking?)" }
+    ]
+  },
+  {
+    day: 39,
+    title: "해 본 적 있어요? (Have you ever ~?)",
+    situation: "외국인 손님에게 제주도에 가 봤는지, 한국 음식을 먹어 봤는지 물어봐요.",
+    words: [
+      { en: "ever", pron: "에버", ko: "(지금까지) 한 번이라도", zh: "曾经" },
+      { en: "never", pron: "네버", ko: "한 번도 ~않다", zh: "从来没" },
+      { en: "been", pron: "빈", ko: "be의 세 번째 모양 (가 본 적 있다)", zh: "去过" },
+      { en: "before", pron: "비포", ko: "전에", zh: "以前" },
+      { en: "twice", pron: "트와이스", ko: "두 번", zh: "两次" }
+    ],
+    sentences: [
+      { en: "Have you ever been to Jeju?", pron: "해브 유 에버 빈 투 제주?", ko: "제주도에 가 본 적 있어요?" },
+      { en: "I have been there twice.", pron: "아이 해브 빈 데어 트와이스.", ko: "거기 두 번 가 봤어요." },
+      { en: "I have never tried it before.", pron: "아이 해브 네버 트라이드 잇 비포.", ko: "전에 한 번도 안 먹어 봤어요." }
+    ],
+    challenge: { en: "Have you ever tried spicy Korean food?", pron: "해브 유 에버 트라이드 스파이시 코리언 푸드?", ko: "매운 한국 음식 먹어 본 적 있어요?" },
+    grammar: "지금까지의 <b>경험</b>은 <b>have + 세 번째 모양</b>. 중국어 '<b>过</b>'와 같아요 → 去<b>过</b> = have <b>been</b> to / 吃<b>过</b> = have <b>tried</b>. 질문은 <b>Have you ever</b> ~? 대답은 Yes, I have. / No, I haven't. 한 번도 없으면 <b>never</b>. She면 <b>has</b>. <b>조심!</b> '언제'였는지(yesterday, last year)를 말할 때는 Day 19의 과거로 말해요 → I <b>went</b> to Jeju last year ⭕ / I have been to Jeju last year ❌. 오늘은 맛보기라서 been과 tried 두 개만 입에 붙이면 충분해요.",
+    dialogue: [
+      { who: "A", en: "Have you ___ been to Jeju?", answer: "ever" },
+      { who: "B", en: "Yes, I ___. I have been there twice.", answer: "have" },
+      { who: "A", en: "Wow. I have ___ been there.", answer: "never" },
+      { who: "B", en: "You should go. It's beautiful.", answer: "" },
+      { who: "A", en: "Have you tried the food there ___?", answer: "before" },
+      { who: "B", en: "Yes. I have ___ the black pork. It's the best!", answer: "tried" }
+    ],
+    quizLabel: "Day 38 복습 퀴즈",
+    quiz: [
+      { q: "'도착하면 전화 주세요'를 영어로?", a: "Call me when you arrive." },
+      { q: "'비가 오면 집에 있을 거예요'를 영어로?", a: "If it rains, we will stay home." },
+      { q: "if 뒤 문장에 will을 쓸까요?", a: "안 써요 (If it rains ⭕ / If it will rain ❌)" }
+    ]
+  },
+  {
+    day: 40,
+    title: "길게 이어 말하기 (and / but / also) + Day 31~39 총정리",
+    situation: "\"사는 동네를 소개해 주세요\"에 서너 문장으로 대답해요. (말하기 시험 맛보기)",
+    words: [
+      { en: "also", pron: "올소", ko: "또한, ~도", zh: "也" },
+      { en: "neighborhood", pron: "네이버후드", ko: "동네", zh: "街区，小区一带" },
+      { en: "quiet", pron: "콰이엇", ko: "조용한", zh: "安静" },
+      { en: "convenient", pron: "컨비니언트", ko: "편리한", zh: "方便" },
+      { en: "love", pron: "러브", ko: "아주 좋아하다", zh: "很喜欢，爱" }
+    ],
+    sentences: [
+      { en: "My neighborhood is quiet and convenient.", pron: "마이 네이버후드 이즈 콰이엇 앤 컨비니언트.", ko: "우리 동네는 조용하고 편리해요." },
+      { en: "There is also a big park.", pron: "데어 리즈 올소 어 빅 파크.", ko: "큰 공원도 있어요." },
+      { en: "It's small, but I love it.", pron: "잇츠 스몰, 벗 아이 러브 잇.", ko: "작지만 저는 아주 좋아해요." }
+    ],
+    challenge: { en: "If you visit Seoul, you should come here.", pron: "이프 유 비짓 서울, 유 슈드 컴 히어.", ko: "서울에 오시면 여기 꼭 와 보세요." },
+    grammar: "말하기 시험은 한 문장으로 끝내지 않고 <b>서너 문장을 이어서</b> 말하면 점수가 올라가요. 순서를 정해 두면 쉬워요 → ① 한 줄 대답 (It's quiet <b>and</b> convenient.) ② 무엇이 있는지 (There is <b>also</b> ~) ③ 아쉬운 점과 좋은 점 (~, <b>but</b> I love it.) ④ 권하기 (You should ~). <b>also</b>는 be동사 뒤, 일반동사 앞에 넣어요 → There is <b>also</b> a park. / I <b>also</b> like it.<br><b>한눈에 정리 (Day 31~39)</b> — 있어요: There is / are · 얼마·몇 개: How much / How many · 그때 하는 중: was / were + ing · 비교: -er / more ~ than · 가장: the -est / the most · 권하기: should · 같이 하기: Let's / How about ~ing · 때·조건: when / if (안에 will ❌) · 경험: have been / Have you ever ~?",
+    dialogue: [
+      { who: "A", en: "Tell me about your ___.", answer: "neighborhood" },
+      { who: "B", en: "It's quiet ___ convenient.", answer: "and" },
+      { who: "A", en: "Is there a park near your home?", answer: "" },
+      { who: "B", en: "Yes. There is ___ a big supermarket.", answer: "also" },
+      { who: "A", en: "Sounds nice. Do you like living there?", answer: "" },
+      { who: "B", en: "Yes. It's small, ___ I love it.", answer: "but" }
+    ],
+    quizLabel: "Day 31~39 총복습 퀴즈",
+    quiz: [
+      { q: "(Day 31 · 있어요) '이 근처에 마트가 있나요?'를 영어로?", a: "Is there a supermarket near here?" },
+      { q: "(Day 32 · 얼마) '이거 얼마예요?'를 영어로?", a: "How much is this?" },
+      { q: "(Day 34 · 비교) '한국어가 영어보다 쉬워요'를 영어로?", a: "Korean is easier than English." },
+      { q: "(Day 36 · 권하기) '집에서 쉬는 게 좋겠어요'를 영어로?", a: "You should rest at home." },
+      { q: "(Day 38 · 때) '도착하면 전화 주세요'를 영어로?", a: "Call me when you arrive." },
+      { q: "(Day 39 · 경험) '제주도에 가 본 적 있어요?'를 영어로?", a: "Have you ever been to Jeju?" }
+    ]
   }
 ];
